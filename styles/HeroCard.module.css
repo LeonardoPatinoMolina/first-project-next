@@ -1,0 +1,38 @@
+.card{
+  background-color: var(--colorBase);
+  font-family: sans-serif;
+  box-shadow: 0 0 3px 3px #00000020;
+  box-sizing: border-box;
+  min-height: 16rem;
+  border-radius: .5rem;
+  color: var(--colorFont2);
+  transition: .2s;
+  cursor: pointer;
+}
+
+.image{
+  border-radius: .5rem;
+  width: 100%;
+  object-fit: cover;
+  height: 60%;
+  user-select: none;
+  
+}
+.card:hover{
+  transform: scale(1.029);
+}
+.icon{
+  color: #bbb;
+  padding: .2rem;
+  background-color: var(--colorBase);
+  position: absolute;
+  font-size: 3rem;
+}
+.name_style{
+  text-align: center;
+  font-size: calc((3rem * 100)/100vw);
+
+}
+.fav_status{
+  color: #ffdf2c;
+}
