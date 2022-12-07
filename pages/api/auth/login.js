@@ -1,4 +1,4 @@
-import db from "../../../intersObserver/db.json";
+import db from "../../../db.json";
 import jwt from "jsonwebtoken";
 import { serialize } from "cookie";
 
