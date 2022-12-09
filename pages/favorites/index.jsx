@@ -1,48 +1,41 @@
 import React from "react";
 import PageLayout from "../../components/PageLayout";
 import { connectDB } from "../../lib/dbConnect";
-import Favorite from "../../models/favorite";
+import User from "../../models/user";
+import { Herocard } from "../../components/Herocard";
+import { decode } from "jsonwebtoken";
+import { HerosWraper } from "../../components/HerosWraper";
 
 export default function Favorites({ favorites, error, success }) {
   return (
     <PageLayout title="Favorites" desc="favorites results">
-      {success ? (
-        favorites.map((fav) => <p key={fav._id}>{fav.name}</p>)
-      ) : (
-        <p key={favorites._id}>
-          {error} -- Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-          Aperiam ipsam unde odit magni officia assumenda possimus molestiae
-          voluptate provident quos natus expedita repellendus repellat inventore
-          rerum, doloribus, nesciunt nulla rem!
-        </p>
-      )}
+      <HerosWraper>
+        {success &&
+          favorites.map((fav) => (
+            <Herocard
+              key={fav.id}
+              id={fav._id}
+              name={fav.name}
+              img={fav.img}
+              area="400"
+              favStatus={true}
+            />
+          ))}
+      </HerosWraper>
     </PageLayout>
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({ req }) => {
   try {
     await connectDB();
-    //"6387f1cfb9d0a470d4a3b372"
-    // try {
-    //   const favN = new Favorite({
-    //     name: "Rosado palido",
-    //     img: "http://i.annihil.us/u/prod/marvel/i/mg/9/80/4de932f1a298a.jpg",
-    //   });
-    //   favN.save();
-    //   console.log("exito?");
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    const favR = await Favorite.find();
-    const refav = favR.map(fav=>{
-      return {
-        _id: fav._id.toString(),
-        name: fav.name,
-        img: fav.img
-      }
-    })
-    if (refav.length < 1) {
+    const cookie = req.headers.cookie;
+    const cookieValue = cookie.replace(/^tokenUser=/, "");
+    const tokenDecode = decode(cookieValue, { complete: true });
+    const userC = tokenDecode.payload.user;
+    const userR = await User.findOne({ username: `${userC}` });
+
+    if (userR.favorites.length < 1) {
       return {
         props: {
           success: false,
@@ -54,11 +47,11 @@ export const getServerSideProps = async () => {
       props: {
         success: true,
         error: false,
-        favorites: refav,
+        favorites: userR.favorites,
       },
     };
   } catch (error) {
-    console.log('**',error);
+    console.log("**", error);
     return { props: { success: false, error: "ocurrió un error" } };
   }
 };

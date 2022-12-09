@@ -1,17 +1,37 @@
-import db from "../../../db.json";
 import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt'
 import { serialize } from "cookie";
+import { connectDB } from "../../../lib/dbConnect";
+import User from "../../../models/user";
 
-export default function LoginHandler(req, res) {
+
+
+export default async function LoginHandler(req, res) {
   const { user, pass } = JSON.parse(req.body);
-  let ur;
-  for (const i of db) {
-    if (i.user === user && i.pass === pass) ur = true;
-    else ur = false;
+  //consulta de usuario en base de datos
+  try {
+    await connectDB();
+    const userR = await User.findOne({username: user}).exec();
+    console.log('user consult: ', userR);
+    if (userR === null) {
+      console.log('vacío');
+      return res.status(401).json({success: false});
+    }
+    userR._id = userR._id.toString();
+
+    console.log('validando pass');
+  //validación de contraseña
+  const match = await bcrypt.compare(pass, userR.hashpass);
+  if(!match) return res.status(401).json({success: false});
+
+  console.log('end of verification');
+  } catch (error) {
+    console.log("**", error);
+    return res.status(401).json({success: false});
   }
-  if (ur) {
-    const token = jwt.sign(
-      {
+  
+  const token = jwt.sign(
+    {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 3,
         user,
       },
@@ -27,7 +47,5 @@ export default function LoginHandler(req, res) {
     });
     res.setHeader("Set-Cookie", tokenS);
     res.status(200).json({success: true});
-  }else{
-    res.status(401).json({success: false});
-  }
+    //res.status(401).json({success: false});
 }

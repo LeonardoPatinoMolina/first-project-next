@@ -1,44 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "../Styles/HeroCard.module.css";
 import { useRouter } from "next/router";
-import { useLocalStorage } from "../Hooks/useLocalStorage";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 
-export const Herocard = ({ id, name, img, area }) => {
+export const Herocard = ({ id, name, img, area, favStatus }) => {
   const router = useRouter();
-  const [valueStr, setValueStr] = useLocalStorage("character", id);
-  const { favorites } = useSelector((state) => state.favorites);
-  const [isFavorite, setIsFavorite] = useState(false);
   const open = () => {
-    if (isFavorite) {
-      router.push(`/favorite/${id}`);
-    } else {
-      setValueStr({
-        name,
-        img,
-      });
-      router.push(`/heros/${id}`);
-    }
-  };
-
-  useEffect(() => {
-    checkStatusFavorite();
-  }, [favorites]);
-
-  const checkStatusFavorite = () => {
-    const intId = parseInt(id);
-    if (favorites.length < 1) return;
-    favorites.map((fav) => {
-      if (fav.id === intId) setIsFavorite(true);
-    });
+    router.push(`/hero/${name.replace(" ", "%20")}`);
   };
 
   return (
-    <article className={styles.card} onClick={open} draggable={"true"}>
+    <article key={id} className={styles.card} onClick={open}>
       <span
         className={`${styles.icon} ${
-          isFavorite ? styles.fav_status : ""
+          favStatus ? styles.fav_status : ""
         } material-icons`}
       >
         grade

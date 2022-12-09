@@ -1,30 +1,40 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useRef } from "react";
 import { Search } from "./Search";
 import styles from "../Styles/NavBarHeader.module.css";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { LateralMenu } from "./LateralMenu";
+import { Logo } from "./Logo";
+import { useSearch } from "../Hooks/useSearch";
+// import { useDispatch, useSelector } from "react-redux";
+// import { init_characters } from "../context/store/features/charactersRedux";
 
 export default function PageLayout({ title, desc, children }) {
   const [LateralMenuOpen, setLateralMenuOpen] = useState(false);
+  const searchFieldR = useRef();
+  const initSearch = useSearch();
+  // const dispath = useDispatch();
+  // const {character} = useSelector(state=>state.characters);
 
-  const [value, setValue] = useState(""); //datos ingresado en input de compomnente hijo
+  // const [value, setValue] = useState(""); //datos ingresado en input de compomnente hijo
   const router = useRouter();
   const goHome = () => router.push("/");
   const goFavorite = () => router.push("/favorites");
   const goMyHeros = () => router.push("/myheros");
 
-  const handleSearch = () => {
-    console.log(value);
+  const handleSearch = async () => {
+    const value = searchFieldR.current.value;
+    const q = value.replace(' ','-')
+    router.push(`/search/${q}`);
   };
 
   return (
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={desc} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content={desc} />
       </Head>
       <nav className={styles.navegation_header}>
         <ul className={styles.navegation_list}>
@@ -33,10 +43,10 @@ export default function PageLayout({ title, desc, children }) {
             onClick={goHome}
             title="Inicio"
           >
-            <span className={styles.navegation_home}>P</span>
+            <Logo size={55} color="#ffffff" />
           </li>
           <li className={styles.navegation_item}>
-            <Search getChildValue={setValue} />
+            <Search refeGet={searchFieldR} />
             <span
               className={`material-icons ${styles.search_icon}`}
               onClick={() => handleSearch()}
@@ -66,9 +76,7 @@ export default function PageLayout({ title, desc, children }) {
             title="menu"
           >
             <span className={styles.desc_icon}>MENU</span>
-            <span className={`material-icons ${styles.item}`}>
-              menu
-            </span>
+            <span className={`material-icons ${styles.item}`}>menu</span>
           </li>
         </ul>
       </nav>
@@ -77,5 +85,3 @@ export default function PageLayout({ title, desc, children }) {
     </>
   );
 }
-
-

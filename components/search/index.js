@@ -53,7 +53,7 @@ export function Search(props) {
   return (
     <div className={styles.wraper}>
       <form {...formProps}>
-        <input className={styles.input} {...inputProps} />
+        <input className={styles.input} {...inputProps} ref={props.refeGet} />
         {autocomopleteState.isOpen && (
           <div ref={panelRef} {...autoComplete.getPanelProps()}>
             {autocomopleteState.collections.map((collection, index) => {
@@ -70,7 +70,7 @@ export function Search(props) {
                     >
                       {items.map((item) => (
                         <li key={item.id} className={styles.item_panel}>
-                          <Link className={styles.title} href={`#`}>
+                          <Link className={styles.title} href={`/hero/${item.name.replace(' ','%20')}`}>
                             <Image
                               className={styles.img_panel}
                               src={item.img}

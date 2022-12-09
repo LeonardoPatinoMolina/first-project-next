@@ -2,12 +2,11 @@
   background-color: var(--colorBase);
   font-family: sans-serif;
   box-shadow: 0 0 3px 3px #00000020;
-  box-sizing: border-box;
-  min-height: 16rem;
   border-radius: .5rem;
   color: var(--colorFont2);
   transition: .2s;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .image{

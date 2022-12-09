@@ -28,14 +28,16 @@
 }
 
 .title{
-  color: #000;
+  /* color: #000; */
+  color: #fff;
   text-decoration: none;
   display: flex;
   align-items: center;
 }
 .section_panel{
   position: absolute;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  background-color: var(--colorDarkPrimal);
   outline: 2px solid #0002;
   border-radius: 5px;
   z-index: 999;
@@ -48,7 +50,7 @@
 }
 .item_panel{
   margin-bottom: 10px;
-  background-color: #0002;
+  background-color: var(--colorPrimal);
   padding: 6px;
   border-radius: 6px;
   display: flex;

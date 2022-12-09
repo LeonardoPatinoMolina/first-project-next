@@ -11,6 +11,7 @@
   "dependencies": {
     "@algolia/autocomplete-core": "1.7.3",
     "@reduxjs/toolkit": "1.9.1",
+    "bcrypt": "5.1.0",
     "cookie": "0.5.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",

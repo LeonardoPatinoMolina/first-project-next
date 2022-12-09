@@ -8,7 +8,6 @@ export async function middleware(request) {
         token.value,
         new TextEncoder().encode(process.env.SECRET_JWT)
       );
-      console.log('payload',payload);
       return NextResponse.next();
     } catch (error) {
       console.error(error);
@@ -17,5 +16,5 @@ export async function middleware(request) {
 }
 
 export const config={
-  matcher: ['/profile']
+  matcher: ['/profile','/favorites','/search/:path*','/hero/:path*']
 }
