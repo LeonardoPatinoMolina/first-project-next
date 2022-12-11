@@ -1,3 +1,4 @@
+"use strict"
 import React, { useState, useEffect, useRef } from "react";
 import { requestApi } from "../../Services/requestApi";
 import PageLayout from "../../components/PageLayout";
@@ -10,29 +11,44 @@ export default function HeroPage({ hero, cookie }) {
   let statusFav = hero.isFavorite;
   const router = useRouter();
   const goBack = () => router.back();
-
+  
   useEffect(() => {
+    setFavChoise(hero.isFavorite)
     return async () => {
       if (statusFav === hero.isFavorite) console.log("no la guardé");
       else {
-        if (!statusFav) {
-          console.log("pendiente a borrar");
-        } else {
-          const res = await fetch("/api/new/favorite", {
-            method: "POST",
-            body: JSON.stringify({
-              id: hero.id,
-              name: hero.name,
-              img: hero.img,
-            }),
-          });
-          const dataConfirm = await res.json();
-          if (dataConfirm.success) console.log("exito fav");
-          else console.log("fallo fav");
-        }
+        if (!statusFav) await deleteOne();
+        else await updateOne();
       }
     };
-  }, []);
+  }, [router.query.id]);
+
+  const deleteOne = async ()=>{
+    const res = await fetch("/api/delete/favorite", {
+      method: "POST",
+      body: JSON.stringify({
+        id: hero.id,
+        name: hero.name,
+        img: hero.img,
+      }),
+    });
+    const dataConfirm = await res.json();
+    if (dataConfirm.success) console.log("exito delete fav");
+    else console.log("fallo delete fav");
+  }
+  const updateOne = async ()=>{
+    const res = await fetch("/api/new/favorite", {
+      method: "POST",
+      body: JSON.stringify({
+        id: hero.id,
+        name: hero.name,
+        img: hero.img,
+      }),
+    });
+    const dataConfirm = await res.json();
+    if (dataConfirm.success) console.log("exito add fav");
+    else console.log("fallo add fav");
+  }
 
   const handleChoise = () => {
     setFavChoise(!favChoise);

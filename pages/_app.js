@@ -7,6 +7,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ThemesState>
+
         <Component {...pageProps} />
       </ThemesState>
     </Provider>

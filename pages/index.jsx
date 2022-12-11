@@ -52,14 +52,7 @@ export const getServerSideProps = async (ctx) => {
     console.log(err);
     return {
       props: {
-        data: [
-          {
-            id: null,
-            img: null,
-            name: null,
-            isFavorite: false
-          },
-        ],
+        data: null,
         error: true,
       },
     };

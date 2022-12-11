@@ -25,7 +25,7 @@ export default function PageLayout({ title, desc, children }) {
 
   const handleSearch = async () => {
     const value = searchFieldR.current.value;
-    const q = value.replace(' ','-')
+    const q = value.replace(" ", "-");
     router.push(`/search/${q}`);
   };
 
@@ -82,6 +82,7 @@ export default function PageLayout({ title, desc, children }) {
       </nav>
       <LateralMenu open={LateralMenuOpen} open_function={setLateralMenuOpen} />
       <main>{children}</main>
+
     </>
   );
 }

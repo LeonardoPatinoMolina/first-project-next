@@ -1,14 +1,31 @@
 import React from "react";
-import PageLayout from "../../components/PageLayout";
+import { decode } from "jsonwebtoken";
+import { useRouter } from "next/router";
 import { connectDB } from "../../lib/dbConnect";
 import User from "../../models/user";
+import PageLayout from "../../components/PageLayout";
 import { Herocard } from "../../components/Herocard";
-import { decode } from "jsonwebtoken";
 import { HerosWraper } from "../../components/HerosWraper";
+import styles from '../../styles/Favorites.module.css'
 
 export default function Favorites({ favorites, error, success }) {
+  const router = useRouter();
+  const cleanAll = async ()=>{
+    try {
+      const res = await fetch('api/delete/allfavorites');
+      const response = await res.json();
+      console.log(response);
+      router.replace(router.asPath)
+    } catch (error) {
+      console.log('fetch',error);      
+    }
+  };
   return (
     <PageLayout title="Favorites" desc="favorites results">
+      <header className={styles.header}>
+        <h1 className={styles.title}>Favoritos</h1>
+        <span className={`material-icons ${styles.icon}`}>grade</span>
+      </header>
       <HerosWraper>
         {success &&
           favorites.map((fav) => (
@@ -22,6 +39,12 @@ export default function Favorites({ favorites, error, success }) {
             />
           ))}
       </HerosWraper>
+      <div className={`${styles.btn_area}`}>
+        <button 
+          className={`boton ${styles.btn_clean}`}
+          onClick={cleanAll}
+        >QUITAR TODOS</button>
+      </div>
     </PageLayout>
   );
 }

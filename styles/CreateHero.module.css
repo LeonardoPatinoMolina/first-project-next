@@ -1,0 +1,73 @@
+.formulario{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: var(--colorBase3); */
+  color: var(--colorFont);
+}
+.form_list{
+  list-style-type: none;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--colorDarkPrimal);
+  margin: 0;
+}
+.item_list{
+  font-size: 2rem;
+  font-family: Century Gothic, sans-serif;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #00000040;
+}
+.text_field{
+  height: 3rem;
+  width: 45%;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  color: var(--colorDarkPrimal);
+  font-weight: 700;
+}
+.text_field::placeholder{
+  color: #00000020;
+  
+}
+.check_lbl{
+  font-size: 1.3rem;
+  font-family: Century Gothic, sans-serif;
+}
+
+.form_out{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: var(--colorDarkPrimal);
+  box-sizing: border-box;
+}
+.canvas{
+  outline: 2px solid #aaa;
+  box-sizing: border-box;
+  cursor: crosshair;
+}
+.check_lbl{
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 780px){
+  .check, .check_lbl{
+    display: none;
+  }
+}

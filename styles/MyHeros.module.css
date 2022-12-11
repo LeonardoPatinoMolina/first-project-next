@@ -1,0 +1,72 @@
+.icon{
+  text-align: center;
+  display: block;
+  text-shadow: 0 0 3rem rgba(0, 0, 0, 0.322);
+  font-size: 5rem;
+  display: flex;
+  align-items: center;
+}
+.icon_add{
+  transition: .2s;
+  font-weight: 800;
+}
+.header{
+  height: 6rem;
+  width: 100%;
+  color: var(--colorPrimal);
+  background: var(--colorDarkPrimal);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.title{
+  font-style: italic;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: xx-large;
+  font-weight: 500;
+
+}
+.btn_add{
+  background-color: var(--colorPrimal);
+  padding: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+}
+.btn_area{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  background-color: var(--colorDarkPrimal);
+}
+.revert{
+  transform: rotate(45deg);
+}
+.btn_area{
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  background-color: var(--colorDarkPrimal);
+}
+.btn_clean{
+  margin: 1rem;
+  font-size: 150%;
+}
+.desc_icon{
+  font-size: 100%; 
+  font-family: sans-serif;
+  font-weight: 700;
+}
+.canvas_size{
+  width: 300;
+}
+@media screen and (max-width: 780px) {
+  .canvas_size{
+    width: 500;
+  }
+  .desc_icon{
+    display: none;
+  }
+}

@@ -5,24 +5,18 @@ import User from "../../../models/user";
 
 export default async function profileHandle(req, res) {
   const { tokenUser } = req.cookies;
-
   if (!tokenUser) {
     return res.status(401).json({ success: false });
   }
   try {
     const tokenDecode = decode(tokenUser, { complete: true });
     const { user } = tokenDecode.payload;
-    // console.log(user);
-
     await connectDB();
     const userR = await User.findOne({ username: `${user}` }).exec();
     if (userR === null) {
       console.log("vacío");
       return res.status(401).json({ success: false });
     }
-    userR._id = userR._id.toString();
-
-    // console.log("user encontrado");
     res.status(200).json({
       success: true,
       user: {
