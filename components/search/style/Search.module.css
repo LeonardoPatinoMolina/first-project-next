@@ -7,17 +7,21 @@
   height: 100%;
   box-sizing: border-box;
 }
+.form{
+height: 100%;
+width: 100%;
+}
 .input{
-  height: 2.5rem;
-  width: calc(3.4 * 10vw);
+  height: 100%;
+  width: 100%;
   border-radius: 1rem;
   border: none;
   outline: none;
   display: block;
   margin: 0;
   box-sizing: border-box;
-  background-color: var(--colorSecunda);
   color: var(--colorFont);
+  background-color: var(--colorSecunda);;
   font-weight: 700;
   padding-left: 1rem;
 }
@@ -26,7 +30,20 @@
   font-weight: 700;
   
 }
-
+.input_wraper{
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 3px;
+  box-sizing: border-box;
+  background-color: var(--colorSecunda);
+  font-weight: 700;
+  box-sizing: border-box;
+}
 .title{
   /* color: #000; */
   color: #fff;
@@ -35,7 +52,8 @@
   align-items: center;
 }
 .section_panel{
-  position: absolute;
+  position: relative;
+  right: 10vw;
   /* background-color: #f1f1f1; */
   background-color: var(--colorDarkPrimal);
   outline: 2px solid #0002;
@@ -43,7 +61,6 @@
   z-index: 999;
 }
 .list_panel{
-  max-height: 70vh;
   list-style-type: none;
   overflow-y: auto;
   padding: 0 .5rem;
@@ -53,6 +70,7 @@
   background-color: var(--colorPrimal);
   padding: 6px;
   border-radius: 6px;
+  font-size: medium;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -65,4 +83,9 @@
 .redirect_icon_panel{
   font-weight: 800;
    color: #fff;
+}
+@media screen and (max-width: 500px){
+  .item_panel{
+    font-size: small;
+  }
 }

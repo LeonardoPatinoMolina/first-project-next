@@ -3,6 +3,7 @@ import { HerosWraper } from "../components/HerosWraper";
 import PageLayout from "../components/PageLayout";
 import { requestApi } from "../Services/requestApi";
 import { getFavoriteStatus } from "../lib/favoriteRequest";
+import {connectDB} from '../lib/dbConnect'
 
 export default function Home({ data, error }) {
   return (
@@ -32,6 +33,7 @@ export const getServerSideProps = async (ctx) => {
   const q = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]; //algoritmo de aleatoriedad entre 0 y 25
   try {
     const cookie = ctx.req.headers.cookie;
+    const { db } = await connectDB()
     const response = await requestApi(q);
     const data =response.map(async (character) => {
       const resF = await getFavoriteStatus(cookie, {

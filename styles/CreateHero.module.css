@@ -1,3 +1,21 @@
+.header{
+  height: 6rem;
+  width: 100%;
+  color: var(--colorPrimal);
+  background: var(--colorDarkPrimal);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.title{
+  font-style: italic;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: xx-large;
+  font-weight: 500;
+
+}
 .formulario{
   display: flex;
   flex-direction: column;
@@ -65,7 +83,14 @@
   display: flex;
   align-items: center;
 }
-
+.icon{
+  text-align: center;
+  display: block;
+  text-shadow: 0 0 3rem rgba(0, 0, 0, 0.322);
+  font-size: 5rem;
+  display: flex;
+  align-items: center;
+}
 @media screen and (min-width: 780px){
   .check, .check_lbl{
     display: none;

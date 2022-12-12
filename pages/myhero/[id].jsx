@@ -4,6 +4,7 @@ import PageLayout from "../../components/PageLayout";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import { useRouter } from "next/router";
 import styles from "../../styles/Character.module.css";
+import { connectDB } from "../../lib/dbConnect";
 
 export default function MyHeroPage({ hero, cookie }) {
   const router = useRouter();
@@ -68,6 +69,7 @@ export default function MyHeroPage({ hero, cookie }) {
 export const getServerSideProps = async ({ req, params }) => {
   try {
     const cookie = req.headers.cookie;
+    const { db } = await connectDB();
     const heros = await getCustomHeros(cookie);
     if (heros) {
       const heroC = heros.filter((h) => h.id == params.id);

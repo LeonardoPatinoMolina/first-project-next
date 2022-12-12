@@ -13,18 +13,16 @@ export function Search(props) {
   const autoComplete = useMemo(
     () =>
       createAutocomplete({
-        placeholder: "Busca un personaje",
+        placeholder: props.placeholder,
         onStateChange: ({ state }) => setAutocompleteState(state),
         getSources: () => [
           {
             sourceId: "heros",
             getItems: async ({ query }) => {
               // const res = await fetch(`/api/search/?q=${query}`);
-              const res = await fetch(
-                `https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${query}&ts=1&apikey=5ab42191e80dab763b2eea835666ce40&hash=b91a1843f8d721b87e6d361cec1798a5`
-              );
+              const res = await fetch(`/api/search/${query}`);
               const fres = await res.json();
-              const data = fres.data.results.map((character) => ({
+              const data = fres.data.map((character) => ({
                 id: character.id,
                 img: `${character.thumbnail.path}.${character.thumbnail.extension}`,
                 name: character.name,
@@ -51,46 +49,51 @@ export function Search(props) {
   });
 
   return (
-    <div className={styles.wraper}>
-      <form {...formProps}>
-        <input className={styles.input} {...inputProps} ref={props.refeGet} />
-        {autocomopleteState.isOpen && (
-          <div ref={panelRef} {...autoComplete.getPanelProps()}>
-            {autocomopleteState.collections.map((collection, index) => {
-              const { items } = collection;
-              return (
-                <section
-                  key={`section-${index}`}
-                  className={styles.section_panel}
-                >
-                  {items.length > 0 && (
-                    <ul
-                      {...autoComplete.getListProps()}
-                      className={styles.list_panel}
-                    >
-                      {items.map((item) => (
-                        <li key={item.id} className={styles.item_panel}>
-                          <Link className={styles.title} href={`/hero/${item.name.replace(' ','%20')}`}>
-                            <Image
-                              className={styles.img_panel}
-                              src={item.img}
-                              width={30}
-                              height={30}
-                              alt={item.name}
-                            />
-                            {item.name}
-                          </Link>
-                          <div className={styles.redirect_icon_panel}>↗</div>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </section>
-              );
-            })}
-          </div>
-        )}
-      </form>
-    </div>
+    <>
+      <div className={styles.wraper}>
+        <form {...formProps} className={styles.form}>
+          <input className={styles.input} {...inputProps} ref={props.refeGet} />
+          {autocomopleteState.isOpen && (
+            <div ref={panelRef} {...autoComplete.getPanelProps()} className={styles.panel_wraper}>
+              {autocomopleteState.collections.map((collection, index) => {
+                const { items } = collection;
+                return (
+                  <section
+                    key={`section-${index}`}
+                    className={styles.section_panel}
+                  >
+                    {items.length > 0 && (
+                      <ul
+                        {...autoComplete.getListProps()}
+                        className={styles.list_panel}
+                      >
+                        {items.map((item) => (
+                          <li key={item.id} className={styles.item_panel}>
+                            <Link
+                              className={styles.title}
+                              href={`/hero/${item.name.replace(" ", "%20")}`}
+                            >
+                              <Image
+                                className={styles.img_panel}
+                                src={item.img}
+                                width={30}
+                                height={30}
+                                alt={item.name}
+                              />
+                              {item.name}
+                            </Link>
+                            <div className={styles.redirect_icon_panel}>↗</div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </section>
+                );
+              })}
+            </div>
+          )}
+        </form>
+      </div>
+    </>
   );
 }

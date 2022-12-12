@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useDrawNewCanvas } from "../../Hooks/useDrawNewCanvas";
 import PageLayout from "../../components/PageLayout";
 import styles from "../../Styles/CreateHero.module.css";
-import stylesC from "../../Styles/MyHeros.module.css";
 
 export default function New() {
   const router = useRouter();
@@ -40,9 +39,9 @@ export default function New() {
   return (
     <>
       <PageLayout title="New Hero" desc="create your own hero">
-        <header className={`${stylesC.header}`}>
-          <h1 className={stylesC.title}> Mi nuevo Héroe</h1>
-          <span className={`material-icons ${stylesC.icon} `}>edit</span>
+        <header className={`${styles.header}`}>
+          <h1 className={styles.title}> Mi nuevo Héroe</h1>
+          <span className={`material-icons ${styles.icon} `}>edit</span>
         </header>
         <form id="form" className={styles.formulario} onSubmit={handleSubmit}>
           <ul className={styles.form_list}>

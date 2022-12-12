@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from "react";
 import styles from "./style/LateralMenu.module.css";
+import { Search } from "../Search";
 import { useTheme } from "../../Hooks/useTheme";
 import { useRouter } from "next/router";
 
@@ -13,7 +14,7 @@ export const LateralMenu = ({ open, open_function }) => {
     open_function(false);
   };
 
-  const goProfile = ()=> router.push('/profile');
+  const goProfile = () => router.push("/profile");
 
   return (
     <section
@@ -21,13 +22,16 @@ export const LateralMenu = ({ open, open_function }) => {
         open ? styles.open_menu : styles.close_menu
       }`}
     >
-      <nav
-        className={styles.container}
-      >
-        <button className={styles.btn_exit} onClick={(e) => handleClick(e)}>
-          <span className="material-icons">close</span>
-        </button>
+      <nav className={styles.container}>
         <ul className={styles.list}>
+          <li className={`${styles.item_list}`}>
+            <button className={styles.btn_exit} onClick={(e) => handleClick(e)}>
+              <span className="material-icons">close</span>
+            </button>
+          </li>
+          <li className={`${styles.item_list}`}>
+            <Search placeholder={"Busca un personaje"} />
+          </li>
           <li className={styles.item_list} onClick={goProfile}>
             <span className="material-icons">person</span>
             MI CUENTA
@@ -41,8 +45,16 @@ export const LateralMenu = ({ open, open_function }) => {
             onClick={() => switchTheme()}
             title="cambiar Tema"
           >
-              <span className={`material-icons ${theme === 'light' && styles.hide}`}>dark_mode</span>
-              <span className={`material-icons ${theme === 'dark' && styles.hide}`}>light_mode</span>
+            <span
+              className={`material-icons ${theme === "light" && styles.hide}`}
+            >
+              dark_mode
+            </span>
+            <span
+              className={`material-icons ${theme === "dark" && styles.hide}`}
+            >
+              light_mode
+            </span>
             TEMA
           </li>
         </ul>

@@ -5,6 +5,7 @@ import PageLayout from "../../components/PageLayout";
 import { HerosWraper } from "../../components/HerosWraper";
 import { MyHerocard } from "../../components/MyHerocard";
 import styles from "../../styles/MyHeros.module.css";
+import { connectDB } from "../../lib/dbConnect";
 
 export default function Myheros({ heros, error, info }) {
   const router = useRouter();
@@ -60,6 +61,7 @@ export default function Myheros({ heros, error, info }) {
 export const getServerSideProps = async ({ req, params }) => {
   try {
     const cookie = req.headers.cookie;
+    const { db } = await connectDB();
     const heros = await getCustomHeros(cookie);
     if (heros) {
       return {
