@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/router";
 import { connectDB } from "../../lib/dbConnect";

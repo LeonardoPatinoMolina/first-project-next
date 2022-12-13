@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PageLayout from "../../components/PageLayout";
-import { Search } from "../../components/Search";
 import { HerosWraper } from "../../components/HerosWraper";
 import { Herocard } from "../../components/Herocard";
 import { useRouter } from "next/router";
@@ -10,7 +9,6 @@ import {connectDB} from '../../lib/dbConnect'
 import styles from "../../styles/Search.module.css";
 
 export default function SearchPage({ characters, error, charge }) {
-  console.log(error);
   const router = useRouter();
   const [queryF, setQueryF] = useState('');
   const handleSearch = (e) => {

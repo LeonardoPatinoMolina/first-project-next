@@ -8,7 +8,6 @@ import styles from "../../Styles/CreateHero.module.css";
 
 export default function New() {
   const router = useRouter();
-  // const [cv, setCv] = useState({ width: window.innerWidth <= 500 ? "100" : "300", height: "100" });
   const [name, setName] = useState("");
   const { clearCanvas, drawFixed, drawFree, convertToSvg } = useDrawNewCanvas();
 

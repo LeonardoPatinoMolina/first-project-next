@@ -13,7 +13,12 @@ export const NavBarHeader = () => {
   const goSearch = () => router.push("/search/a");
   const goFavorite = () => router.push("/favorites");
   const goMyHeros = () => router.push("/myheros");
-
+  const goTop = ()=>{
+    if (typeof window !== undefined){
+      const scrollS = document.documentElement.scrollTop || document.body.scrollTop
+      if (scrollS > 0) scrollTo(0,0)
+    }
+  }
   return (
     <>
       <div id="top_screen_marc" style={{ position: "absolute", top: 0 }}></div>
@@ -61,9 +66,9 @@ export const NavBarHeader = () => {
         </ul>
       </nav>
       <LateralMenu open={LateralMenuOpen} open_function={setLateralMenuOpen} />
-      <a title="Volver arriba" href="#top_screen_marc" className={`boton ${styles.btn_up}`}>
+      <div title="Volver arriba" onClick={goTop} className={`boton ${styles.btn_up}`}>
         <span className="material-icons">keyboard_arrow_up</span>
-      </a>
+      </div>
     </>
   );
 };

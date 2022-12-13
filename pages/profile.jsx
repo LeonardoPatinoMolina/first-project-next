@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Logo } from "../components/Logo";
 import styles from "../styles/Form.module.css";
 import PageLayout from "../components/PageLayout";
-import Link from "next/link";
 import useSWR from "swr";
 
 export default function Profile() {
