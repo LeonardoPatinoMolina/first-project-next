@@ -1,11 +1,12 @@
-import React, { useRef, useEffect } from "react";
-import styles from "../Styles/HeroCard.module.css";
+import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-// import Image from "next/image";
+import { FaPaintBrush } from "react-icons/fa";
+import styles from "../Styles/HeroCard.module.css";
 
 export const MyHerocard = ({ id, name, img, area }) => {
   const router = useRouter();
-  const image_wraper = useRef()
+  const [isOver, setIsOver] = useState(false);
+  const image_wraper = useRef();
   useEffect(() => {
     const exp1 = /width="300"/g;
     const exp2 = /height="300"/g;
@@ -19,14 +20,27 @@ export const MyHerocard = ({ id, name, img, area }) => {
   const open = () => {
     router.push(`/myhero/${id}`);
   };
+  const handleOver = () => setIsOver(true);
+  const handleOut = () => setIsOver(false);
 
   return (
-    <article key={id} className={styles.card} onClick={open}>
-      <span className={`${styles.icon} material-icons`}>
-        edit
-      </span>
-      <div ref={image_wraper} className={styles.image}></div>
-      <h3 className={styles.name_style}>{name}</h3>
+    <article
+      key={id}
+      className={styles.card}
+      onClick={open}
+      onMouseOver={() => handleOver()}
+      onMouseOut={() => handleOut()}
+    >
+      {isOver && (
+        <div className={styles.data_wrapper}>
+          <h3 className={styles.name_style}>{name}</h3>
+          <FaPaintBrush size={25} className={styles.icon} />
+        </div>
+      )}
+      <div
+        ref={image_wraper}
+        className={`${styles.image} ${isOver && styles.dark_img}`}
+      ></div>
     </article>
   );
 };

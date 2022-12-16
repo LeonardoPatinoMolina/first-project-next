@@ -1,12 +1,13 @@
 import React from 'react'
 
-export const Logo = ({ size = "100", color = "#ffffff"}) => {
+export const Logo = ({ size = "100", color = "#ffffff", clsName=''}) => {
   return (
     <svg
     width={`${size}`}
     height={`${size}`}
     viewBox="0 0 15.875 15.875"
     version="1.1"
+    className={clsName}
     >
    <g fill={`${color}`}>
      <path

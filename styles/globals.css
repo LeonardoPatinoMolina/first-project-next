@@ -6,8 +6,14 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: var(--colorPrimal);
     scroll-behavior: smooth;
+    background-image: url('../img/back_comic_custom.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100vw;
 }
 :root{
+  /* --colorPrimal: #eb3e16; */
   --colorPrimal: #900;
   --colorDarkPrimal: #350101;
   --colorSecunda: #700;
@@ -42,6 +48,9 @@ body {
 .boton{
   background-color: var(--colorPrimal);
   color: var(--colorFont);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   outline: none;
   border: none;
   padding: .7rem;
@@ -54,4 +63,68 @@ body {
   background-color: var(--colorHoverBoton);
   color: var(--colorSecunda);
   outline: 2px solid #00000020;
+}
+main{
+  max-width: 70vw;
+  margin: auto;
+  box-shadow: 0 0 12px 2px #0002;
+  background-color: #000;
+}
+@media screen and (max-width: 750px){
+  main{
+    max-width: 100vw;
+  }
+  .child{
+    padding: 10px;
+    transform: scale(.9, 1);
+  }
+}
+.padre{
+  height: 100%;
+  width: 100%;
+  background-color: #aaa;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: 150px;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+
+}
+/*
+ESTILOS EXPERIMENTALES
+*/
+.child{
+  /* background: url('../img/prueva2.jpg'); */
+  /* background-size: cover; */
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  transition: .2s;
+}
+.child:hover{
+  transform: scale(1.06);
+}
+.imgs{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.child:nth-child(6n + 1){
+clip-path: polygon(90% 80%, 10% 75%, 10% 25%, 90% 20%);
+}
+.child:nth-child(6n + 2){
+clip-path: polygon(90% 85%, 10% 80%, 10% 20%, 90% 15%);
+}
+.child:nth-child(6n + 3){
+clip-path: polygon(90% 90%, 10% 85%, 10% 15%, 90% 10%);
+}
+.child:nth-child(6n + 4){
+  clip-path: polygon(90% 85%, 10% 90%, 10% 10%, 90% 15%);
+}
+.child:nth-child(6n + 5){
+  clip-path: polygon(90% 80%, 10% 85%, 10% 15%, 90% 20%);
+}
+.child:nth-child(6n + 6){
+  clip-path: polygon(90% 75%, 10% 80%, 10% 20%, 90% 25%);
 }

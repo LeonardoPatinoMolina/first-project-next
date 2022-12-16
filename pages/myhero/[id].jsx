@@ -3,11 +3,18 @@ import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import { useRouter } from "next/router";
-import styles from "../../styles/Character.module.css";
 import { connectDB } from "../../lib/dbConnect";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { useModal } from "../../Hooks/useModal";
+import { Modal } from "../../components/Modal";
+import styles from "../../styles/Character.module.css";
 
-export default function MyHeroPage({ hero, cookie }) {
+export default function MyHeroPage({ hero }) {
   const router = useRouter();
+  const [removeModalIsOpen, openRemoveModal, closeRemoveModal] =
+    useModal(false);
+  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
   const goBack = () => router.back();
   useEffect(() => {
     const exp1 = /width="300"/g;
@@ -21,49 +28,67 @@ export default function MyHeroPage({ hero, cookie }) {
   }, []);
 
   const deleteOne = async () => {
-    const res = await fetch("/api/delete/myhero", {
-      method: "POST",
-      body: JSON.stringify({
-        id: hero.id,
-        name: hero.name,
-      }),
-    });
-    const dataConfirm = await res.json();
-    if (dataConfirm.success) {
-      alert("exito delete myhero");
-      router.push('/myheros');
+    try {
+      openRemoveModal();
+      const res = await fetch("/api/delete/myhero", {
+        method: "POST",
+        body: JSON.stringify({
+          id: hero.id,
+          name: hero.name,
+        }),
+      });
+      const dataConfirm = await res.json();
+      if (dataConfirm.success) {
+        closeRemoveModal();
+        router.push("/myheros");
+      } else {
+        console.log("fallo delete myhero");
+        errorHandle();
+      }
+      console.log("delete");
+    } catch (err) {
+      errorHandle();
     }
-    else console.log("fallo delete myhero");
-    console.log("delete");
+  };
+  const errorHandle = () => {
+    console.log("error manejado");
+    closeRemoveModal();
+    openErrorModal();
+    if (typeof window) setTimeout(() => closeErrorModal(), 3500);
   };
 
   return (
-    <PageLayout title="My hero" desc="page whith details about your hero">
-      <section className={styles.content}>
-        {/* <img className={styles.img} src={hero.img} alt="persojaje" /> */}
-        <div id="img_wraper" className={styles.image_svg}></div>
-        <h1 className={styles.title}>{hero.name}</h1>
-        <p className={styles.desc}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto
-          sequi obcaecati repudiandae quisquam illo aperiam. Tenetur nemo,
-          beatae, voluptate atque fugiat voluptatibus porro quia incidunt qui,
-          soluta velit ducimus!
-        </p>
-        <div className={styles.btn_list}>
-          <button
-            onClick={() => goBack()}
-            className={`boton ${styles.back_btn}`}
-          >
-            <span className={`material-icons`}>undo</span>
-            Volver
-          </button>
-          <button className={`boton ${styles.noFav_btn}`} onClick={deleteOne}>
-            Borrar
-            <span className={`material-icons`}>delete</span>
-          </button>
-        </div>
-      </section>
-    </PageLayout>
+    <>
+      <Modal isOpen={removeModalIsOpen}>Removiendo héroe...</Modal>
+      <Modal isOpen={errorModalIsOpen} isError={true}>
+        !Tarea fallida!
+      </Modal>
+      <PageLayout title="My hero" desc="page whith details about your hero">
+        <section className={styles.content}>
+          <div id="img_wraper" className={styles.image_svg}></div>
+          <h1 className={styles.title}>{hero.name}</h1>
+          <p className={styles.desc}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto
+            sequi obcaecati repudiandae quisquam illo aperiam. Tenetur nemo,
+            beatae, voluptate atque fugiat voluptatibus porro quia incidunt qui,
+            soluta velit ducimus!
+          </p>
+          <div className={styles.btn_list}>
+            <button
+              onClick={() => goBack()}
+              className={`boton ${styles.back_btn}`}
+            >
+              <IoMdArrowRoundBack size={25} />
+              Volver
+            </button>
+            <button className={`boton ${styles.noFav_btn}`} onClick={deleteOne}>
+              Borrar
+              <RiDeleteBin2Fill size={25} />
+            </button>
+          </div>
+        </section>
+      </PageLayout>
+    </>
   );
 }
 export const getServerSideProps = async ({ req, params }) => {
@@ -73,6 +98,14 @@ export const getServerSideProps = async ({ req, params }) => {
     const heros = await getCustomHeros(cookie);
     if (heros) {
       const heroC = heros.filter((h) => h.id == params.id);
+      if (heroC.length === 0) {
+        return {
+          redirect: {
+            permanent: true,
+            destination: "/",
+          },
+        };
+      }
       return {
         props: {
           hero: heroC[0],
@@ -84,9 +117,12 @@ export const getServerSideProps = async ({ req, params }) => {
       props: { error: true, info: "no hay coincidencia" },
     };
   } catch (err) {
-    console.log("prop err", err);
+    console.log("prop my hero err", err);
     return {
-      props: { error: true, info: "algo paso mal" },
+      redirect: {
+        permanent: true,
+        destination: "/",
+      },
     };
   }
 };

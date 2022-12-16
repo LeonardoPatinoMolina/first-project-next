@@ -6,6 +6,7 @@ import User from "../../models/user";
 import PageLayout from "../../components/PageLayout";
 import { Herocard } from "../../components/Herocard";
 import { HerosWraper } from "../../components/HerosWraper";
+import { BsFillStarFill } from "react-icons/bs";
 import styles from '../../styles/Favorites.module.css'
 
 export default function Favorites({ favorites, error, success }) {
@@ -24,7 +25,7 @@ export default function Favorites({ favorites, error, success }) {
     <PageLayout title="Favorites" desc="favorites results">
       <header className={styles.header}>
         <h1 className={styles.title}>Favoritos</h1>
-        <span className={`material-icons ${styles.icon}`}>grade</span>
+        <BsFillStarFill className={styles.icon} size={60} />
       </header>
       <HerosWraper>
         {success &&

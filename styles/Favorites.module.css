@@ -1,10 +1,11 @@
 .icon{
   /* transform: scale(1.2); */
-  height: 6rem;
+  /* height: 6rem; */
   text-align: center;
   display: block;
   text-shadow: 0 0 3rem rgba(0, 0, 0, 0.322);
-  font-size: 5rem;
+  color: var(--colorPrimal);
+  /* font-size: 5rem; */
 }
 .header{
   height: 6rem;

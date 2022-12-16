@@ -4,6 +4,7 @@ import { Logo } from "../components/Logo";
 import styles from "../styles/Form.module.css";
 import PageLayout from "../components/PageLayout";
 import useSWR from "swr";
+import { BiLogOut } from "react-icons/bi";
 
 export default function Profile() {
   const router = useRouter();
@@ -57,6 +58,7 @@ export default function Profile() {
             <li className={styles.item_list}>
               <button className="boton" onClick={logout}>
                 LOGOUT
+                <BiLogOut size={25} />
               </button>
             </li>
           </ul>

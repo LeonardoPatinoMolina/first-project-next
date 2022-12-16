@@ -21,6 +21,9 @@
   color: var(--colorFont2);
   font-weight: 100;
 }
+.desc, .title {
+  margin: 0 1rem 0 1rem;
+}
 .desc {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -71,4 +74,10 @@
 }
 .noneD{
   display: none;
+}
+.logo_waith{
+  transform: scale(2);
+}
+.item{
+  margin-left: 7px;
 }

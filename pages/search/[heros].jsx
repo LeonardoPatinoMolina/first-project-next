@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { HerosWraper } from "../../components/HerosWraper";
 import { Herocard } from "../../components/Herocard";
@@ -6,13 +6,16 @@ import { useRouter } from "next/router";
 import {requestApi} from '../../Services/requestApi'
 import {getFavoriteStatus} from '../../lib/favoriteRequest'
 import {connectDB} from '../../lib/dbConnect'
+import { FaSearch } from "react-icons/fa";
+import {Search} from '../../components/Search'
 import styles from "../../styles/Search.module.css";
 
 export default function SearchPage({ characters, error, charge }) {
   const router = useRouter();
-  const [queryF, setQueryF] = useState('');
+  const inputSearchValue = useRef();
   const handleSearch = (e) => {
     e.preventDefault();
+    const queryF = inputSearchValue.current.value;
     console.log('buscando');
     const abc = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
     const auxquery = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]
@@ -25,23 +28,22 @@ export default function SearchPage({ characters, error, charge }) {
     >
       <header className={styles.header}>
         <h1 className={styles.title}>Buscar</h1>
-        <span className={`material-icons ${styles.icon}`}>search</span>
+        <FaSearch className={styles.icon} size={50} />
       </header>
-      <form className={styles.btn_area} onSubmit={(e)=>handleSearch(e)}>
-        <input
+      <div className={styles.btn_area} onSubmit={(e)=>handleSearch(e)}>
+        <Search placeholder='Buscar personaje' refeGet={inputSearchValue} />
+        {/* <input
           className={styles.input}
           type="text"
           name="query"
           placeholder="Buscar personaje"
           value={queryF}
           onChange={(e)=>setQueryF(e.target.value)}
-        />
-        <input type="submit" value="Buscar" className={`boton ${styles.btn}`}/>
-      </form>
-      <HerosWraper>
-        {!charge ? (
-          <div>Loading...</div>
-        ) : (
+        /> */}
+        <button className={`boton ${styles.btn}`}>Buscar</button>
+      </div>
+      <HerosWraper >
+        {charge &&
           characters.map((char) => (
             <Herocard
               key={char.id}
@@ -51,8 +53,11 @@ export default function SearchPage({ characters, error, charge }) {
               area="400"
               favStatus={char.isFavorite}
             />
-          ))
+          )
         )}
+        {/* {charge && characters.map((char)=><div kei={char.id} className='child'>
+          <img src={char.img} alt="character" className="imgs" />
+        </div>)} */}
       </HerosWraper>
     </PageLayout>
   );
@@ -77,7 +82,7 @@ export const getServerSideProps = async ({ params, req }) => {
       props: {
         characters: dataPromise,
         error: false,
-        charge: true,
+        charge: dataPromise.length >= 1,
       },
     };
   } catch (error) {

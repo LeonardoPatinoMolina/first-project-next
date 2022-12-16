@@ -1,0 +1,30 @@
+.btn_up:hover{
+  background-color: #0008;
+  color: #fff;
+}
+
+.btn_up{
+  background: #fff8;
+  position: fixed;
+  z-index: 99;
+  box-shadow: 0 0 12px 2px #0005;
+  bottom: 5vh;
+  right: 2vw;
+  text-decoration: none;
+  color: #000;
+  outline: none;
+  border: none;
+  padding: .7rem;
+  cursor: pointer;
+  border-radius: .3rem;
+  animation-name: btnTopShow;
+  animation-timing-function: ease-out;
+  animation-duration: .4s;
+
+}
+.noneD{
+  display: none;
+}
+.item{
+  margin: 0 .2rem 0 .2rem;
+}

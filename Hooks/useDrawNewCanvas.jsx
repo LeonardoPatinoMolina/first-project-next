@@ -118,20 +118,20 @@ export const useDrawNewCanvas = () => {
     e.preventDefault();
   };
 
-  const drawFixed = () => {
-    //fija la pagina
-    const pizarra = $("c");
-    pizarra.addEventListener("touchmove", prev, { passive: false });
-  };
-  const drawFree = () => {
-    const pizarra = $("c");
-    pizarra.removeEventListener("touchmove", prev);
-  };
+  // const drawFixed = () => {
+  //   //fija la pagina
+  //   const pizarra = $("c");
+  //   pizarra.addEventListener("touchmove", prev, { passive: false });
+  // };
+  // const drawFree = () => {
+  //   const pizarra = $("c");
+  //   pizarra.removeEventListener("touchmove", prev);
+  // };
 
   const convertToSvg = ()=>{
     var epa  = canvasToSvg.current.getSerializedSvg(true); 
     return epa;
   }
 
-  return { clearCanvas, drawFixed, drawFree, convertToSvg };
+  return { clearCanvas, convertToSvg };
 };

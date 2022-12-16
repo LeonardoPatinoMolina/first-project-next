@@ -4,17 +4,23 @@ import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { useDrawNewCanvas } from "../../Hooks/useDrawNewCanvas";
 import PageLayout from "../../components/PageLayout";
+import { FaPaintBrush } from "react-icons/fa";
+import {Modal} from '../../components/Modal'
+import { useModal } from "../../Hooks/useModal";
 import styles from "../../Styles/CreateHero.module.css";
 
 export default function New() {
   const router = useRouter();
   const [name, setName] = useState("");
-  const { clearCanvas, drawFixed, drawFree, convertToSvg } = useDrawNewCanvas();
+  const [addModalIsOpen, openAddModal, closeAddModal] = useModal(false);
+  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
+  const { clearCanvas, convertToSvg } = useDrawNewCanvas();
 
   const handleSubmit = async (e) => {
     // añade heroe creando registro en db
-    const img = convertToSvg();
     e.preventDefault();
+    openAddModal();
+    const img = convertToSvg();
     const myhero = {
       id: uuidv4(),
       img,
@@ -22,7 +28,7 @@ export default function New() {
     };
 
     //add your code here...
-    const res = await fetch("/api/new/customhero", {
+    try{const res = await fetch("/api/new/customhero", {
       method: "POST",
       body: JSON.stringify(myhero),
     });
@@ -30,17 +36,29 @@ export default function New() {
     if (dataConfirm.success) {
       console.log("exito add custom");
       alert("añadido");
-    } else console.log("fallo add custom");
+    } else {
+      errorHandle();
+    }}catch(err){
+      errorHandle();
+    }
+    closeAddModal();
     clearCanvas();
     setName("");
   };
-
+  const errorHandle=()=>{
+    console.log('error manejado')
+    closeAddModal();
+    openErrorModal();
+    if(typeof window) setTimeout(()=>closeErrorModal(), 3500);
+  }
   return (
     <>
+    <Modal isOpen={addModalIsOpen}>Añadiendo nuevo héroe</Modal>
+    <Modal isOpen={errorModalIsOpen} isError={true}>!Tarea fallida!</Modal>
       <PageLayout title="New Hero" desc="create your own hero">
         <header className={`${styles.header}`}>
           <h1 className={styles.title}> Mi nuevo Héroe</h1>
-          <span className={`material-icons ${styles.icon} `}>edit</span>
+        <FaPaintBrush size={60} className={styles.icon} />
         </header>
         <form id="form" className={styles.formulario} onSubmit={handleSubmit}>
           <ul className={styles.form_list}>

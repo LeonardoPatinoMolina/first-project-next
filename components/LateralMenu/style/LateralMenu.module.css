@@ -34,21 +34,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: large;
 }
 
 .item_list:nth-child(1){
   background-color: transparent;
   justify-content: flex-start;
 }
-.item_list:nth-child(2){
+/* .item_list:nth-child(2){
   padding: 0;
   height: 3rem;
-}
+} */
 .search_icon{
   height: 2.5rem;
   display: flex;
   align-items: center;
-  /* background-color: var(--colorSecunda); */
   font-size: 2rem;
   border-radius: 1rem;
   outline: none;
@@ -79,9 +79,7 @@
   background-color: var(--colorHoverBoton);
   cursor: pointer;
 }
-.item_list:nth-child(2){
-  background-color: var(--colorPrimal);
-}
+
 .item_list:first-child:hover{
   background-color: transparent;
   cursor: auto;
@@ -110,5 +108,8 @@
 @media screen and (max-width: 500px){
   .container{
     width: 50vw;
+  }
+  .item_list{
+    font-size: medium;
   }
 }

@@ -5,8 +5,35 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  font-family: Century Gothic, sans-serif;
-  color: var(--colorDarkPrimal);
+  font-family: sans-serif;
+  color: #fff5;
   font-weight: 800;
   z-index: 99;
+}
+.list{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.item{
+  padding: 0;
+  margin: 0;
+  text-shadow: 2px 2px 2px #00000050;
+  display: flex;
+  align-items: center;
+  font-size: medium;
+}
+.icon{
+  margin-right: 3px;
+}
+@media screen and (max-width: 500px){
+  .item{
+    font-size: small;
+  }
 }

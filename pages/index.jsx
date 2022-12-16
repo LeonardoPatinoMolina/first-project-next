@@ -6,15 +6,25 @@ import { getFavoriteStatus } from "../lib/favoriteRequest";
 import {connectDB} from '../lib/dbConnect'
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { SearchBanner } from "../components/SearchBanner";
 
-export default function Home({ data, error }) {
+export default function Home({ data, success }) {
   const router = useRouter();
   return (
     <PageLayout title="Home" desc="Home page to show random character's result">
+      <SearchBanner />
+      {/* <div className='padre'>
+      <div className="hijo">lorem1 lorem</div>
+      <div className="hijo">lorem2</div>
+      <div className="hijo">lorem3</div>
+      <div className="hijo">lorem4</div>
+      <div className="hijo">lorem5</div>
+      <div className="hijo">lorem6</div>
+      <div className="hijo">lorem7</div>
+      <div className="hijo">lorem8</div>
+      </div> */}
       <HerosWraper>
-        {error ? (
-          <div>error...</div>
-        ) : (
+        {success &&
           data.map((character) => (
             <Herocard
               key={character.id}
@@ -24,7 +34,7 @@ export default function Home({ data, error }) {
               area="400"
               favStatus={character.isFavorite}
             />
-          ))
+          )
         )}
       </HerosWraper>
     </PageLayout>
@@ -50,7 +60,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         data: dataPromise,
-        error: false,
+        success: true,
       },
     };
   } catch (err) {
@@ -58,7 +68,7 @@ export const getServerSideProps = async (ctx) => {
     return {
       props: {
         data: null,
-        error: true,
+        success: false,
       },
     };
   }

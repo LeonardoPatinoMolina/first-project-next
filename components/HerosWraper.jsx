@@ -1,35 +1,20 @@
-import React from "react";
-import styles from "../Styles/ContentHeros.module.css";
-// import { useSelector } from "react-redux";
-
-const { content_heros, back_whait } = styles;
+import React, {useEffect, useState} from "react";
+import styles from "../Styles/HerosWraper.module.css";
 
 export const HerosWraper = ({ children }) => {
-  // const { character } = useSelector((state) => state.characters);
-  // const { favorites } = useSelector((state) => state.favorites);
-  // const { myheros } = useSelector((state) => state.myheros);
-
-  // const checkStatusEmpty = () => {
-  //   switch (children.props.type) {
-  //     case "characters":
-  //       if (character.length < 1) return back_whait;
-  //       break;
-  //     case "favorites":
-  //       if (favorites.length < 1) {
-  //         return back_whait;
-  //       }
-  //       break;
-  //     default:
-  //       if (myheros.length < 1) {
-  //         return back_whait;
-  //       }
-  //       return "";
-  //   }
-  // };
+ 
   return (
-    // <section className={`${content_heros} ${checkStatusEmpty()}`}>
-    <section className={`${content_heros}`}>
+    <>
+    <div className={styles.stats_bar}>
+      <ul className={styles.stats_list}>
+        <li className={styles.stats_item}>Resultados:</li>
+        <li className={styles.stats_item}>{children ? children.length : '0'}</li>
+      </ul>
+    </div>
+    <section className={`${styles.wrapper} ${!children && styles.content_heros_empty}`}>
       {children}
+      {!children && <div className={styles.empty_result}>NO HAY RESULTADOS PARA MOSTRAR</div>}
     </section>
+    </>
   );
 };

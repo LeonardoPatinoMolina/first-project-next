@@ -54,8 +54,9 @@
   border-radius: 1rem;
   outline: none;
   border: none;
+  padding-left: 1rem;
   color: var(--colorDarkPrimal);
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .text_field::placeholder{
   color: #00000020;

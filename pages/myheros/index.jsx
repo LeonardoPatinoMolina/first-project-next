@@ -4,8 +4,10 @@ import { getCustomHeros } from "../../lib/customHerosRequest";
 import PageLayout from "../../components/PageLayout";
 import { HerosWraper } from "../../components/HerosWraper";
 import { MyHerocard } from "../../components/MyHerocard";
-import styles from "../../styles/MyHeros.module.css";
 import { connectDB } from "../../lib/dbConnect";
+import { FaPaintBrush } from "react-icons/fa";
+import styles from "../../styles/MyHeros.module.css";
+
 
 export default function Myheros({ heros, error, info }) {
   const router = useRouter();
@@ -25,16 +27,10 @@ export default function Myheros({ heros, error, info }) {
     <PageLayout title="My heros">
       <header className={`${styles.header}`}>
         <h1 className={styles.title}> Mis Héroes</h1>
-        <span className={`material-icons ${styles.icon} `}>edit</span>
+        <FaPaintBrush size={60} className={styles.icon} />
         <button className={`boton ${styles.btn_add}`} onClick={goNew}>
           <span className={styles.desc_icon}>CREAR NUEVO HÉROE</span>
-          <span
-            className={`material-icons ${styles.icon_add} ${
-              inCreate && styles.revert
-            }`}
-          >
-            add
-          </span>
+        <FaPaintBrush size={25} className={styles.icon_add} />
         </button>
       </header>
       <HerosWraper>

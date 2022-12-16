@@ -1,9 +1,10 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import styles from "./style/LateralMenu.module.css";
-import { Search } from "../Search";
+// import { Search } from "../Search";
 import { useTheme } from "../../Hooks/useTheme";
 import { useRouter } from "next/router";
+import { MdManageAccounts, MdLightMode, MdNightlight } from "react-icons/md";
+import styles from "./style/LateralMenu.module.css";
 
 export const LateralMenu = ({ open, open_function }) => {
   const { switchTheme, theme } = useTheme();
@@ -29,11 +30,12 @@ export const LateralMenu = ({ open, open_function }) => {
               <span className="material-icons">close</span>
             </button>
           </li>
-          <li className={`${styles.item_list}`}>
+          {/* <li className={`${styles.item_list}`}>
             <Search placeholder={"Busca un personaje"} />
-          </li>
+          </li> */}
           <li className={styles.item_list} onClick={goProfile}>
-            <span className="material-icons">person</span>
+            {/* <span className="material-icons">person</span> */}
+            <MdManageAccounts size={30} />
             MI CUENTA
           </li>
           {/* <li className={styles.item_list}>
@@ -45,16 +47,8 @@ export const LateralMenu = ({ open, open_function }) => {
             onClick={() => switchTheme()}
             title="cambiar Tema"
           >
-            <span
-              className={`material-icons ${theme === "light" && styles.hide}`}
-            >
-              dark_mode
-            </span>
-            <span
-              className={`material-icons ${theme === "dark" && styles.hide}`}
-            >
-              light_mode
-            </span>
+            <MdNightlight size={30} className={`material-icons ${theme === "light" && styles.hide}`} />
+            <MdLightMode size={30} className={`material-icons ${theme === "dark" && styles.hide}`} />
             TEMA
           </li>
         </ul>
