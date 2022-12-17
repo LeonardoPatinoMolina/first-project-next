@@ -30,6 +30,8 @@ export const MyHerocard = ({ id, name, img, area }) => {
       onClick={open}
       onMouseOver={() => handleOver()}
       onMouseOut={() => handleOut()}
+      onTouchStart={()=> handleOver()}
+      onTouchEnd={()=> handleOut()}
     >
       {isOver && (
         <div className={styles.data_wrapper}>

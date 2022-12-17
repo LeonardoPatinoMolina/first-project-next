@@ -20,9 +20,8 @@
   display: block;
   margin: 0;
   box-sizing: border-box;
-  color: var(--colorFont);
+  color: #000000;
   background-color: #ffffff;
-  font-weight: 700;
   padding-left: 1rem;
 }
 .input::placeholder{

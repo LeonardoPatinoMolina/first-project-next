@@ -6,10 +6,10 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: var(--colorPrimal);
     scroll-behavior: smooth;
-    background-image: url('../img/back_comic_custom.webp');
+    /* background-image: url('../img/back_comic_custom.webp'); */
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     max-width: 100vw;
 }
 :root{

@@ -36,7 +36,7 @@
   height: 100%;
   object-fit: cover;
   user-select: none;
-  background: #222;
+  background: #f1f2f3;
 }
 .dark_img{
   filter: brightness(.7) blur(2px);
@@ -70,5 +70,10 @@
   }
   .card:hover {
     transform: scale(1.18, 1.38);
+  }
+  .name_style {
+    text-align: center;
+    font-size: small;
+    font-weight: 300;
   }
 }

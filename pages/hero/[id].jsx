@@ -76,7 +76,7 @@ export default function HeroPage({ hero, cookie }) {
     closeRemoveModal();
     closeAddModal();
     openErrorModal();
-    if(typeof window) setTimeout(()=>closeErrorModal(), 3500);
+    if(typeof window) setTimeout(()=>closeErrorModal(), 2500);
   }
   return (
     <>

@@ -54,7 +54,7 @@ export default function MyHeroPage({ hero }) {
     console.log("error manejado");
     closeRemoveModal();
     openErrorModal();
-    if (typeof window) setTimeout(() => closeErrorModal(), 3500);
+    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
   };
 
   return (

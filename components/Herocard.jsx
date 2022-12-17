@@ -18,6 +18,8 @@ export const Herocard = ({ id, name, img, area, favStatus }) => {
       className={styles.card}
       onClick={open}
       onMouseOver={() => handleOver()}
+      onTouchStart={()=> handleOver()}
+      onTouchEnd={()=> handleOut()}
       onMouseOut={() => handleOut()}
       title="Personaje"
     >

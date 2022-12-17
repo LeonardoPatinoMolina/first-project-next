@@ -1,5 +1,6 @@
 import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
+import Username from "../../../models/username";
 import bcrypt from 'bcrypt'
 
 export default async function SigninHandler(req, res) {
@@ -15,7 +16,11 @@ export default async function SigninHandler(req, res) {
       favorites: [],
       custom_heros: [],
     });
+    const usernameN = new Username({
+      name: user,
+    })
     userN.save();
+    usernameN.save();
     console.log("exito?");
   } catch (error) {
     console.log(error);

@@ -1,6 +1,16 @@
+.wrapper{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0006;
+}
 .form{
   min-height: 70vh;
-  width: 50vw;
+  min-width: 250px;
+  max-width: 50vw;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -64,6 +74,7 @@
 }
 .input_err, .input_err:focus{
   box-shadow: 0 0 8px 1px #f004;
+  outline: 2px solid #f006;
 }
 .warning{
   text-shadow: 0 0 10px #ffd4a9;
@@ -88,8 +99,8 @@
   color: #999;
 
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 750px){
   .form{
-    width: 99vw;
+    width: 98vw;
   }
 }

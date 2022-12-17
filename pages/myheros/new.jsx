@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useDrawNewCanvas } from "../../Hooks/useDrawNewCanvas";
 import PageLayout from "../../components/PageLayout";
 import { FaPaintBrush } from "react-icons/fa";
-import {Modal} from '../../components/Modal'
+import { Modal } from "../../components/Modal";
 import { useModal } from "../../Hooks/useModal";
 import styles from "../../Styles/CreateHero.module.css";
 
@@ -14,6 +14,8 @@ export default function New() {
   const [name, setName] = useState("");
   const [addModalIsOpen, openAddModal, closeAddModal] = useModal(false);
   const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
+  const [successModalIsOpen, openSuccessModal, closeSuccessModal] =
+    useModal(false);
   const { clearCanvas, convertToSvg } = useDrawNewCanvas();
 
   const handleSubmit = async (e) => {
@@ -26,39 +28,46 @@ export default function New() {
       img,
       name: name,
     };
-
     //add your code here...
-    try{const res = await fetch("/api/new/customhero", {
-      method: "POST",
-      body: JSON.stringify(myhero),
-    });
-    const dataConfirm = await res.json();
-    if (dataConfirm.success) {
-      console.log("exito add custom");
-      alert("añadido");
-    } else {
-      errorHandle();
-    }}catch(err){
+    try {
+      const res = await fetch("/api/new/customhero", {
+        method: "POST",
+        body: JSON.stringify(myhero),
+      });
+      const dataConfirm = await res.json();
+      if (!dataConfirm.success) return errorHandle();
+      successHandle();
+    } catch (err) {
       errorHandle();
     }
-    closeAddModal();
-    clearCanvas();
-    setName("");
   };
-  const errorHandle=()=>{
-    console.log('error manejado')
+
+  const errorHandle = () => {
+    console.log("error manejado");
     closeAddModal();
     openErrorModal();
-    if(typeof window) setTimeout(()=>closeErrorModal(), 3500);
-  }
+    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
+  };
+  const successHandle = () => {
+    setName("");
+    clearCanvas();
+    closeAddModal();
+    openSuccessModal();
+    if (typeof window) setTimeout(() => closeSuccessModal(), 2500);
+  };
   return (
     <>
-    <Modal isOpen={addModalIsOpen}>Añadiendo nuevo héroe</Modal>
-    <Modal isOpen={errorModalIsOpen} isError={true}>!Tarea fallida!</Modal>
+      <Modal isOpen={addModalIsOpen}>Añadiendo nuevo héroe</Modal>
+      <Modal isOpen={errorModalIsOpen} isError={true}>
+        !Tarea fallida!
+      </Modal>
+      <Modal isOpen={successModalIsOpen} isSuccess={true}>
+        !Añadido correctamente!
+      </Modal>
       <PageLayout title="New Hero" desc="create your own hero">
         <header className={`${styles.header}`}>
           <h1 className={styles.title}> Mi nuevo Héroe</h1>
-        <FaPaintBrush size={60} className={styles.icon} />
+          <FaPaintBrush size={60} className={styles.icon} />
         </header>
         <form id="form" className={styles.formulario} onSubmit={handleSubmit}>
           <ul className={styles.form_list}>

@@ -13,10 +13,10 @@ import styles from "../../styles/Search.module.css";
 export default function SearchPage({ characters, error, charge }) {
   const router = useRouter();
   const inputSearchValue = useRef();
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = () => {
+    // e.preventDefault();
     const queryF = inputSearchValue.current.value;
-    console.log('buscando');
+    console.log('buscando', queryF);
     const abc = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
     const auxquery = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]
     router.push(`/search/${queryF !== '' ? queryF : auxquery}`);
@@ -30,8 +30,8 @@ export default function SearchPage({ characters, error, charge }) {
         <h1 className={styles.title}>Buscar</h1>
         <FaSearch className={styles.icon} size={50} />
       </header>
-      <div className={styles.btn_area} onSubmit={(e)=>handleSearch(e)}>
-        <Search placeholder='Buscar personaje' refeGet={inputSearchValue} />
+      <div className={styles.btn_area}>
+        <Search placeholder='Buscar...' refeGet={inputSearchValue} />
         {/* <input
           className={styles.input}
           type="text"
@@ -40,7 +40,7 @@ export default function SearchPage({ characters, error, charge }) {
           value={queryF}
           onChange={(e)=>setQueryF(e.target.value)}
         /> */}
-        <button className={`boton ${styles.btn}`}>Buscar</button>
+        <button className={`boton ${styles.btn}`} onClick={()=>handleSearch()}>Buscar</button>
       </div>
       <HerosWraper >
         {charge &&

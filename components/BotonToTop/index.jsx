@@ -1,3 +1,4 @@
+"use client"
 import React,{useEffect, useRef} from 'react'
 import { MdVerticalAlignTop } from "react-icons/md";
 import styles from './style/BotonToTop.module.css'
@@ -8,11 +9,11 @@ export const BotonToTop = () => {
     if (typeof window) {
       addEventListener("scroll", handleTopBtnScroll);
     }
-    // return () => {
-    //   if (typeof window) {
-    //     removeEventListener("scroll", handleTopBtnScroll);
-    //   }
-    // };
+    return () => {
+      if (typeof window) {
+        removeEventListener("scroll", handleTopBtnScroll);
+      }
+    };
   }, []);
   function handleTopBtnScroll() {
     if (typeof window) {
