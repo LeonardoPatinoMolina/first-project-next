@@ -12,14 +12,26 @@ import styles from "../styles/Form.module.css";
 
 export default function Signin() {
   const router = useRouter();
-  const [loadingModalIsOpen, openLoadingModal, closeLoadingModal] =
-    useModal(false);
-  const [successModalIsOpen, openSuccessModal, closeSuccessModal] =
-    useModal(false);
-  const [formatErrorModalIsOpen, openFormatErrorModal, closeFormatErrorModal] =
-    useModal(false);
-  const [userErrorModalIsOpen, openUserErrorModal, closeUserErrorModal] =
-    useModal(false);
+  const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false,
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: false,
+  });
+  const [formatErrorModalLoot, openFormatErrorModal] = useModal({
+    type: "warning",
+    openStatus: false,
+    autoClose: true,
+  });
+  const [userErrorModalLoot, openUserErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true,
+  });
   const [formatError, setFormatError] = useState({
     user: true,
     pass: true,
@@ -86,26 +98,23 @@ export default function Signin() {
   const errorHandle = () => {
     console.log("error manejado");
     closeLoadingModal();
-    closeSuccessModal();
     openFormatErrorModal();
-    if (typeof window) setTimeout(() => closeFormatErrorModal(), 2500);
   };
   const errorHandle2 = () => {
     console.log("error manejado 2");
     closeLoadingModal();
     openUserErrorModal();
-    if (typeof window) setTimeout(() => closeUserErrorModal(), 2500);
   };
   return (
     <>
-      <Modal isOpen={loadingModalIsOpen}>Validando datos...</Modal>
-      <Modal isOpen={successModalIsOpen} isSuccess={true}>
+      <Modal loot={loadingModalLoot}>Validando datos...</Modal>
+      <Modal loot={successModalLoot}>
         Registro exitoso, redirigiendo a ingreso...
       </Modal>
-      <Modal isOpen={userErrorModalIsOpen} isError={true}>
+      <Modal loot={userErrorModalLoot}>
         ¡Tarea fallida! El nombre de usuario ya existe.
       </Modal>
-      <Modal isOpen={formatErrorModalIsOpen} isError={true}>
+      <Modal loot={formatErrorModalLoot}>
         ¡Tarea fallida! Verifique los datos ingresados.
       </Modal>
       <Head>

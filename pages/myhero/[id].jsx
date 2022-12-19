@@ -12,9 +12,21 @@ import styles from "../../styles/Character.module.css";
 
 export default function MyHeroPage({ hero }) {
   const router = useRouter();
-  const [removeModalIsOpen, openRemoveModal, closeRemoveModal] =
-    useModal(false);
-  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
+  const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: false
+  });
   const goBack = () => router.back();
   useEffect(() => {
     const exp1 = /width="300"/g;
@@ -40,6 +52,7 @@ export default function MyHeroPage({ hero }) {
       const dataConfirm = await res.json();
       if (dataConfirm.success) {
         closeRemoveModal();
+        openSuccessModal();
         router.push("/myheros");
       } else {
         console.log("fallo delete myhero");
@@ -54,15 +67,13 @@ export default function MyHeroPage({ hero }) {
     console.log("error manejado");
     closeRemoveModal();
     openErrorModal();
-    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
   };
 
   return (
     <>
-      <Modal isOpen={removeModalIsOpen}>Removiendo héroe...</Modal>
-      <Modal isOpen={errorModalIsOpen} isError={true}>
-        !Tarea fallida!
-      </Modal>
+      <Modal loot={removeModalLoot}>Removiendo héroe...</Modal>
+      <Modal loot={successModalLoot}>Removido correctamente.</Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title="My hero" desc="page whith details about your hero">
         <section className={styles.content}>
           <div id="img_wraper" className={styles.image_svg}></div>
@@ -91,6 +102,7 @@ export default function MyHeroPage({ hero }) {
     </>
   );
 }
+
 export const getServerSideProps = async ({ req, params }) => {
   try {
     const cookie = req.headers.cookie;

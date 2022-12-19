@@ -3,26 +3,13 @@ import { HerosWraper } from "../components/HerosWraper";
 import PageLayout from "../components/PageLayout";
 import { requestApi } from "../Services/requestApi";
 import { getFavoriteStatus } from "../lib/favoriteRequest";
-import {connectDB} from '../lib/dbConnect'
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { connectDB } from "../lib/dbConnect";
 import { SearchBanner } from "../components/SearchBanner";
 
 export default function Home({ data, success }) {
-  const router = useRouter();
   return (
     <PageLayout title="Home" desc="Home page to show random character's result">
       <SearchBanner />
-      {/* <div className='padre'>
-      <div className="hijo">lorem1 lorem</div>
-      <div className="hijo">lorem2</div>
-      <div className="hijo">lorem3</div>
-      <div className="hijo">lorem4</div>
-      <div className="hijo">lorem5</div>
-      <div className="hijo">lorem6</div>
-      <div className="hijo">lorem7</div>
-      <div className="hijo">lorem8</div>
-      </div> */}
       <HerosWraper>
         {success &&
           data.map((character) => (
@@ -34,8 +21,7 @@ export default function Home({ data, success }) {
               area="400"
               favStatus={character.isFavorite}
             />
-          )
-        )}
+          ))}
       </HerosWraper>
     </PageLayout>
   );
@@ -46,9 +32,9 @@ export const getServerSideProps = async (ctx) => {
   const q = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]; //algoritmo de aleatoriedad entre 0 y 25
   try {
     const cookie = ctx.req.headers.cookie;
-    const { db } = await connectDB()
+    const { db } = await connectDB();
     const response = await requestApi(q);
-    const data =response.map(async (character) => {
+    const data = response.map(async (character) => {
       const resF = await getFavoriteStatus(cookie, {
         id: character.id,
         img: `${character.thumbnail.path}.${character.thumbnail.extension}`,

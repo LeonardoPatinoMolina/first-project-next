@@ -12,10 +12,26 @@ import styles from "../../Styles/CreateHero.module.css";
 export default function New() {
   const router = useRouter();
   const [name, setName] = useState("");
-  const [addModalIsOpen, openAddModal, closeAddModal] = useModal(false);
-  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
-  const [successModalIsOpen, openSuccessModal, closeSuccessModal] =
-    useModal(false);
+  const [addModalLoot, openAddModal, closeAddModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [warningModalLoot, openWarningModal] = useModal({
+    type: "warning",
+    openStatus: false,
+    autoClose: true
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: true
+  });
   const { clearCanvas, convertToSvg } = useDrawNewCanvas();
 
   const handleSubmit = async (e) => {
@@ -35,6 +51,7 @@ export default function New() {
         body: JSON.stringify(myhero),
       });
       const dataConfirm = await res.json();
+      if (dataConfirm.limitControl) return warningHandle();
       if (!dataConfirm.success) return errorHandle();
       successHandle();
     } catch (err) {
@@ -46,24 +63,25 @@ export default function New() {
     console.log("error manejado");
     closeAddModal();
     openErrorModal();
-    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
+  };
+  const warningHandle = () => {
+    console.log("advertencia manejada");
+    closeAddModal();
+    openWarningModal();
   };
   const successHandle = () => {
+    console.log('exitooo')
     setName("");
     clearCanvas();
     closeAddModal();
     openSuccessModal();
-    if (typeof window) setTimeout(() => closeSuccessModal(), 2500);
   };
   return (
     <>
-      <Modal isOpen={addModalIsOpen}>Añadiendo nuevo héroe</Modal>
-      <Modal isOpen={errorModalIsOpen} isError={true}>
-        !Tarea fallida!
-      </Modal>
-      <Modal isOpen={successModalIsOpen} isSuccess={true}>
-        !Añadido correctamente!
-      </Modal>
+      <Modal loot={addModalLoot}>Añadiendo nuevo héroe</Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
+      <Modal loot={successModalLoot}>!Añadido correctamente!</Modal>
+      <Modal loot={warningModalLoot}>!Límite de heroes alcanzado!</Modal>
       <PageLayout title="New Hero" desc="create your own hero">
         <header className={`${styles.header}`}>
           <h1 className={styles.title}> Mi nuevo Héroe</h1>
@@ -79,7 +97,7 @@ export default function New() {
                 name="name"
                 placeholder="Nombre"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.slice(0,12))}
                 autoComplete="nope"
                 required
               />

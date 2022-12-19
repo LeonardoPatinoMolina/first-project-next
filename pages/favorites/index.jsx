@@ -50,7 +50,7 @@ export default function Favorites({ favorites, error, success }) {
   );
 }
 
-export const getServerSideProps = async ({ req }) => {
+export const getServerSideProps = async ({req}) => {
   try {
     await connectDB();
     const cookie = req.headers.cookie;

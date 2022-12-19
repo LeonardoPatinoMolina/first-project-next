@@ -9,15 +9,31 @@ import styles from "../styles/Form.module.css";
 
 export default function Login() {
   const router = useRouter();
-  const [loadingModalIsOpen, openLoadingModal, closeLoadingModal] =
-    useModal(false);
-  const [successModalIsOpen, openSuccessModal, closeSuccessModal] =
-    useModal(false);
-  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
-  const [formatErrorModalIsOpen, openFormatErrorModal, closeFormatErrorModal] =
-    useModal(false);
-  const [unauthModalIsOpen, openUnauthModal, closeUnauthModal] =
-    useModal(false);
+  const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: false,
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
+  const [formatErrorModalLoot, openFormatErrorModal] = useModal({
+    type: "warning",
+    openStatus: false,
+    autoClose: true
+  });
+  const [unauthModalLoot, openUnauthModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
 
   const [formatError, setFormatError] = useState({
     user: true,
@@ -69,35 +85,25 @@ export default function Login() {
   };
   const errorHandle = () => {
     closeLoadingModal();
-    closeSuccessModal();
     openErrorModal();
-    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
   };
   const formatErrorHandle = () => {
     closeLoadingModal();
     openFormatErrorModal();
-    if (typeof window) setTimeout(() => closeFormatErrorModal(), 2500);
   };
   const errorHandle2 = () => {
     closeLoadingModal();
     openUnauthModal();
-    if (typeof window) setTimeout(() => closeUnauthModal(), 2500);
   };
   return (
     <>
-      <Modal isOpen={loadingModalIsOpen}>Validando datos...</Modal>
-      <Modal isOpen={successModalIsOpen} isSuccess={true}>
+      <Modal loot={loadingModalLoot}>Validando datos...</Modal>
+      <Modal loot={successModalLoot}>
         Ingreso exitoso, redirigiendo a inicio...
       </Modal>
-      <Modal isOpen={errorModalIsOpen} isError={true}>
-        !Tarea fallida!
-      </Modal>
-      <Modal isOpen={formatErrorModalIsOpen} isError={true}>
-        Verifique los datos ingresados.
-      </Modal>
-      <Modal isOpen={unauthModalIsOpen} isError={true}>
-        Usuario no registrado.
-      </Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
+      <Modal loot={formatErrorModalLoot}>Verifique los datos ingresados.</Modal>
+      <Modal loot={unauthModalLoot}>Usuario o contraseña errados.</Modal>
       <Head>
         <title>Log in</title>
         <meta name="description" content="Realice su ingreso a la plataforma" />

@@ -11,7 +11,7 @@ import styles from "../../styles/MyHeros.module.css";
 
 export default function Myheros({ heros, error, info }) {
   const router = useRouter();
-  const [inCreate, setInCreate] = useState(false);
+  
   const cleanAll = async ()=>{
     try {
       const res = await fetch('api/delete/allmyheros');
@@ -19,7 +19,7 @@ export default function Myheros({ heros, error, info }) {
       console.log(response);
       router.replace(router.asPath)
     } catch (error) {
-      console.log('fetch',error);      
+      console.log('fetch',error);
     }
   };
   const goNew = () => router.push("/myheros/new");
@@ -33,7 +33,7 @@ export default function Myheros({ heros, error, info }) {
         <FaPaintBrush size={25} className={styles.icon_add} />
         </button>
       </header>
-      <HerosWraper>
+      <HerosWraper isMyHeros={true}>
         {!error &&
           heros.map((hero) => (
             <MyHerocard
@@ -54,7 +54,7 @@ export default function Myheros({ heros, error, info }) {
   );
 }
 
-export const getServerSideProps = async ({ req, params }) => {
+export const getServerSideProps = async ({req}) => {
   try {
     const cookie = req.headers.cookie;
     const { db } = await connectDB();

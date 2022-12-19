@@ -14,11 +14,11 @@ export default function SearchPage({ characters, error, charge }) {
   const router = useRouter();
   const inputSearchValue = useRef();
   const handleSearch = () => {
-    // e.preventDefault();
     const queryF = inputSearchValue.current.value;
     console.log('buscando', queryF);
     const abc = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
     const auxquery = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]
+    inputSearchValue.current.value = '';
     router.push(`/search/${queryF !== '' ? queryF : auxquery}`);
   };
   return (
@@ -32,14 +32,6 @@ export default function SearchPage({ characters, error, charge }) {
       </header>
       <div className={styles.btn_area}>
         <Search placeholder='Buscar...' refeGet={inputSearchValue} />
-        {/* <input
-          className={styles.input}
-          type="text"
-          name="query"
-          placeholder="Buscar personaje"
-          value={queryF}
-          onChange={(e)=>setQueryF(e.target.value)}
-        /> */}
         <button className={`boton ${styles.btn}`} onClick={()=>handleSearch()}>Buscar</button>
       </div>
       <HerosWraper >
@@ -55,9 +47,6 @@ export default function SearchPage({ characters, error, charge }) {
             />
           )
         )}
-        {/* {charge && characters.map((char)=><div kei={char.id} className='child'>
-          <img src={char.img} alt="character" className="imgs" />
-        </div>)} */}
       </HerosWraper>
     </PageLayout>
   );

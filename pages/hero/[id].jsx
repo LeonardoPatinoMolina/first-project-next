@@ -10,11 +10,23 @@ import { useModal } from "../../Hooks/useModal";
 import { Modal } from "../../components/Modal";
 import styles from "../../styles/Character.module.css";
 
-export default function HeroPage({ hero, cookie }) {
+export default function HeroPage({ hero }) {
   const [favChoise, setFavChoise] = useState(hero.isFavorite);
-  const [addModalIsOpen, openAddModal, closeAddModal] = useModal(false);
-  const [removeModalIsOpen, openRemoveModal, closeRemoveModal] = useModal(false);
-  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
+  const [addModalLoot, openAddModal, closeAddModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
   const router = useRouter();
   const goBack = () => router.back();
   useEffect(() => {
@@ -71,18 +83,17 @@ export default function HeroPage({ hero, cookie }) {
       console.log("fallo el new fav");
     }
   };
-  const errorHandle=()=>{
-    console.log('error manejado')
+  const errorHandle = () => {
+    console.log("error manejado");
     closeRemoveModal();
     closeAddModal();
     openErrorModal();
-    if(typeof window) setTimeout(()=>closeErrorModal(), 2500);
-  }
+  };
   return (
     <>
-      <Modal isOpen={addModalIsOpen}>Añadiendo personaje a favoritos...</Modal>
-      <Modal isOpen={removeModalIsOpen}>Removiendo personaje de favoritos...</Modal>
-      <Modal isOpen={errorModalIsOpen} isError={true}>!Tarea fallida!</Modal>
+      <Modal loot={addModalLoot}>Añadiendo personaje a favoritos...</Modal>
+      <Modal loot={removeModalLoot}>Removiendo personaje de favoritos...</Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title={hero.name}>
         <section className={styles.content}>
           <img className={styles.img} src={hero.img} alt="persojaje" />
@@ -123,6 +134,7 @@ export default function HeroPage({ hero, cookie }) {
     </>
   );
 }
+
 export const getServerSideProps = async ({ params, req }) => {
   const q = params.id.replace("%20", " ");
   const cookie = req.headers.cookie;
@@ -136,7 +148,6 @@ export const getServerSideProps = async ({ params, req }) => {
     return {
       props: {
         hero: resF,
-        cookie,
       },
     };
   } catch (err) {

@@ -5,15 +5,25 @@ import { Logo } from "../components/Logo";
 import PageLayout from "../components/PageLayout";
 import useSWR from "swr";
 import { BiLogOut } from "react-icons/bi";
+import { MdPersonOff } from "react-icons/md";
 import { Modal } from "../components/Modal";
 import { useModal } from "../Hooks/useModal";
 import styles from "../styles/Form.module.css";
 
 export default function Profile() {
   const router = useRouter();
-  const [redirectModalIsOpen, openRedirectModal, closeRedirectModal] =
-    useModal(false);
-  const [errorModalIsOpen, openErrorModal, closeErrorModal] = useModal(false);
+  const [redirectModalLoot, openRedirectModal] = useModal({
+    type: "def",
+    openStatus: false,
+  });
+  const [deleteModalLoot, openDeleteModal, closeDeleteModal] = useModal({
+    type: "def",
+    openStatus: false,
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+  });
 
   const fetcher = (url) =>
     fetch(url, { method: "POST" }).then((res) => res.json());
@@ -31,16 +41,27 @@ export default function Profile() {
   };
   const errorHandle = () => {
     console.log("error manejado");
-    closeRedirectModal();
+    closeDeleteModal();
     openErrorModal();
-    if (typeof window) setTimeout(() => closeErrorModal(), 2500);
   };
+
+  const deleteAcount=async()=>{
+    try {
+      openDeleteModal();
+      const response = await fetch('api/delete/useracount');
+      const res = await response.json();
+      if(!res.success) return errorHandle();
+      logout();
+    } catch (error) {
+      errorHandle();      
+    }
+  }
+
   return (
     <>
-      <Modal isOpen={redirectModalIsOpen} isSuccess={true}>Cerrando sesión...</Modal>
-      <Modal isOpen={errorModalIsOpen} isError={true}>
-        ¡Tarea fallida!
-      </Modal>
+      <Modal loot={redirectModalLoot}>Cerrando sesión...</Modal>
+      <Modal loot={deleteModalLoot}>Eliminando cuenta...</Modal>
+      <Modal loot={errorModalLoot}>¡Tarea fallida!</Modal>
       <PageLayout title="Profile" desc="Profile page">
         <section>
           <div className={styles.form}>
@@ -87,6 +108,16 @@ export default function Profile() {
                   <BiLogOut size={25} />
                 </button>
               </li>
+              <li className={styles.item_list}>
+                <button
+                  className="boton"
+                  onClick={deleteAcount}
+                  title="eliminar cuenta"
+                  >
+                  Eliminar cuenta
+                  <MdPersonOff size={25} />
+                </button>
+                  </li>
             </ul>
           </div>
         </section>
