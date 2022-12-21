@@ -10,6 +10,7 @@
 .form{
   min-height: 70vh;
   min-width: 250px;
+  min-width: 50vw;
   max-width: 50vw;
   padding: 2rem;
   display: flex;
@@ -101,6 +102,8 @@
 }
 @media screen and (max-width: 750px){
   .form{
-    width: 98vw;
+    /* width: 98vw; */
+    min-width: 98vw;
+    max-width: 98vw;
   }
 }

@@ -19,7 +19,6 @@ export const NavBarHeader = () => {
   
   return (
     <>
-      <div id="top_screen_marc" style={{ position: "absolute", top: 0 }}></div>
       <nav className={styles.navegation_header}>
         <ul className={styles.navegation_list}>
           <li

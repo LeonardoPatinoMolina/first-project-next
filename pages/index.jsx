@@ -4,12 +4,12 @@ import PageLayout from "../components/PageLayout";
 import { requestApi } from "../Services/requestApi";
 import { getFavoriteStatus } from "../lib/favoriteRequest";
 import { connectDB } from "../lib/dbConnect";
-import { SearchBanner } from "../components/SearchBanner";
+import { SlideBanner } from "../components/SlideBanner";
 
 export default function Home({ data, success }) {
   return (
     <PageLayout title="Home" desc="Home page to show random character's result">
-      <SearchBanner />
+      <SlideBanner />
       <HerosWraper>
         {success &&
           data.map((character) => (

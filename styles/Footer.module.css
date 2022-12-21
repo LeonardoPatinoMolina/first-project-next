@@ -24,10 +24,17 @@
 .item{
   padding: 0;
   margin: 0;
-  text-shadow: 2px 2px 2px #00000050;
   display: flex;
   align-items: center;
   font-size: medium;
+  user-select: none;
+}
+.item a {
+  text-decoration: none;
+  color: #fff5;
+}
+.item a:hover{
+  color: #ffffff;
 }
 .icon{
   margin-right: 3px;

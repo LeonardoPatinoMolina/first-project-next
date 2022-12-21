@@ -9,6 +9,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useModal } from "../../Hooks/useModal";
 import { Modal } from "../../components/Modal";
 import styles from "../../styles/Character.module.css";
+import Image from "next/image";
 
 export default function HeroPage({ hero }) {
   const [favChoise, setFavChoise] = useState(hero.isFavorite);
@@ -96,7 +97,7 @@ export default function HeroPage({ hero }) {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title={hero.name}>
         <section className={styles.content}>
-          <img className={styles.img} src={hero.img} alt="persojaje" />
+          <div className={styles.img}><Image style={{objectFit: 'contain'}} src={hero.img} fill={true} alt="persojaje" /></div>
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto
