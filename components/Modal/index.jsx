@@ -4,7 +4,7 @@ import styles from './style/Modal.module.css';
 export const Modal = ({ title = false, children, loot }) => {
   return (
     <div className={`${styles.modal} ${loot.openStatus && styles.modal__is_open}`}>
-      <div className={`${styles.modal__container}`}>
+      <div className={`${styles.modal__container} ${styles.bounce_a}`}>
         {title && (<h3 className={`${styles.modal__title}`}>{title}</h3>)}
         <div className={`${styles.modal__icon} ${loot.animateStatus && styles.animate}`}>
         <Logo size={80} color={loot.color} />

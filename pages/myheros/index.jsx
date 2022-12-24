@@ -2,28 +2,57 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import PageLayout from "../../components/PageLayout";
-import { HerosWraper } from "../../components/HerosWraper";
-import { MyHerocard } from "../../components/MyHerocard";
+import { HerosPanels } from "../../components/HerosPanels";
+import { PanelMyHero } from "../../components/PanelMyHero";
+import { useModal } from "../../Hooks/useModal";
+import {Modal } from '../../components/Modal'
+import { Pagination } from "../../components/Pagination";
+import { usePagination } from "../../Hooks/usePagination";
 import { connectDB } from "../../lib/dbConnect";
 import { FaPaintBrush } from "react-icons/fa";
 import styles from "../../styles/MyHeros.module.css";
 
 
-export default function Myheros({ heros, error, info }) {
+export default function Myheros({ heros, success, info }) {
   const router = useRouter();
+  const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: true
+  });
+  const { toPage, loot, reset } = usePagination(success && heros);
   
   const cleanAll = async ()=>{
     try {
+      openRemoveModal();
       const res = await fetch('api/delete/allmyheros');
       const response = await res.json();
       console.log(response);
+      reset();
+      closeRemoveModal();
+      openSuccessModal();
       router.replace(router.asPath)
     } catch (error) {
+      openErrorModal();
       console.log('fetch',error);
     }
   };
   const goNew = () => router.push("/myheros/new");
   return (
+    <>
+      <Modal loot={removeModalLoot}>Removiendo todos los héroes...</Modal>
+      <Modal loot={successModalLoot}>Removidos correctamente.</Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
     <PageLayout title="My heros">
       <header className={`${styles.header}`}>
         <h1 className={styles.title}> Mis Héroes</h1>
@@ -33,24 +62,27 @@ export default function Myheros({ heros, error, info }) {
         <FaPaintBrush size={25} className={styles.icon_add} />
         </button>
       </header>
-      <HerosWraper isMyHeros={true}>
-        {!error &&
-          heros.map((hero) => (
-            <MyHerocard
+      <Pagination loot={loot} toPage={toPage} />
+      <HerosPanels>
+        {success&&
+          loot.results.map((hero) => (
+            <PanelMyHero
               key={hero.id}
               id={hero.id}
-              name={hero.name}
               img={hero.img}
-              area="400"
+              name={hero.name}
+              area={400}
             />
           ))}
-      </HerosWraper>
+      </HerosPanels>
+      <Pagination loot={loot} toPage={toPage} />
       <div className={`${styles.btn_area}`}>
         <button className={`boton ${styles.btn_clean}`} onClick={cleanAll}>
-          QUITAR TODOS
+          REMOVER TODOS
         </button>
       </div>
     </PageLayout>
+    </>
   );
 }
 
@@ -63,17 +95,17 @@ export const getServerSideProps = async ({req}) => {
       return {
         props: {
           heros,
-          error: false,
+          success: true,
         },
       };
     }
     return {
-      props: { error: true, info: 'no hay coincidencia' },
+      props: { success: false, info: 'no hay coincidencia' },
     };
   } catch (err) {
     console.log("prop err", err);
     return {
-      props: { error: true, info: 'algo paso mal' },
+      props: { success: false, info: 'algo paso mal' },
     };
   }
 };

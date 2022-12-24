@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../Styles/HerosWraper.module.css";
+import { Pagination } from "./Pagination";
 
 export const HerosWraper = ({ children, isMyHeros = false }) => {
   return (
@@ -10,6 +11,12 @@ export const HerosWraper = ({ children, isMyHeros = false }) => {
           <li className={styles.stats_item}>
             {children ? children.length : "0"}
             {isMyHeros && "/12"}
+          </li>
+          <li className={styles.stats_item}>
+            {" "}
+          </li>
+          <li className={styles.stats_item}>
+            <Pagination loot={children} />
           </li>
         </ul>
       </div>

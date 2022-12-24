@@ -1,28 +1,33 @@
-import { Herocard } from "../components/Herocard";
-import { HerosWraper } from "../components/HerosWraper";
+import { SlideBanner } from "../components/SlideBanner";
 import PageLayout from "../components/PageLayout";
 import { requestApi } from "../Services/requestApi";
 import { getFavoriteStatus } from "../lib/favoriteRequest";
 import { connectDB } from "../lib/dbConnect";
-import { SlideBanner } from "../components/SlideBanner";
+import { HerosPanels } from "../components/HerosPanels";
+import { Panel } from "../components/Panel";
+import { Pagination } from "../components/Pagination";
+import { usePagination } from "../Hooks/usePagination";
 
 export default function Home({ data, success }) {
+  const { toPage, loot } = usePagination(success && data);
   return (
     <PageLayout title="Home" desc="Home page to show random character's result">
       <SlideBanner />
-      <HerosWraper>
+      <Pagination loot={loot} toPage={toPage} />
+      <HerosPanels>
         {success &&
-          data.map((character) => (
-            <Herocard
-              key={character.id}
-              id={character.id}
-              name={character.name}
-              img={character.img}
-              area="400"
-              favStatus={character.isFavorite}
+          loot.results.map((hero) => (
+            <Panel
+              key={hero.id}
+              id={hero.id}
+              img={hero.img}
+              name={hero.name}
+              favStatus={false}
+              area={400}
             />
           ))}
-      </HerosWraper>
+      </HerosPanels>
+      <Pagination loot={loot} toPage={toPage} />
     </PageLayout>
   );
 } //end of component
@@ -53,7 +58,7 @@ export const getServerSideProps = async (ctx) => {
     console.log(err);
     return {
       props: {
-        data: null,
+        data: [],
         success: false,
       },
     };

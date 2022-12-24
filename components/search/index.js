@@ -1,11 +1,13 @@
 "use client";
 import React, { useState, useMemo, useRef } from "react";
 import { createAutocomplete } from "@algolia/autocomplete-core";
+import {useOutsideClick} from '../../Hooks/useOutsideClick'
 import Link from "next/link";
 import styles from "./style/Search.module.css";
 import Image from "next/image";
 
 export function Search(props) {
+  const [watchClickPanel] = useOutsideClick(handleOutsideClick)
   const [autocomopleteState, setAutocompleteState] = useState({
     collections: [],
     isOpen: false,
@@ -34,7 +36,7 @@ export function Search(props) {
         ...props,
       }),
     [props]
-  );
+  );//end use memo 
 
   const formRef = useRef(null);
   const inputRef = useRef(null);
@@ -47,6 +49,9 @@ export function Search(props) {
   const inputProps = autoComplete.getInputProps({
     inputElement: inputRef.current,
   });
+  function handleOutsideClick(){
+    setAutocompleteState({...autocomopleteState, isOpen: false});
+  };
 
   return (
     <>
@@ -61,6 +66,7 @@ export function Search(props) {
                   <section
                     key={`section-${index}`}
                     className={styles.section_panel}
+                    ref={watchClickPanel}
                   >
                     {items.length > 0 && (
                       <ul

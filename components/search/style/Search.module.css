@@ -27,6 +27,9 @@
 .input::placeholder{
   color: #555;
 }
+.input:focus{
+  outline: 2px solid var(--colorPrimal);
+}
 .search_icon {
   color: var(--colorDarkPrimal);
   font-weight: 700;
@@ -72,7 +75,7 @@
 }
 .item_panel {
   margin-bottom: 10px;
-  background-color: var(--colorPrimal);
+  background-color: var(--colorSecunda);
   padding: 6px;
   border-radius: 6px;
   font-size: medium;
@@ -80,6 +83,9 @@
   justify-content: space-between;
   align-items: center;
   margin-left: -5px;
+}
+.item_panel:hover{
+  background-color: var(--colorPrimal);
 }
 .img_panel {
   margin-right: 8px;

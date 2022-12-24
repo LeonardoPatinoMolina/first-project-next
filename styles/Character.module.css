@@ -1,5 +1,5 @@
 .content {
-  background-color: var(--colorBase);
+  background-color: var(--colorPrmial);
   position: relative;
 }
 .img {
@@ -20,18 +20,19 @@
 .title {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: calc(1rem * 100) / 100vw;
-  color: var(--colorFont2);
+  color: var(--colorPrimal);
   font-weight: 100;
+  padding: 1rem 0 1rem 1rem;
 }
 .desc, .title {
-  margin: 0 1rem 0 1rem;
+  box-sizing: border-box;
 }
 .desc {
+  padding: 1rem;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-  font-weight: 700;
   text-align: center;
-  color: var(--colorFont2);
+  color: var(--colorFont);
 }
 .btn_list {
   display: flex;
@@ -39,7 +40,7 @@
   width: 100%;
   height: 5rem;
   align-items: center;
-  background-color: var(--colorBase2);
+  background-color: var(--colorDarkPrimal);
 }
 .back_btn {
   margin: 1rem;

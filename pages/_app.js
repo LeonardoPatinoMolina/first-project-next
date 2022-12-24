@@ -7,11 +7,11 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
-    NProgress.configure({ showSpinner: false });
+    NProgress.configure({ showSpinner: false, });
   }, []);
   return (
     <ThemesState>
-      <NextNProgress color="#ffffff" />
+      <NextNProgress color="#fff" height={1.5} />
       <BotonToTop />
       <Component {...pageProps} />
     </ThemesState>

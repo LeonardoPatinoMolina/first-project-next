@@ -45,6 +45,7 @@
   color: #fff;
   cursor: pointer;
   justify-content: center;
+
 }
 .navegation_item:hover{
   background-color: var(--colorDarkPrimal);
@@ -71,8 +72,9 @@
 }
 .desc_icon{
   font-size: 100%;
-  font-family: sans-serif;
-  font-weight: 800;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 200;
+  font-size: x-large;
 }
 
 @media screen and (max-width: 780px) {

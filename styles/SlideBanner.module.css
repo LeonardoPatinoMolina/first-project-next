@@ -2,6 +2,7 @@
   min-height: 28vw;
   width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 .slider{
   min-height: inherit;
@@ -15,28 +16,27 @@
 .arrow_icon{
   color: #ffffff;
   transition: .2s;
+  border-radius: 4px;
+  background-color: #0005;
 }
 .arrow_icon:hover{
   transform: scale(1.1);
+  background-color: #0007;
 }
 .right_arrow:focus, .left_arrow:focus{
   outline: unset;
   border: unset;
 }
-.right_arrow:hover, .left_arrow:hover{
-  background-color: #0007;
-}
 .right_arrow, .left_arrow{
   position: absolute;
   border: unset;
+  background-color: unset;
   cursor: pointer;
-  top: 48%;
-  padding: 10px;
+  height: 100%;
+  width: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  background-color: #0005;
   z-index: 8;
 }
 .left_arrow{
@@ -58,9 +58,7 @@
   }
   .section, .slider, .wrapper{
     min-width: 100vw;
+    max-width: 100vw;
     min-height: 43vw;
-  }
-  .left_arrow, .right_arrow{
-    padding: 6px;
   }
 }

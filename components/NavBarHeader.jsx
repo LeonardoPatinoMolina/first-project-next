@@ -31,7 +31,7 @@ export const NavBarHeader = () => {
           <li
             className={styles.navegation_item}
             onClick={goSearch}
-            title="Mis Favoritos"
+            title="Buscar"
           >
             <span className={styles.desc_icon}>BUSCAR</span>
             <FaSearch className={styles.item} size={25} color="#ffffff" />

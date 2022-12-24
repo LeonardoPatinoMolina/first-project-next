@@ -1,27 +1,27 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { BsFillStarFill, BsStar } from "react-icons/bs";
-import styles from "../Styles/HeroCard.module.css";
+import styles from "../styles/Panel.module.css";
 
-export const Herocard = ({ id, name, img, area, favStatus }) => {
-  const router = useRouter();
+
+export const Panel = ({ id, name, img, area, favStatus }) => {
   const [isOver, setIsOver] = useState(false);
-  const open = () => router.push(`/hero/${name.replace(" ", "%20")}`);
-  
+  const router = useRouter();
   const handleOver = () => setIsOver(true);
   const handleOut = () => setIsOver(false);
+  const open= ()=>{
+    router.push(`/hero/${name.replace(" ","%20")}`)
+  };
   return (
     <article
-      key={id}
-      className={styles.card}
-      onClick={open}
+      id={id}
+      className={styles.panel}
+      onClick={()=>open()}
       onMouseOver={() => handleOver()}
-      onTouchStart={()=> handleOver()}
-      onTouchEnd={()=> handleOut()}
+      onTouchStart={() => handleOver()}
+      onTouchEnd={() => handleOut()}
       onMouseOut={() => handleOut()}
-      title="Personaje"
     >
       {isOver && (
         <div className={styles.data_wrapper}>
@@ -29,18 +29,18 @@ export const Herocard = ({ id, name, img, area, favStatus }) => {
           {favStatus ? (
             <BsFillStarFill className={styles.icon} size={25} color="#ffffff" />
           ) : (
-            <BsStar className={styles.icon} size={25} color="#ffffff" />
+            <BsStar className={styles.icon} size={35} color="#ffffff" />
           )}
         </div>
       )}
-      <Image
+      <Image 
+        alt="personaje" 
+        src={img} 
+        fill={true} 
         className={`${styles.image} ${isOver && styles.dark_img}`}
-        src={img}
-        alt="personaje"
-        draggable="false"
-        width={area}
-        height={area}
-      />
+        size='(max-width: 750px) 200px,
+              400px'
+       />
     </article>
   );
 };

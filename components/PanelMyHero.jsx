@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaPaintBrush } from "react-icons/fa";
-import styles from "../Styles/HeroCard.module.css";
+import styles from "../Styles/PanelMyHero.module.css";
 
-export const MyHerocard = ({ id, name, img, area }) => {
+export const PanelMyHero = ({ id, name, img, area }) => {
   const router = useRouter();
   const [isOver, setIsOver] = useState(false);
   const image_wraper = useRef();
@@ -26,7 +26,7 @@ export const MyHerocard = ({ id, name, img, area }) => {
   return (
     <article
       key={id}
-      className={styles.card}
+      className={styles.panel}
       onClick={open}
       onMouseOver={() => handleOver()}
       onMouseOut={() => handleOut()}
@@ -36,7 +36,7 @@ export const MyHerocard = ({ id, name, img, area }) => {
       {isOver && (
         <div className={styles.data_wrapper}>
           <h3 className={styles.name_style}>{name}</h3>
-          <FaPaintBrush size={25} className={styles.icon} />
+          <FaPaintBrush size={35} className={styles.icon} />
         </div>
       )}
       <div

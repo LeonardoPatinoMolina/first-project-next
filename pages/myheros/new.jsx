@@ -97,7 +97,7 @@ export default function New() {
                 name="name"
                 placeholder="Nombre"
                 value={name}
-                onChange={(e) => setName(e.target.value.slice(0,12))}
+                onChange={(e) => setName(e.target.value.slice(0,20))}
                 autoComplete="nope"
                 required
               />

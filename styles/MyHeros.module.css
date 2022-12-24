@@ -55,6 +55,8 @@
 .btn_clean{
   margin: 1rem;
   font-size: 150%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 300;
 }
 .desc_icon{
   font-size: 100%; 
@@ -70,5 +72,9 @@
   }
   .desc_icon{
     display: none;
+  }
+  .btn_clean{
+    margin: 1rem;
+    font-size: 90%;
   }
 }

@@ -35,6 +35,8 @@
   justify-content: center;
   align-items: center;
   font-size: large;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 300;
 }
 
 .item_list:nth-child(1){
@@ -72,7 +74,6 @@
   min-height: 2.5rem;
   border-radius: 50%;
   border: none;
-  font-family: 'Fjalla One', Century gothic, sans-serif;
   flex-basis: 100%;
 }
 .item_list:hover, .btn_exit:hover{

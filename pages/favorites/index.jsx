@@ -1,56 +1,88 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/router";
 import { connectDB } from "../../lib/dbConnect";
 import User from "../../models/user";
 import PageLayout from "../../components/PageLayout";
-import { Herocard } from "../../components/Herocard";
-import { HerosWraper } from "../../components/HerosWraper";
+import { HerosPanels } from "../../components/HerosPanels";
 import { BsFillStarFill } from "react-icons/bs";
-import styles from '../../styles/Favorites.module.css'
+import { useModal } from "../../Hooks/useModal";
+import { Modal } from "../../components/Modal";
+import { Panel } from "../../components/Panel";
+import { Pagination } from "../../components/Pagination";
+import { usePagination } from "../../Hooks/usePagination";
+import styles from "../../styles/Favorites.module.css";
 
 export default function Favorites({ favorites, error, success }) {
+  const { toPage, loot, reset } = usePagination(success && favorites);
+  const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
+    type: "def",
+    openStatus: false,
+    autoClose: false,
+  });
+  const [errorModalLoot, openErrorModal] = useModal({
+    type: "error",
+    openStatus: false,
+    autoClose: true,
+  });
+  const [successModalLoot, openSuccessModal] = useModal({
+    type: "success",
+    openStatus: false,
+    autoClose: true,
+  });
   const router = useRouter();
-  const cleanAll = async ()=>{
+  const cleanAll = async () => {
     try {
-      const res = await fetch('api/delete/allfavorites');
+      openRemoveModal();
+      const res = await fetch("api/delete/allfavorites");
       const response = await res.json();
       console.log(response);
-      router.replace(router.asPath)
+      reset();
+      closeRemoveModal();
+      openSuccessModal();
+      router.replace(router.asPath);
     } catch (error) {
-      console.log('fetch',error);      
+      openErrorModal();
+      console.log("fetch", error);
     }
   };
   return (
-    <PageLayout title="Favorites" desc="favorites results">
-      <header className={styles.header}>
-        <h1 className={styles.title}>Favoritos</h1>
-        <BsFillStarFill className={styles.icon} size={60} />
-      </header>
-      <HerosWraper>
-        {success &&
-          favorites.map((fav) => (
-            <Herocard
-              key={fav.id}
-              id={fav._id}
-              name={fav.name}
-              img={fav.img}
-              area="400"
-              favStatus={true}
-            />
-          ))}
-      </HerosWraper>
-      <div className={`${styles.btn_area}`}>
-        <button 
-          className={`boton ${styles.btn_clean}`}
-          onClick={cleanAll}
-        >QUITAR TODOS</button>
-      </div>
-    </PageLayout>
+    <>
+      <Modal loot={removeModalLoot}>Removiendo todos los favoritos...</Modal>
+      <Modal loot={successModalLoot}>Removidos correctamente.</Modal>
+      <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
+      <PageLayout title="Favorites" desc="favorites results">
+        <header className={styles.header}>
+          <h1 className={styles.title}>Favoritos</h1>
+          <BsFillStarFill className={styles.icon} size={60} />
+        </header>
+        <Pagination loot={loot} toPage={toPage} />
+
+        <HerosPanels>
+          {success &&
+            loot.results.map((hero) => (
+              <Panel
+                key={hero.id}
+                id={hero.id}
+                img={hero.img}
+                name={hero.name}
+                favStatus={false}
+                area={400}
+              />
+            ))}
+        </HerosPanels>
+        <Pagination loot={loot} toPage={toPage} />
+        <div className={`${styles.btn_area}`}>
+          <button className={`boton ${styles.btn_clean}`} onClick={cleanAll}>
+            REMOVER TODOS
+          </button>
+        </div>
+      </PageLayout>
+    </>
   );
 }
 
-export const getServerSideProps = async ({req}) => {
+export const getServerSideProps = async ({ req }) => {
   try {
     await connectDB();
     const cookie = req.headers.cookie;

@@ -46,11 +46,11 @@ export const LateralMenu = ({ open, open_function }) => {
           >
             <MdNightlight
               size={30}
-              className={`material-icons ${theme === "light" && styles.hide}`}
+              className={`${theme === "light" && styles.hide}`}
             />
             <MdLightMode
               size={30}
-              className={`material-icons ${theme === "dark" && styles.hide}`}
+              className={`${theme === "dark" && styles.hide}`}
             />
             TEMA
           </li>

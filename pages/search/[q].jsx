@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
-import { HerosWraper } from "../../components/HerosWraper";
-import { Herocard } from "../../components/Herocard";
+import { HerosPanels } from "../../components/HerosPanels";
+import { Panel } from "../../components/Panel";
+import { Pagination } from "../../components/Pagination";
+import { usePagination } from "../../Hooks/usePagination";
 import { useRouter } from "next/router";
 import {requestApi} from '../../Services/requestApi'
 import {getFavoriteStatus} from '../../lib/favoriteRequest'
@@ -10,8 +12,13 @@ import { FaSearch } from "react-icons/fa";
 import {Search} from '../../components/Search'
 import styles from "../../styles/Search.module.css";
 
-export default function SearchPage({ characters, error, charge }) {
+export default function SearchPage({ characters, error, success }) {
   const router = useRouter();
+  const { toPage, loot } = usePagination(success && characters);
+  useEffect(() => {
+    console.log('re');
+    toPage(1)
+  }, [router.query]);
   const inputSearchValue = useRef();
   const handleSearch = () => {
     const queryF = inputSearchValue.current.value;
@@ -34,27 +41,28 @@ export default function SearchPage({ characters, error, charge }) {
         <Search placeholder='Buscar...' refeGet={inputSearchValue} />
         <button className={`boton ${styles.btn}`} onClick={()=>handleSearch()}>Buscar</button>
       </div>
-      <HerosWraper >
-        {charge &&
-          characters.map((char) => (
-            <Herocard
-              key={char.id}
-              id={char.id}
-              name={char.name}
-              img={char.img}
-              area="400"
-              favStatus={char.isFavorite}
+      <Pagination loot={loot} toPage={toPage} />
+      <HerosPanels>
+        {success &&
+          loot.results.map((hero) => (
+            <Panel
+              key={hero.id}
+              id={hero.id}
+              img={hero.img}
+              name={hero.name}
+              favStatus={false}
+              area={400}
             />
-          )
-        )}
-      </HerosWraper>
+          ))}
+      </HerosPanels>
+      <Pagination loot={loot} toPage={toPage} />
     </PageLayout>
   );
 }
 
 export const getServerSideProps = async ({ params, req }) => {
   try {
-    const q = params.heros.replace("%20", " ");
+    const q = params.q.replace("%20", " ");
     await connectDB();
     const cookie = req.headers.cookie;
     const response = await requestApi(q);
@@ -71,14 +79,14 @@ export const getServerSideProps = async ({ params, req }) => {
       props: {
         characters: dataPromise,
         error: false,
-        charge: dataPromise.length >= 1,
+        success: dataPromise.length >= 1,
       },
     };
   } catch (error) {
     return {
       props: {
-        characters: null,
-        charge: false,
+        characters: [],
+        success: false,
         error: error.toString(),
       },
     };

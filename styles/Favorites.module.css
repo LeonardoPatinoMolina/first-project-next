@@ -33,4 +33,13 @@
 .btn_clean{
   margin: 1rem;
   font-size: 150%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 300;
+}
+@media screen and (max-width: 780px) {
+
+  .btn_clean{
+    margin: 1rem;
+    font-size: 90%;
+  }
 }

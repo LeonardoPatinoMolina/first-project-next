@@ -20,13 +20,13 @@ export function useModal({ type, openStatus, autoClose }) {
         return "#777777";
     } //switch end
   }
-  const DELAY_MODAL_OPEN = 3000;
+  const DELAY_MODAL_CLOSE = 2000;
   const openModal = () => {
     setLoot({ ...loot, openStatus: true });
     if (autoClose)
       setTimeout(
         () => setLoot({ ...loot, openStatus: false }),
-        DELAY_MODAL_OPEN
+        DELAY_MODAL_CLOSE
       );
   };
 

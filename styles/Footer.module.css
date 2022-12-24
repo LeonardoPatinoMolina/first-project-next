@@ -39,7 +39,7 @@
 .icon{
   margin-right: 3px;
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 750px){
   .item{
     font-size: small;
   }
