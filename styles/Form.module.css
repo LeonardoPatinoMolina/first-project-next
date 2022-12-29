@@ -8,6 +8,7 @@
   background-color: #0006;
 }
 .form{
+  margin: 2rem 0 2rem 0;
   min-height: 70vh;
   min-width: 250px;
   min-width: 50vw;
@@ -45,6 +46,7 @@
 }
 .btn{
   background-color: #27d;
+  font-size: medium;
   color: #fff;
   padding: 4px;
   width: 100%;
@@ -73,6 +75,9 @@
   width: 90%;
   text-align: start;
 }
+#show_pass{
+  width: fit-content;
+}
 .input_err, .input_err:focus{
   box-shadow: 0 0 8px 1px #f004;
   outline: 2px solid #f006;
@@ -87,23 +92,37 @@
   width: 90%;
 
 }
-.check{
-  text-shadow: 0 0 10px #b3ffa9;
-  border-radius: 4px;
-  padding: 4px;
-  margin: -10px 0 4px 0;
-  font-size: 14px;
-  color: rgb(83, 207, 26);
-  width: fit-content;
+.check_area{
+  margin:1rem 0 1rem 0;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start;
+  height: 100%;
 }
 .dato{
   color: #999;
-
+}
+.btn_area{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+.btn_close{
+  background-color: var(--colorDarkPrimal);
+  margin: .7rem;
+}
+.btn_close:hover{
+  background-color: #000000;
 }
 @media screen and (max-width: 750px){
   .form{
-    /* width: 98vw; */
     min-width: 98vw;
     max-width: 98vw;
+  }
+  .btn{
+    font-size: small;
   }
 }

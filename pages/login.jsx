@@ -9,10 +9,11 @@ import styles from "../styles/Form.module.css";
 
 export default function Login() {
   const router = useRouter();
+  const [viewPass, setviewPass] = useState(false);
   const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
     type: "def",
     openStatus: false,
-    autoClose: false
+    autoClose: false,
   });
   const [successModalLoot, openSuccessModal] = useModal({
     type: "success",
@@ -22,17 +23,17 @@ export default function Login() {
   const [errorModalLoot, openErrorModal] = useModal({
     type: "error",
     openStatus: false,
-    autoClose: true
+    autoClose: true,
   });
   const [formatErrorModalLoot, openFormatErrorModal] = useModal({
     type: "warning",
     openStatus: false,
-    autoClose: true
+    autoClose: true,
   });
   const [unauthModalLoot, openUnauthModal] = useModal({
     type: "error",
     openStatus: false,
-    autoClose: true
+    autoClose: true,
   });
 
   const [formatError, setFormatError] = useState({
@@ -52,7 +53,8 @@ export default function Login() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     const validate = exr[name].test(value);
-    setFormatError({ ...formatError, [name]: validate });
+    if (value.length > 1) setFormatError({ ...formatError, [name]: validate });
+    else setFormatError({ ...formatError, [name]: true });
   };
 
   const handleSubmit = async (e) => {
@@ -125,7 +127,7 @@ export default function Login() {
                 className={`${styles.input_form} ${
                   !formatError.user && styles.input_err
                 }`}
-                type="text"
+                type={`text`}
                 name="user"
                 id="user_name"
                 onChange={handleChange}
@@ -140,7 +142,7 @@ export default function Login() {
                 className={`${styles.input_form} ${
                   !formatError.pass && styles.input_err
                 }`}
-                type="password"
+                type={viewPass ? "text" : "password"}
                 name="pass"
                 id="pass"
                 value={formData.pass}
@@ -148,6 +150,17 @@ export default function Login() {
                 placeholder="Contraseña"
                 required
               />
+            </li>
+            <li className={styles.item_list}>
+              <div className={styles.check_area}>
+                <label id={styles.show_pass} htmlFor="showPass">Mostrar contraseña</label>
+                <input
+                  type="checkbox"
+                  name="showPass"
+                  id="showPass"
+                  onChange={({ target }) => setviewPass(target.checked)}
+                />
+              </div>
             </li>
             <li className={styles.item_list}>
               <button className={styles.btn} type="submit">

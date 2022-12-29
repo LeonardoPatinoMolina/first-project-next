@@ -15,14 +15,27 @@ export default function Profile() {
   const [redirectModalLoot, openRedirectModal] = useModal({
     type: "def",
     openStatus: false,
+    autoClose: false,
   });
   const [deleteModalLoot, openDeleteModal, closeDeleteModal] = useModal({
     type: "def",
     openStatus: false,
+    autoClose: false,
   });
   const [errorModalLoot, openErrorModal] = useModal({
     type: "error",
     openStatus: false,
+    autoClose: true,
+  });
+  const [
+    questionModalLoot,
+    openQuestionModal,
+    closeQuestionModal,
+  ] = useModal({
+    type: "warning",
+    openStatus: false,
+    autoClose: false,
+    isQuestion: true
   });
 
   const fetcher = (url) =>
@@ -45,23 +58,33 @@ export default function Profile() {
     openErrorModal();
   };
 
-  const deleteAcount=async()=>{
+  const deleteAcount = async () => {
     try {
       openDeleteModal();
-      const response = await fetch('api/delete/useracount');
+      const response = await fetch("api/delete/useracount");
       const res = await response.json();
-      if(!res.success) return errorHandle();
+      if (!res.success) return errorHandle();
+      closeDeleteModal();
       logout();
     } catch (error) {
-      errorHandle();      
+      errorHandle();
     }
-  }
+  };
+
+  const handleDeleteAcount=()=> openQuestionModal();
 
   return (
     <>
       <Modal loot={redirectModalLoot}>Cerrando sesión...</Modal>
       <Modal loot={deleteModalLoot}>Eliminando cuenta...</Modal>
       <Modal loot={errorModalLoot}>¡Tarea fallida!</Modal>
+      <Modal
+        loot={questionModalLoot}
+        close={closeQuestionModal}
+        action={deleteAcount}
+      >
+        Esta acción es irreversible, ¿está seguro?
+      </Modal>
       <PageLayout title="Profile" desc="Profile page">
         <section>
           <div className={styles.form}>
@@ -99,25 +122,25 @@ export default function Profile() {
                 </h4>
               </li>
               <li className={styles.item_list}>
-                <button
-                  className="boton"
-                  onClick={logout}
-                  title="cerrar sesión"
-                >
-                  Cerrar sesión
-                  <BiLogOut size={25} />
-                </button>
-              </li>
-              <li className={styles.item_list}>
-                <button
-                  className="boton"
-                  onClick={deleteAcount}
-                  title="eliminar cuenta"
+                <div className={`${styles.btn_area}`}>
+                  <button
+                    className={`boton`}
+                    onClick={logout}
+                    title="cerrar sesión"
                   >
-                  Eliminar cuenta
-                  <MdPersonOff size={25} />
-                </button>
-                  </li>
+                    Cerrar sesión
+                    <BiLogOut size={25} />
+                  </button>
+                  <button
+                    className={` boton ${styles.btn_close}`}
+                    onClick={handleDeleteAcount}
+                    title="eliminar cuenta"
+                  >
+                    Eliminar cuenta
+                    <MdPersonOff size={25} />
+                  </button>
+                </div>
+              </li>
             </ul>
           </div>
         </section>

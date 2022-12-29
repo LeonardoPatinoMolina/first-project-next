@@ -12,6 +12,7 @@ import styles from "../styles/Form.module.css";
 
 export default function Signin() {
   const router = useRouter();
+  const [viewPass, setviewPass] = useState(false);
   const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
     type: "def",
     openStatus: false,
@@ -161,7 +162,7 @@ export default function Signin() {
                 className={`${styles.input_form} ${
                   !formatError.pass && styles.input_err
                 }`}
-                type="password"
+                type={viewPass ? "text" : "password"}
                 name="pass"
                 id="pass"
                 value={formData.pass}
@@ -185,7 +186,7 @@ export default function Signin() {
                 className={`${styles.input_form} ${
                   !formatError.passConfirm && styles.input_err
                 }`}
-                type="password"
+                type={viewPass ? "text" : "password"}
                 name="passConfirm"
                 id="confirm_pass"
                 value={formData.passConfirm}
@@ -201,6 +202,17 @@ export default function Signin() {
                   mayuscula, evite el uso de caracteres especiales.
                 </span>
               )}
+            </li>
+            <li className={styles.item_list}>
+              <div className={styles.check_area}>
+                <label id={styles.show_pass} htmlFor="showPass">Mostrar contraseña</label>
+                <input
+                  type="checkbox"
+                  name="showPass"
+                  id="showPass"
+                  onChange={({ target }) => setviewPass(target.checked)}
+                />
+              </div>
             </li>
             <li className={styles.item_list}>
               <button className={styles.btn} type="submit">

@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <ThemesState>
-      <NextNProgress color="#fff" height={1.5} />
+      <NextNProgress color="#ffffff" height={1.5} />
       <BotonToTop />
       <Component {...pageProps} />
     </ThemesState>

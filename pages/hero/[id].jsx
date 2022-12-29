@@ -16,17 +16,17 @@ export default function HeroPage({ hero }) {
   const [addModalLoot, openAddModal, closeAddModal] = useModal({
     type: "def",
     openStatus: false,
-    autoClose: false
+    autoClose: false,
   });
   const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
     type: "def",
     openStatus: false,
-    autoClose: false
+    autoClose: false,
   });
   const [errorModalLoot, openErrorModal] = useModal({
     type: "error",
     openStatus: false,
-    autoClose: true
+    autoClose: true,
   });
   const router = useRouter();
   const goBack = () => router.back();
@@ -97,7 +97,15 @@ export default function HeroPage({ hero }) {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title={hero.name}>
         <section className={styles.content}>
-          <div className={styles.img}><Image style={{objectFit: 'contain'}} src={hero.img} fill={true} alt="persojaje" /></div>
+          <div className={styles.img}>
+            <Image
+              style={{ objectFit: "contain" }}
+              src={hero.img}
+              fill={true}
+              alt="persojaje"
+              
+            />
+          </div>
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto

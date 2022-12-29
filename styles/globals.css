@@ -85,4 +85,9 @@ main{
   main{
     max-width: 100vw;
   }
+  .boton{
+  padding: .3rem;
+  font-weight: 600;
+  font-size: xx-small;
+  }
 }

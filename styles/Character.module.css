@@ -3,10 +3,10 @@
   position: relative;
 }
 .img {
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   background: #000;
-  object-fit: contain;
+  /* object-fit: contain; */
   position: relative;
 }
 .image_svg{
@@ -18,9 +18,9 @@
   background: #000;
 }
 .title {
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: 'Anton', Impact, sans-serif;
   font-size: calc(1rem * 100) / 100vw;
-  color: var(--colorPrimal);
+  color: var(--colorFont);
   font-weight: 100;
   padding: 1rem 0 1rem 1rem;
 }

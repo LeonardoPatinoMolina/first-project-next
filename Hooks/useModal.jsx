@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-export function useModal({ type, openStatus, autoClose }) {
+export function useModal({ type, openStatus, autoClose, isQuestion = false }) {
   const initialState = {
     color: colorSet(),
     openStatus,
     animateStatus: type !== 'error',
+    isQuestion
   };
   const [loot, setLoot] = useState(initialState);
 
@@ -31,5 +32,6 @@ export function useModal({ type, openStatus, autoClose }) {
   };
 
   const closeModal = () => setLoot({ ...loot, openStatus: false });
+
   return [loot, openModal, closeModal];
 }

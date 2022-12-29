@@ -19,10 +19,11 @@
 }
 .title{
   font-style: italic;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-size: xx-large;
   font-weight: 500;
-
+}
+.title, .btn_clean{
+  font-family: 'Anton', Impact, sans-serif;
 }
 .btn_area{
   display: flex;
@@ -33,7 +34,6 @@
 .btn_clean{
   margin: 1rem;
   font-size: 150%;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 300;
 }
 @media screen and (max-width: 780px) {

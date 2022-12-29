@@ -48,6 +48,15 @@
 .modal__is_open{
     display: flex;
 }
+.btn_area{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .btn_cancel, .btn_confirm{
+    padding: 4px;
+  }
 @keyframes pulse {
     from{
         transform: scale(1);
@@ -66,19 +75,23 @@
   }
   
   @keyframes bounce {
-    from {
-        transform: scale(.1);
+      from {
+          transform: scale(.1);
+        }
+        
+        to {}
     }
-  
-    to {}
-  }
-
-@media screen and (max-width: 750px){
-    .modal__container{
+    
+    @media screen and (max-width: 750px){
+        .modal__container{
         width: 150px;
         height: 150px;
     }
     .modal__message{
         font-size: small;
+    }
+    .btn_cancel, .btn_confirm{
+      padding: 5px;
+      font-size: xx-small;
     }
 }

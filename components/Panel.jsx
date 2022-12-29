@@ -38,7 +38,7 @@ export const Panel = ({ id, name, img, area, favStatus }) => {
         src={img} 
         fill={true} 
         className={`${styles.image} ${isOver && styles.dark_img}`}
-        size='(max-width: 750px) 200px,
+        sizes='(max-width: 750px) 200px,
               400px'
        />
     </article>
