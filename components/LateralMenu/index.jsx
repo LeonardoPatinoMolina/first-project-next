@@ -9,6 +9,7 @@ import {
   MdLightMode,
   MdNightlight,
 } from "react-icons/md";
+import {FaExternalLinkAlt} from "react-icons/fa";
 import styles from "./style/LateralMenu.module.css";
 
 export const LateralMenu = ({ open, open_function }) => {
@@ -32,11 +33,11 @@ export const LateralMenu = ({ open, open_function }) => {
         <ul className={styles.list}>
           <li className={`${styles.item_list}`}>
             <button className={styles.btn_exit} onClick={(e) => handleClick(e)}>
-              <MdOutlineClose size={30} />
+              <MdOutlineClose size={30} className={styles.icons} />
             </button>
           </li>
           <li className={styles.item_list} onClick={goProfile}>
-            <MdManageAccounts size={30} />
+            <MdManageAccounts size={30} className={styles.icons} />
             MI CUENTA
           </li>
           <li
@@ -46,13 +47,17 @@ export const LateralMenu = ({ open, open_function }) => {
           >
             <MdNightlight
               size={30}
-              className={`${theme === "light" && styles.hide}`}
+              className={`${theme === "light" && styles.hide} ${styles.icons}`}
             />
             <MdLightMode
               size={30}
-              className={`${theme === "dark" && styles.hide}`}
+              className={`${theme === "dark" && styles.hide} ${styles.icons}`}
             />
             TEMA
+          </li>
+          <li className={styles.item_list}>
+            <FaExternalLinkAlt size={28} className={styles.icons}/>
+            <a href="https://marvel.com" target="_blank" rel="noopener noreferrer" className={styles.hyperlink}>MARVEL.COM</a>
           </li>
         </ul>
       </nav>

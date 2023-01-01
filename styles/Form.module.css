@@ -7,8 +7,16 @@
   align-items: center;
   background-color: #0006;
 }
+.section_form{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  padding: .5rem;
+  box-sizing: border-box;
+}
 .form{
-  margin: 2rem 0 2rem 0;
   min-height: 70vh;
   min-width: 250px;
   min-width: 50vw;
@@ -21,13 +29,15 @@
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 12px 2px #00000020;
-  margin: auto;
+  /* margin: auto; */
   box-sizing: border-box;
 }
 .title{
   font-size: larger;
   text-align: center;
   color: var(--colorPrimal);
+  font-family: 'Anton', Impact, sans-serif;
+
 }
 .input_form{
   width: 90%;

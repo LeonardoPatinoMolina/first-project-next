@@ -30,15 +30,15 @@ export const SlideBanner = () => {
       </button>
       <section className={styles.slider} ref={sliderPanel}>
         <article className={styles.section}>
-          <Image src={'/buscarBanner.webp'} alt='Buscar banner' fill={true} size='(max-width: 750px) 100vw,
+          <Image src={'/buscarBanner.webp'} alt='Buscar banner' fill={true} sizes='(max-width: 750px) 100vw,
               70vw' priority />
         </article> 
         <article className={styles.section}>
-          <Image src={'/favoritosBanner.webp'} alt='Favoritos banner' fill={true} size='(max-width: 750px) 100vw,
+          <Image src={'/favoritosBanner.webp'} alt='Favoritos banner' fill={true} sizes='(max-width: 750px) 100vw,
               70vw' />
         </article> 
         <article className={styles.section}>
-          <Image src={'/misHeroesBanner.webp'} alt='Mis héroes banner' fill={true} size='(max-width: 750px) 100vw,
+          <Image src={'/misHeroesBanner.webp'} alt='Mis héroes banner' fill={true} sizes='(max-width: 750px) 100vw,
               70vw' />
         </article> 
       </section>

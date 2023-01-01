@@ -52,6 +52,7 @@
   background: var(--colorPrimal);
   position: relative;
 }
+
 @media screen and (max-width: 750px){
   .slider{
     grid-template-columns: repeat(auto-fill, minmax(100vw, 1fr));

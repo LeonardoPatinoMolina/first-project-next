@@ -86,7 +86,7 @@ export default function Profile() {
         Esta acción es irreversible, ¿está seguro?
       </Modal>
       <PageLayout title="Profile" desc="Profile page">
-        <section>
+        <section className={styles.section_form}>
           <div className={styles.form}>
             <ul className={styles.list}>
               <li className={styles.item_list}>
