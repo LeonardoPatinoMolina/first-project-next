@@ -15,17 +15,17 @@ export default function MyHeroPage({ hero }) {
   const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
     type: "def",
     openStatus: false,
-    autoClose: false
+    autoClose: false,
   });
   const [errorModalLoot, openErrorModal] = useModal({
     type: "error",
     openStatus: false,
-    autoClose: true
+    autoClose: true,
   });
   const [successModalLoot, openSuccessModal] = useModal({
     type: "success",
     openStatus: false,
-    autoClose: false
+    autoClose: false,
   });
   const goBack = () => router.back();
   useEffect(() => {
@@ -79,10 +79,9 @@ export default function MyHeroPage({ hero }) {
           <div id="img_wraper" className={styles.image_svg}></div>
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
+            {hero.history} -
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto
             sequi obcaecati repudiandae quisquam illo aperiam. Tenetur nemo,
-            beatae, voluptate atque fugiat voluptatibus porro quia incidunt qui,
-            soluta velit ducimus!
           </p>
           <div className={styles.btn_list}>
             <button

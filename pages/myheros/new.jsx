@@ -11,13 +11,21 @@ import styles from "../../Styles/CreateHero.module.css";
 
 export default function New() {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [data, setData] = useState({
+    name: '',
+    history: ''
+  });
   const [addModalLoot, openAddModal, closeAddModal] = useModal({
     type: "def",
     openStatus: false,
     autoClose: false
   });
   const [warningModalLoot, openWarningModal] = useModal({
+    type: "warning",
+    openStatus: false,
+    autoClose: true
+  });
+  const [warningCharModalLoot, openWarningCharModal] = useModal({
     type: "warning",
     openStatus: false,
     autoClose: true
@@ -33,16 +41,19 @@ export default function New() {
     autoClose: true
   });
   const { clearCanvas, convertToSvg } = useDrawNewCanvas();
+const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
 
   const handleSubmit = async (e) => {
     // añade heroe creando registro en db
     e.preventDefault();
+    if(REGEX_special_char.test(`${data.name} ${data.history}`)) return openWarningCharModal();
     openAddModal();
     const img = convertToSvg();
     const myhero = {
       id: uuidv4(),
       img,
-      name: name,
+      name: data.name,
+      history: data.history
     };
     //add your code here...
     try {
@@ -71,17 +82,19 @@ export default function New() {
   };
   const successHandle = () => {
     console.log('exitooo')
-    setName("");
+    setData({name: '', history: ''});
     clearCanvas();
     closeAddModal();
     openSuccessModal();
   };
+
   return (
     <>
       <Modal loot={addModalLoot}>Añadiendo nuevo héroe</Modal>
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <Modal loot={successModalLoot}>!Añadido correctamente!</Modal>
       <Modal loot={warningModalLoot}>!Límite de heroes alcanzado!</Modal>
+      <Modal loot={warningCharModalLoot}>Por favor evite usar caracteres especiales</Modal>
       <PageLayout title="New Hero" desc="create your own hero">
         <header className={`${styles.header}`}>
           <h1 className={styles.title}> Mi nuevo Héroe</h1>
@@ -89,15 +102,28 @@ export default function New() {
         </header>
         <form id="form" className={styles.formulario} onSubmit={handleSubmit}>
           <ul className={styles.form_list}>
-            <li className={styles.item_list} id="epa">
+            <li className={styles.item_list}>
               <label htmlFor="name">Nombre</label>
               <input
                 className={styles.text_field}
                 type="text"
                 name="name"
                 placeholder="Nombre"
-                value={name}
-                onChange={(e) => setName(e.target.value.slice(0,20))}
+                value={data.name}
+                onChange={(e) => setData({...data, name: e.target.value.slice(0,20)})}
+                autoComplete="nope"
+                required
+              />
+            </li>
+            <li className={styles.item_list}>
+              <label htmlFor="history">Historia</label>
+              <textarea
+                className={styles.text_field}
+                rows="3"
+                name="history"
+                placeholder="Historia"
+                value={data.history}
+                onChange={(e) => setData({...data, history: e.target.value})}
                 autoComplete="nope"
                 required
               />

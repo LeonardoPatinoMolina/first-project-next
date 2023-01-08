@@ -35,10 +35,6 @@ export const LateralMenu = ({ open, open_function }) => {
               <MdOutlineClose size={30} className={styles.icons} />
             </button>
           </li>
-          <li className={styles.item_list} onClick={goProfile}>
-            <MdManageAccounts size={30} className={styles.icons} />
-            MI CUENTA
-          </li>
           <li
             className={`${styles.item_list}`}
             onClick={() => switchTheme()}
@@ -53,6 +49,10 @@ export const LateralMenu = ({ open, open_function }) => {
               className={`${theme === "dark" && styles.hide} ${styles.icons}`}
             />
             TEMA
+          </li>
+          <li className={styles.item_list} onClick={goProfile}>
+            <MdManageAccounts size={30} className={styles.icons} />
+            MI CUENTA
           </li>
           <li className={styles.item_list}>
             <FaExternalLinkAlt size={28} className={styles.icons}/>
