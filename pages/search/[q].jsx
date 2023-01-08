@@ -41,7 +41,7 @@ export default function SearchPage({ characters, error, success }) {
         <FaSearch className={styles.icon} size={50} />
       </header>
       <div className={styles.btn_area}>
-        <Search placeholder="Buscar..." refeGet={inputSearchValue} />
+        <SearchComponent placeholder="Buscar..." refeGet={inputSearchValue} />
         <button
           className={`boton ${styles.btn}`}
           onClick={() => handleSearch()}
