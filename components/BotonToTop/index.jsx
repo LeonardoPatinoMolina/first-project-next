@@ -1,6 +1,6 @@
 "use client"
 import React,{useEffect, useRef} from 'react'
-import { MdVerticalAlignTop } from "react-icons/md";
+import { FaArrowAltCircleUp } from "react-icons/fa";
 import styles from './style/BotonToTop.module.css'
 
 export const BotonToTop = () => {
@@ -19,8 +19,14 @@ export const BotonToTop = () => {
     if (typeof window) {
       const scrollTop =
         document.documentElement.scrollTop || document.body.scrollTop;
-      if (scrollTop < 500) btnTop.current.classList.add(styles.noneD);
-      else btnTop.current.classList.remove(styles.noneD);
+      if (scrollTop < 500) {
+        btnTop.current.classList.remove(styles.show_btn);
+        btnTop.current.classList.add(styles.hide_btn);
+      }
+      else {
+        btnTop.current.classList.remove(styles.hide_btn);
+        btnTop.current.classList.add(styles.show_btn);
+      }
     }
   }
   const goTop = () => {
@@ -35,9 +41,9 @@ export const BotonToTop = () => {
         ref={btnTop}
         title="Volver arriba"
         onClick={goTop}
-        className={`${styles.btn_up} ${styles.noneD}`}
+        className={`${styles.btn_up} ${styles.hide_btn}`}
       >
-        <MdVerticalAlignTop
+        <FaArrowAltCircleUp
               className={styles.item}
               size={25}
             />

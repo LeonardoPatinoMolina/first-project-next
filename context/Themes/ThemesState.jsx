@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { ThemesReducer } from "./ThemesReducer";
 import { useLocalStorage } from "../../Hooks/useLocalStorage";
 import { changeTheme } from "../../lib/changeTheme";
@@ -10,6 +10,7 @@ export const ThemesState = ({ children }) => {
   const initialState = {
     theme: storageTheme,
   }
+
   const [state, dispatch] = useReducer(ThemesReducer, 
     initialState)
 
@@ -21,8 +22,19 @@ export const ThemesState = ({ children }) => {
       payload: theme
     })
   }
+  function initTheme(){
+    const th = window.localStorage.getItem('theme') || 'light';
+    console.log('theme initialized');
+    setStorageTheme(th)
+    changeTheme(th);
+    dispatch({
+      type: 'INIT_THEME',
+      payload: th
+    })
+
+  }
   return (
-    <ThemesContext.Provider value={{...state, setTheme}}>
+    <ThemesContext.Provider value={{...state, setTheme, initTheme}}>
       {children}
     </ThemesContext.Provider>
   )

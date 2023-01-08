@@ -3,7 +3,7 @@ import PageLayout from "../components/PageLayout";
 import { requestApi } from "../Services/requestApi";
 import { getFavoriteStatus } from "../lib/favoriteRequest";
 import { connectDB } from "../lib/dbConnect";
-import { HerosPanels } from "../components/HerosPanels";
+import { WrapperPanels } from "../components/WrapperPanels";
 import { Panel } from "../components/Panel";
 import { Pagination } from "../components/Pagination";
 import { usePagination } from "../Hooks/usePagination";
@@ -14,7 +14,7 @@ export default function Home({ data, success }) {
     <PageLayout title="Home" desc="Home page to show random character's result">
       <SlideBanner />
       <Pagination loot={loot} toPage={toPage} />
-      <HerosPanels>
+      <WrapperPanels>
         {success &&
           loot.results.map((hero) => (
             <Panel
@@ -22,11 +22,11 @@ export default function Home({ data, success }) {
               id={hero.id}
               img={hero.img}
               name={hero.name}
-              favStatus={false}
+              favStatus={hero.isFavorite}
               area={400}
             />
           ))}
-      </HerosPanels>
+      </WrapperPanels>
       <Pagination loot={loot} toPage={toPage} />
     </PageLayout>
   );

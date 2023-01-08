@@ -7,6 +7,11 @@ export const ThemesReducer = (state, {type, payload}) => {
         ...state,
         theme: payload
       }
+      case 'INIT_THEME':
+      return {
+        ...state,
+        theme: payload
+      }
     default:
       break;
   }

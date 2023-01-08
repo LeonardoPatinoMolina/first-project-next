@@ -91,25 +91,45 @@
   background-color: transparent;
   cursor: auto;
 }
-.open_menu{
+.open_menu, .close_menu{
   display: flex;
-  animation-name: open_animate;
   animation-timing-function: ease-in-out;
-  animation-duration: .3s;
   animation-fill-mode: forwards;
 }
-.close_menu{
-  display: none;
+.open_menu{
+  animation-duration: .3s;
+  animation-name: open_animate;
 }
+.close_menu{
+  animation-duration: 0;
+  animation-name: close_animate;
+}
+
 .hide{
   display: none;
 }
 @keyframes open_animate{
   from{
     transform: translateX(100vw);
+    visibility: hidden;
+    background-color: transparent;
   }
   to{
     transform: translateX(0);
+    visibility: visible;
+    background-color: #0006;
+  }
+}
+@keyframes close_animate{
+  from{
+    transform: translateX(0);
+    visibility: visible;
+    background-color: #0006;
+  }
+  to{
+    transform: translateX(100vw);
+    visibility: hidden;
+    background-color: transparent;
   }
 }
 @media screen and (max-width: 500px){

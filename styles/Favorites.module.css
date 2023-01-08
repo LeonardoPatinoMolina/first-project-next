@@ -36,6 +36,9 @@
   font-size: 150%;
   font-weight: 300;
 }
+.btn_disabled{
+  opacity: .5;
+}
 @media screen and (max-width: 780px) {
 
   .btn_clean{

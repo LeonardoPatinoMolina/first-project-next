@@ -1,12 +1,13 @@
 "use strict"
 import React, { useState, useEffect } from "react";
 
-export const usePagination = (args) => {
+export const usePagination = (args, isMyHeros=false) => {
   const [loot, setloot] = useState({
     charge: !args ? [] : args,
     results: !args ? [] : args.slice(0, 6),
     currentP: 1,
     totalResults: args ? args.length : 0,
+    isMyHeros
   });
   const AMOUNT = 6;
   let minCut;
@@ -30,6 +31,9 @@ export const usePagination = (args) => {
     totalResults: 0,
     })
   };
-  const toPage = (page) => jumpCharge(page);
+  const toPage = (page) => {
+    if(loot.totalResults === 0) return console.log('empty');
+    jumpCharge(page);
+  }
   return { toPage, loot, reset };
 };

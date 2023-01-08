@@ -32,7 +32,7 @@ export default function HeroPage({ hero }) {
   const goBack = () => router.back();
   useEffect(() => {
     setFavChoise(hero.isFavorite);
-  }, [router.query.id]);
+  }, [router.query.id, hero.isFavorite]);
 
   const deleteOne = async () => {
     console.log("delete curse");
@@ -103,7 +103,6 @@ export default function HeroPage({ hero }) {
               src={hero.img}
               fill={true}
               alt="persojaje"
-              
             />
           </div>
           <h1 className={styles.title}>{hero.name}</h1>

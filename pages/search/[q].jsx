@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
-import { HerosPanels } from "../../components/HerosPanels";
+import { WrapperPanels } from "../../components/WrapperPanels";
 import { Panel } from "../../components/Panel";
 import { Pagination } from "../../components/Pagination";
 import { usePagination } from "../../Hooks/usePagination";
@@ -16,10 +16,11 @@ export default function SearchPage({ characters, error, success }) {
   const router = useRouter();
   const { toPage, loot } = usePagination(success && characters);
   useEffect(() => {
-    console.log('re');
     toPage(1)
   }, [router.query]);
+
   const inputSearchValue = useRef();
+  
   const handleSearch = () => {
     const queryF = inputSearchValue.current.value;
     console.log('buscando', queryF);
@@ -42,7 +43,7 @@ export default function SearchPage({ characters, error, success }) {
         <button className={`boton ${styles.btn}`} onClick={()=>handleSearch()}>Buscar</button>
       </div>
       <Pagination loot={loot} toPage={toPage} />
-      <HerosPanels>
+      <WrapperPanels>
         {success &&
           loot.results.map((hero) => (
             <Panel
@@ -50,11 +51,11 @@ export default function SearchPage({ characters, error, success }) {
               id={hero.id}
               img={hero.img}
               name={hero.name}
-              favStatus={false}
+              favStatus={hero.isFavorite}
               area={400}
             />
           ))}
-      </HerosPanels>
+      </WrapperPanels>
       <Pagination loot={loot} toPage={toPage} />
     </PageLayout>
   );

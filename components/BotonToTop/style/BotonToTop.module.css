@@ -22,9 +22,37 @@
   animation-duration: .4s;
 
 }
-.noneD{
-  display: none;
-}
+
 .item{
   margin: 0 .2rem 0 .2rem;
+}
+
+.hide_btn{
+  animation: hide_btn .4s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.show_btn{
+  animation-fill-mode: forwards;
+  animation: show_btn .4s ease-in-out;
+}
+
+@keyframes hide_btn {
+  from{
+    opacity: 1;
+    visibility: visible;
+  }
+  to{
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes show_btn {
+  from{
+    opacity: 0;
+    visibility: hidden;
+  }
+  to{
+    opacity: 1;
+    visibility: visible;
+  }
 }

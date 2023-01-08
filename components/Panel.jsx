@@ -27,7 +27,7 @@ export const Panel = ({ id, name, img, area, favStatus }) => {
         <div className={styles.data_wrapper}>
           <h3 className={styles.name_style}>{name}</h3>
           {favStatus ? (
-            <BsFillStarFill className={styles.icon} size={25} color="#ffffff" />
+            <BsFillStarFill className={styles.icon} size={35} color="#ffffff" />
           ) : (
             <BsStar className={styles.icon} size={35} color="#ffffff" />
           )}

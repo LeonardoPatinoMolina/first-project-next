@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-// import { Search } from "../Search";
 import { useTheme } from "../../Hooks/useTheme";
 import { useRouter } from "next/router";
 import {

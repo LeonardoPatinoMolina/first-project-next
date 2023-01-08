@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { useRouter } from "next/router";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import PageLayout from "../../components/PageLayout";
-import { HerosPanels } from "../../components/HerosPanels";
+import { WrapperPanels } from "../../components/WrapperPanels";
 import { PanelMyHero } from "../../components/PanelMyHero";
 import { useModal } from "../../Hooks/useModal";
 import {Modal } from '../../components/Modal'
@@ -15,6 +15,7 @@ import styles from "../../styles/MyHeros.module.css";
 
 export default function Myheros({ heros, success, info }) {
   const router = useRouter();
+  const boton_clean_all = useRef();
   const [removeModalLoot, openRemoveModal, closeRemoveModal] = useModal({
     type: "def",
     openStatus: false,
@@ -30,9 +31,10 @@ export default function Myheros({ heros, success, info }) {
     openStatus: false,
     autoClose: true
   });
-  const { toPage, loot, reset } = usePagination(success && heros);
+  const { toPage, loot, reset } = usePagination((success && heros),true);
   
   const cleanAll = async ()=>{
+    if(boton_clean_all.current.classList.contains(styles.btn_disabled)) return;
     try {
       openRemoveModal();
       const res = await fetch('api/delete/allmyheros');
@@ -63,7 +65,7 @@ export default function Myheros({ heros, success, info }) {
         </button>
       </header>
       <Pagination loot={loot} toPage={toPage} />
-      <HerosPanels>
+      <WrapperPanels>
         {success&&
           loot.results.map((hero) => (
             <PanelMyHero
@@ -74,10 +76,10 @@ export default function Myheros({ heros, success, info }) {
               area={400}
             />
           ))}
-      </HerosPanels>
+      </WrapperPanels>
       <Pagination loot={loot} toPage={toPage} />
       <div className={`${styles.btn_area}`}>
-        <button className={`boton ${styles.btn_clean}`} onClick={cleanAll}>
+        <button className={`boton ${styles.btn_clean} ${!success && styles.btn_disabled}`} ref={boton_clean_all} onClick={cleanAll}>
           REMOVER TODOS
         </button>
       </div>
@@ -92,6 +94,7 @@ export const getServerSideProps = async ({req}) => {
     const { db } = await connectDB();
     const heros = await getCustomHeros(cookie);
     if (heros) {
+      console.log(heros)
       return {
         props: {
           heros,

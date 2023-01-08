@@ -37,7 +37,7 @@ export default function MyHeroPage({ hero }) {
     const imgR3 = imgR2.replace(exp3, 'viewBox="0 0 300 300"');
 
     document.getElementById("img_wraper").innerHTML = imgR3;
-  }, []);
+  }, [hero.img]);
 
   const deleteOne = async () => {
     try {

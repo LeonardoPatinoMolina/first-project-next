@@ -3,15 +3,23 @@ import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 import styles from "../styles/Pagination.module.css";
 
 export const Pagination = ({ loot, toPage }) => {
-
+  const PANELS4PAGE = 6;//cantidad de pane
+  //establecemos la cantidad de páginas en base a la cantidad de paneles a mostrar.
+  //primero removemos los decimales que puedan haber en la divsión de los resultados
+  //pero primero validamos que exista la propiedad length
+  const ap = loot.charge.length
+    ? Math.trunc(loot.charge.length / PANELS4PAGE)
+    : 1;
+  //verificamos si existen o no decimales, en caso tal añadimos una página más para abarcar todos los páneles
+  const amountPage = ap % 6 !== 0 && ap !== 1 ? ap + 1 : 1;
+  //establecemos el estado local
   const [pageLoot, setPageLoot] = useState(() => {
     if (!loot.charge)
       return {
         amountPage: 1,
         amount: [1],
       };
-    const amountPage =
-      Math.ceil(loot.charge.length / 9) > 1 ? Math.ceil(loot.charge.length / 9) : 1;
+    //arreglo que resenta la cantidad de páginas a renderizar
     let amount = [];
     for (let i = 0; i < amountPage; i++) amount.push(i + 1);
     return {
@@ -19,8 +27,10 @@ export const Pagination = ({ loot, toPage }) => {
       amount,
     };
   });
-  const VERIFY_BACK = loot.currentP <= 1 || !loot.charge || loot.charge.length < 1;
-  const VERIFY_NEXT = loot.currentP === Math.ceil(loot.charge.length / 9) || !loot.charge || loot.charge.length < 1;
+  const VERIFY_BACK =
+    loot.currentP === 1 || !loot.charge || loot.charge.length <= 1;
+  const VERIFY_NEXT =
+    loot.currentP === amountPage || !loot.charge || loot.charge.length <= 1;
   const handleClick = (e) => {
     const { innerHTML } = e.target;
     toPage(innerHTML);
@@ -38,25 +48,27 @@ export const Pagination = ({ loot, toPage }) => {
       <ul className={styles.stats_list}>
         <li className={styles.stats_item}>Resultados:</li>
         <li className={styles.stats_item}>
-          {`${loot.totalResults}`}
-          {false && "/12"}
+          {loot.totalResults}
+          {loot.isMyHeros && "/12"}
         </li>
         <li className={styles.stats_item}>
           <nav className={styles.wrapper}>
             <ul className={styles.list}>
               <li
-                className={`${styles.item} ${styles.btn} ${VERIFY_BACK && styles.disabled}`}
+                className={`${styles.item} ${styles.btn} ${
+                  VERIFY_BACK && styles.disabled
+                }`}
                 onClick={handleBack}
               >
-              <IoMdArrowRoundBack />
+                <IoMdArrowRoundBack />
               </li>
               {pageLoot.amount.map((el) => (
                 <li
-                key={el}
-                className={`${styles.item} ${
-                  loot.currentP === el && styles.currentPage
-                }`}
-                onClick={handleClick}
+                  key={el}
+                  className={`${styles.item} ${
+                    loot.currentP === el && styles.currentPage
+                  }`}
+                  onClick={handleClick}
                 >
                   {el}
                 </li>
@@ -67,7 +79,7 @@ export const Pagination = ({ loot, toPage }) => {
                 }`}
                 onClick={handleNext}
               >
-                  <IoMdArrowRoundForward />
+                <IoMdArrowRoundForward />
               </li>
             </ul>
           </nav>

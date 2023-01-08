@@ -87,6 +87,7 @@
 }
 #show_pass{
   width: fit-content;
+  user-select: none;
 }
 .input_err, .input_err:focus{
   box-shadow: 0 0 8px 1px #f004;

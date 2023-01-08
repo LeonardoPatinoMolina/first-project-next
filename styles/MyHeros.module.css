@@ -29,7 +29,6 @@
   font-style: italic;
   font-size: xx-large;
   font-weight: 500;
-
 }
 .btn_add{
   background-color: var(--colorPrimal);
@@ -58,6 +57,9 @@
   margin: 1rem;
   font-size: 150%;
   font-weight: 300;
+}
+.btn_disabled{
+  opacity: .5;
 }
 .desc_icon{
   font-size: 100%; 

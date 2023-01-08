@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styles from "../Styles/HerosPanels.module.css";
+import styles from "../Styles/WrapperPanels.module.css";
 
-export const HerosPanels = ({ children, isMyHeros = false }) => {
+export const WrapperPanels = ({ children, isMyHeros = false }) => {
   return (
     <section
       className={`${styles.wrapper} ${!children && styles.content_heros_empty}`}

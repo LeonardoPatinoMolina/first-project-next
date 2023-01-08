@@ -16,7 +16,7 @@ export const PanelMyHero = ({ id, name, img, area }) => {
     const imgR3 = imgR2.replace(exp3, 'viewBox="0 0 300 300"');
 
     image_wraper.current.innerHTML = imgR3;
-  }, []);
+  }, [img]);
   const open = () => {
     router.push(`/myhero/${id}`);
   };
