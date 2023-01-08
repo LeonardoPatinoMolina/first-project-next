@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { WrapperPanels } from "../../components/WrapperPanels";
 import { Panel } from "../../components/Panel";
-import {Search} from '../../components/Search'
+import { Search } from "../../components/Search";
 import { Pagination } from "../../components/Pagination";
 import { usePagination } from "../../Hooks/usePagination";
 import { useRouter } from "next/router";
-import {requestApi} from '../../Services/requestApi'
-import {getFavoriteStatus} from '../../lib/favoriteRequest'
-import {connectDB} from '../../lib/dbConnect'
+import { requestApi } from "../../Services/requestApi";
+import { getFavoriteStatus } from "../../lib/favoriteRequest";
+import { connectDB } from "../../lib/dbConnect";
 import { FaSearch } from "react-icons/fa";
 import styles from "../../styles/Search.module.css";
 
@@ -16,18 +16,20 @@ export default function SearchPage({ characters, error, success }) {
   const router = useRouter();
   const { toPage, loot } = usePagination(success && characters);
   useEffect(() => {
-    toPage(1)
+    toPage(1);
   }, [router.query]);
 
   const inputSearchValue = useRef();
-  
+
   const handleSearch = () => {
     const queryF = inputSearchValue.current.value;
-    console.log('buscando', queryF);
-    const abc = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
-    const auxquery = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0]
-    inputSearchValue.current.value = '';
-    router.push(`/search/${queryF !== '' ? queryF : auxquery}`);
+    console.log("buscando", queryF);
+    const abc = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(
+      ","
+    );
+    const auxquery = abc[Math.floor(Math.random() * (25 - 0 + 1)) + 0];
+    inputSearchValue.current.value = "";
+    router.push(`/search/${queryF !== "" ? queryF : auxquery}`);
   };
   return (
     <PageLayout
@@ -39,8 +41,13 @@ export default function SearchPage({ characters, error, success }) {
         <FaSearch className={styles.icon} size={50} />
       </header>
       <div className={styles.btn_area}>
-        <Search placeholder='Buscar...' refeGet={inputSearchValue} />
-        <button className={`boton ${styles.btn}`} onClick={()=>handleSearch()}>Buscar</button>
+        <Search placeholder="Buscar..." refeGet={inputSearchValue} />
+        <button
+          className={`boton ${styles.btn}`}
+          onClick={() => handleSearch()}
+        >
+          Buscar
+        </button>
       </div>
       <Pagination loot={loot} toPage={toPage} />
       <WrapperPanels>
