@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { FaSearch, FaPaintBrush } from "react-icons/fa";
 import { BsFillStarFill } from "react-icons/bs";
 import { ImMenu } from "react-icons/im";
-import styles from "../Styles/NavBarHeader.module.css";
+import styles from "../styles/NavBarHeader.module.css";
 
 export const NavBarHeader = () => {
   const [LateralMenuOpen, setLateralMenuOpen] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaPaintBrush } from "react-icons/fa";
-import styles from "../Styles/PanelMyHero.module.css";
+import styles from "../styles/PanelMyHero.module.css";
 
 export const PanelMyHero = ({ id, name, img, area }) => {
   const router = useRouter();

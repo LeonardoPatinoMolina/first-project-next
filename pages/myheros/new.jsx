@@ -7,7 +7,7 @@ import PageLayout from "../../components/PageLayout";
 import { FaPaintBrush } from "react-icons/fa";
 import { Modal } from "../../components/Modal";
 import { useModal } from "../../Hooks/useModal";
-import styles from "../../Styles/CreateHero.module.css";
+import styles from "../../styles/CreateHero.module.css";
 
 export default function New() {
   const router = useRouter();

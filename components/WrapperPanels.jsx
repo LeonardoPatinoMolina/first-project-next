@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../Styles/WrapperPanels.module.css";
+import styles from "../styles/WrapperPanels.module.css";
 
 export const WrapperPanels = ({ children, isMyHeros = false }) => {
   return (

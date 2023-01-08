@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { WrapperPanels } from "../../components/WrapperPanels";
 import { Panel } from "../../components/Panel";
+import {Search} from '../../components/Search'
 import { Pagination } from "../../components/Pagination";
 import { usePagination } from "../../Hooks/usePagination";
 import { useRouter } from "next/router";
@@ -9,7 +10,6 @@ import {requestApi} from '../../Services/requestApi'
 import {getFavoriteStatus} from '../../lib/favoriteRequest'
 import {connectDB} from '../../lib/dbConnect'
 import { FaSearch } from "react-icons/fa";
-import {Search} from '../../components/Search'
 import styles from "../../styles/Search.module.css";
 
 export default function SearchPage({ characters, error, success }) {
