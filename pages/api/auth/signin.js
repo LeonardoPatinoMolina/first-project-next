@@ -1,4 +1,4 @@
-import { connectDB } from "../../../lib/dbConnect";
+import { connectDB, closeDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
 import Username from "../../../models/username";
 import bcrypt from 'bcrypt'
@@ -21,6 +21,7 @@ export default async function SigninHandler(req, res) {
     })
     userN.save();
     usernameN.save();
+    
     console.log("exito?");
   } catch (error) {
     console.log(error);

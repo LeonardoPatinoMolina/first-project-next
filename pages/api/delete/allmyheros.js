@@ -1,5 +1,5 @@
 "use strict"
-import { connectDB } from "../../../lib/dbConnect";
+import { connectDB, closeDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
 import { decode } from "jsonwebtoken";
 
@@ -12,7 +12,8 @@ export default async function newFavoriteHandle(req, res) {
     const userUp = await User.findOneAndUpdate(
       { username: `${userT}` },
       { custom_heros: [] }
-    );
+      );
+    
     console.log("update all done");
     res.status(200).json({ success: true });
   } catch (error) {
