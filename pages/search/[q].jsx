@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PageLayout from "../../components/PageLayout";
 import { WrapperPanels } from "../../components/WrapperPanels";
 import { Panel } from "../../components/Panel";
-import { Search } from "../../components/Search";
+import { SearchComponent } from "../../components/SearchComponent";
 import { Pagination } from "../../components/Pagination";
 import { usePagination } from "../../Hooks/usePagination";
 import { useRouter } from "next/router";

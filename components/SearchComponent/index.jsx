@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "./style/Search.module.css";
 import Image from "next/image";
 
-export function Search(props) {
+export function SearchComponent(props) {
   const [watchClickPanel] = useOutsideClick(handleOutsideClick)
   const [autocomopleteState, setAutocompleteState] = useState({
     collections: [],
