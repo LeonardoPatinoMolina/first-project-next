@@ -1,7 +1,5 @@
 "use strict";
 import { connectDB } from "../../../lib/dbConnect";
-import User from "../../../models/user";
-import Customhero from "../../../models/customhero";
 import mongoose from "mongoose";
 import Customhero from "../../../models/customhero";
 import { decode } from "jsonwebtoken";
