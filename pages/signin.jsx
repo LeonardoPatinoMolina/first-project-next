@@ -84,8 +84,8 @@ export default function Signin() {
           pass: formData.pass,
         }),
       });
+      console.log("registro enviado",res);
       const response = await res.json();
-      console.log("registro enviado");
       if (!response.success) {
         console.error(res.error);
         return errorHandle();

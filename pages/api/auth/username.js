@@ -5,7 +5,7 @@ export default async function handleUsername(req, res){
   try{
     const { username } = JSON.parse(req.body);
   await connectDB();
-  const userNR = await Username.findOne({ name: username }).exec();
+  const userNR = await Username.findOne({ name: username }).lean();
   
   if (userNR === null) {
     console.log("vacío");
