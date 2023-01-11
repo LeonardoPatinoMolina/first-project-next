@@ -40,7 +40,7 @@ export default function Profile() {
 
   const fetcher = (url) =>
     fetch(url, { method: "POST" }).then((res) => res.json());
-  const { data, error, isValidating } = useSWR("api/auth/profile", fetcher);
+  const { data, error, isValidating } = useSWR("api/auth/profile", fetcher, {revalidateOnFocus: false});
 
   const logout = async () => {
     try {

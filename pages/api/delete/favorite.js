@@ -1,27 +1,22 @@
 "use strict"
 import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
+import mongoose from 'mongoose'
+import Favorite from "../../../models/favorite";
 import { decode } from "jsonwebtoken";
 
-export default async function newFavoriteHandle(req, res) {
+export default async function deleteFavoriteHandle(req, res) {
   try {
     const { tokenUser } = req.cookies;
     const current = JSON.parse(req.body);
     const tokenDecode = decode(tokenUser, { complete: true });
-    const userT = tokenDecode.payload.user;
+    const userT = tokenDecode.payload.userID;
     await connectDB();
-    const userR = await User.findOne({ username: `${userT}` }).exec();
+    const idMongo = mongoose.Types.ObjectId(userT);
+    const favorite = await Favorite.findOneAndDelete({$and: [{userId: idMongo},{name: current.name},]});
     //validación de contraseña
-    console.log("usuario encontrado");
-    let fav = userR.favorites.filter(
-      (f) => `${f.name}`.trim() !== `${current.name}`.trim()
-    );
-    console.log("favorito añadido");
-    const userUp = await User.findOneAndUpdate(
-      { username: `${userT}` },
-      { favorites: fav }
-    );
-    console.log("update done");
+    console.log(favorite)
+    console.log("delete fav done");
     res.status(200).json({ success: true });
   } catch (error) {
     console.log("**", error);

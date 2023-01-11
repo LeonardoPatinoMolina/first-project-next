@@ -1,25 +1,22 @@
 "use strict"
 import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
+import mongoose from 'mongoose'
+import Customhero from "../../../models/customhero";
 import { decode } from "jsonwebtoken";
 
-export default async function newFavoriteHandle(req, res) {
+export default async function deleteMyHeroHandle(req, res) {
   try {
     const { tokenUser } = req.cookies;
     const current = JSON.parse(req.body);
     const tokenDecode = decode(tokenUser, { complete: true });
-    const userT = tokenDecode.payload.user;
+    const userT = tokenDecode.payload.userID;
     await connectDB();
-    const userR = await User.findOne({ username: `${userT}` }).exec();
+    const useridMongo = mongoose.Types.ObjectId(userT);
+    const heroidMongo = mongoose.Types.ObjectId(current.id);
+    const hDelete = await Customhero.findOneAndDelete({$and: [{ userId: useridMongo },{ _id: heroidMongo }]}).exec();
     //validación de contraseña
-    console.log("usuario encontrado");
-    let customheros = userR.custom_heros.filter(f => f.id !== current.id);
-    console.log("custom hero removido");
-    const userUp = await User.findOneAndUpdate(
-      { username: `${userT}` },
-      { custom_heros: customheros }
-    );
-    console.log("update done");
+    console.log("custom hero removido", hDelete);
     res.status(200).json({ success: true });
   } catch (error) {
     console.log("**", error);

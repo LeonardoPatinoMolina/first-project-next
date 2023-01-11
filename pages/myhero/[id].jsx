@@ -1,5 +1,7 @@
 "use strict";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import mongoose from 'mongoose'
+import Image from 'next/image'
 import PageLayout from "../../components/PageLayout";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import { useRouter } from "next/router";
@@ -28,16 +30,6 @@ export default function MyHeroPage({ hero }) {
     autoClose: false,
   });
   const goBack = () => router.back();
-  useEffect(() => {
-    const exp1 = /width="300"/g;
-    const exp2 = /height="300"/g;
-    const exp3 = /\(\-\|\-\)/g;
-    const imgR1 = hero.img.replace(exp1, 'width="100%"');
-    const imgR2 = imgR1.replace(exp2, 'height="100%"  (-|-)');
-    const imgR3 = imgR2.replace(exp3, 'viewBox="0 0 300 300"');
-
-    document.getElementById("img_wraper").innerHTML = imgR3;
-  }, [hero.img]);
 
   const deleteOne = async () => {
     try {
@@ -45,8 +37,7 @@ export default function MyHeroPage({ hero }) {
       const res = await fetch("/api/delete/myhero", {
         method: "POST",
         body: JSON.stringify({
-          id: hero.id,
-          name: hero.name,
+          id: hero._id,
         }),
       });
       const dataConfirm = await res.json();
@@ -76,7 +67,17 @@ export default function MyHeroPage({ hero }) {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title="My hero" desc="page whith details about your hero">
         <section className={styles.content}>
-          <div id="img_wraper" className={styles.image_svg}></div>
+
+          {/* <div id="img_wraper" className={styles.image_svg}></div> */}
+          <div className={styles.img}>
+            <Image
+              style={{ objectFit: "contain" }}
+              src={hero.img}
+              fill={true}
+              alt="persojaje"
+            />
+          </div>
+
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
             {hero.history} -
@@ -105,10 +106,10 @@ export default function MyHeroPage({ hero }) {
 export const getServerSideProps = async ({ req, params }) => {
   try {
     const cookie = req.headers.cookie;
-    const { db } = await connectDB();
+    await connectDB();
     const heros = await getCustomHeros(cookie);
     if (heros) {
-      const heroC = heros.filter((h) => h.id == params.id);
+      const heroC = heros.filter((h) => h._id === params.id);
       if (heroC.length === 0) {
         return {
           redirect: {

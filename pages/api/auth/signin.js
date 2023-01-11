@@ -1,25 +1,26 @@
-import { connectDB, closeDB } from "../../../lib/dbConnect";
+import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
 import Username from "../../../models/username";
 import bcrypt from 'bcrypt'
 
 export default async function SigninHandler(req, res) {
   const { user, pass } = JSON.parse(req.body);
-
-  const hash = await bcrypt.hash(pass, 10)
   await connectDB();
-  
+  const userR = await Username.findOne({ name: user }).lean();
+  if (userR !== null) {
+    return res.status(400).json({ success: false });
+  }
+  const hash = await bcrypt.hash(pass, 10)
   try {
-    const userN = new User({
+    const userNew = new User({
       username: user,
-      hashpass: hash,
-      favorites: [],
-      custom_heros: [],
+      hashpass: hash
     });
+    const saveUser = await userNew.save();
     const usernameN = new Username({
       name: user,
+      userId: saveUser._id
     })
-    userN.save();
     usernameN.save();
     
     console.log("exito?");

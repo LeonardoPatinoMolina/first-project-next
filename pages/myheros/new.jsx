@@ -40,7 +40,7 @@ export default function New() {
     openStatus: false,
     autoClose: true
   });
-  const { clearCanvas, convertToSvg } = useDrawNewCanvas();
+  const { clearCanvas, convertTo64 } = useDrawNewCanvas();
 const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
 
   const handleSubmit = async (e) => {
@@ -48,7 +48,7 @@ const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
     e.preventDefault();
     if(REGEX_special_char.test(`${data.name} ${data.history}`)) return openWarningCharModal();
     openAddModal();
-    const img = convertToSvg();
+    const img = convertTo64();
     const myhero = {
       id: uuidv4(),
       img,

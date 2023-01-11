@@ -97,6 +97,7 @@ export default function HeroPage({ hero }) {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title={hero.name}>
         <section className={styles.content}>
+          
           <div className={styles.img}>
             <Image
               style={{ objectFit: "contain" }}
@@ -105,6 +106,7 @@ export default function HeroPage({ hero }) {
               alt="persojaje"
             />
           </div>
+
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto

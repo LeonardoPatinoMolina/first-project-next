@@ -1,32 +1,42 @@
 import { verify, decode } from "jsonwebtoken";
-import { connectDB, closeDB } from "../../../lib/dbConnect";
+import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
+import Customhero from "../../../models/customhero";
+import Favorite from "../../../models/favorite";
+import mongoose from "mongoose";
 // import bcrypt from 'bcrypt'
 
-export default async function profileHandle(req, res) {
+export default async function ProfileHandle(req, res) {
   const { tokenUser } = req.cookies;
   if (!tokenUser) {
     return res.status(401).json({ success: false });
   }
   try {
     const tokenDecode = decode(tokenUser, { complete: true });
-    const { user } = tokenDecode.payload;
+    const { userID } = tokenDecode.payload;
     await connectDB();
-    const userR = await User.findOne({ username: `${user}` }).exec();
-    
+
+    const userR = await User.findById(userID);
+    const countF = await Favorite.countDocuments({
+      userId: mongoose.Types.ObjectId(userID),
+    });
+    const countCH = await Customhero.countDocuments({
+      userId: mongoose.Types.ObjectId(userID),
+    });
     if (userR === null) {
-      console.log("vacío");
+      console.log("empty");
       return res.status(401).json({ success: false });
     }
     res.status(200).json({
       success: true,
       user: {
         username: userR.username,
-        favorites: userR.favorites.length,
-        custom_heros: userR.custom_heros.length,
+        favorites: countF,
+        custom_heros: countCH,
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(401).json({ success: false });
   }
 }

@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
+import PageLayout from "../../components/PageLayout";
 import { useRouter } from "next/router";
 import { getCustomHeros } from "../../lib/customHerosRequest";
-import PageLayout from "../../components/PageLayout";
 import { WrapperPanels } from "../../components/WrapperPanels";
 import { PanelMyHero } from "../../components/PanelMyHero";
+import {Panel} from "../../components/Panel";
 import { useModal } from "../../Hooks/useModal";
 import {Modal } from '../../components/Modal'
 import { Pagination } from "../../components/Pagination";
@@ -68,14 +69,15 @@ export default function Myheros({ heros, success, info }) {
       <WrapperPanels>
         {success&&
           loot.results.map((hero) => (
-            <PanelMyHero
-              key={hero.id}
-              id={hero.id}
-              img={hero.img}
-              name={hero.name}
-              area={400}
+            <Panel
+            key={hero._id}
+            id={hero._id}
+            img={hero.img}
+            name={hero.name}
+            area={400}
+            isMyHero={true}
             />
-          ))}
+            ))}
       </WrapperPanels>
       <Pagination loot={loot} toPage={toPage} />
       <div className={`${styles.btn_area}`}>
@@ -91,13 +93,13 @@ export default function Myheros({ heros, success, info }) {
 export const getServerSideProps = async ({req}) => {
   try {
     const cookie = req.headers.cookie;
-    const { db } = await connectDB();
+    await connectDB();
+    console.log("heros")
     const heros = await getCustomHeros(cookie);
     if (heros) {
-      console.log(heros)
       return {
         props: {
-          heros,
+          heros: heros,
           success: true,
         },
       };

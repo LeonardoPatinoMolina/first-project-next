@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useVerifyRe } from "./useVerifyRe";
-const C2S = require('canvas2svg')
 
 export const useDrawNewCanvas = () => {
-  // const [verifyRe] = useVerifyRe();
-  const [dependence, setDependence] = useState("draw");
   const canvas = useRef();
-  const canvasToSvg = useRef();
   const $ = (id) => document.getElementById(id);
   const COLOR = '#f1f2f3'
   useEffect(() => {
@@ -15,7 +10,7 @@ export const useDrawNewCanvas = () => {
     //Guardar el elemento y el contexto
     canvas.current = $("c");
     const context = canvas.current.getContext("2d");
-    canvasToSvg.current = new C2S(canvas.current.width,canvas.current.height);
+
 
 
     let initialX;
@@ -43,15 +38,6 @@ export const useDrawNewCanvas = () => {
       context.lineJoin = "round";
       context.lineTo(cursorX, cursorY);
       context.stroke();
-      //canvasToSvg
-      canvasToSvg.current.beginPath();
-      canvasToSvg.current.moveTo(initialX, initialY);
-      canvasToSvg.current.lineWidth = 3;
-      canvasToSvg.current.strokeStyle = "#000";
-      canvasToSvg.current.lineCap = "round";
-      canvasToSvg.current.lineJoin = "round";
-      canvasToSvg.current.lineTo(cursorX, cursorY);
-      canvasToSvg.current.stroke();
 
       initialX = cursorX;
       initialY = cursorY;
@@ -94,9 +80,6 @@ export const useDrawNewCanvas = () => {
     //canvas
     context.fillStyle = COLOR;
     context.fillRect(0, 0, canvas.current.width, canvas.current.height);
-    //canvasToSvg
-    canvasToSvg.current.fillStyle = COLOR;
-    canvasToSvg.current.fillRect(0, 0, canvas.current.width, canvas.current.height);
   }, []);
 
   const clearCanvas = (e) => {
@@ -106,11 +89,6 @@ export const useDrawNewCanvas = () => {
     //canvas
     context.fillStyle = COLOR;
     context.fillRect(0, 0, canvas.current.width, canvas.current.height);
-    //canvasToSvg
-    canvasToSvg.current = new C2S(canvas.current.width,canvas.current.height);
-    canvasToSvg.current.fillStyle = COLOR;
-    canvasToSvg.current.fillRect(0, 0, canvas.current.width, canvas.current.height);
-
   };
 
   const prev = (e) => {
@@ -118,20 +96,10 @@ export const useDrawNewCanvas = () => {
     e.preventDefault();
   };
 
-  // const drawFixed = () => {
-  //   //fija la pagina
-  //   const pizarra = $("c");
-  //   pizarra.addEventListener("touchmove", prev, { passive: false });
-  // };
-  // const drawFree = () => {
-  //   const pizarra = $("c");
-  //   pizarra.removeEventListener("touchmove", prev);
-  // };
-
-  const convertToSvg = ()=>{
-    var epa  = canvasToSvg.current.getSerializedSvg(true); 
-    return epa;
+  const convertTo64 = ()=>{
+    let url64 = canvas.current.toDataURL("image/jpeg");;
+    return url64;
   }
 
-  return { clearCanvas, convertToSvg };
+  return { clearCanvas, convertTo64 };
 };

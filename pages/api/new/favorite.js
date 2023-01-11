@@ -1,25 +1,26 @@
 import { connectDB } from "../../../lib/dbConnect";
 import User from "../../../models/user";
+import mongoose from 'mongoose'
+import Favorite from "../../../models/favorite";
 import { decode } from "jsonwebtoken";
 
 export default async function newFavoriteHandle(req, res) {
   try {
     const { tokenUser } = req.cookies;
-    const newFav = JSON.parse(req.body)
+    const newFav = JSON.parse(req.body);
     const tokenDecode = decode(tokenUser, { complete: true });
-    const userT = tokenDecode.payload.user;
+    const userT = tokenDecode.payload.userID;
     await connectDB();
-    const userR = await User.findOne({ username: `${userT}` }).exec();
-    //validación de contraseña
-    console.log("usuario encontrado");
-    let fav = userR.favorites;
-    fav.push(newFav);
+    //agregado a modelo faborite
+    const newF = new Favorite({
+      userId: mongoose.Types.ObjectId(userT),
+      id: `${newFav.id}`,
+      name: newFav.name,
+      img: newFav.img,
+    });
+    console.log("guardando en documento favorites");
+    newF.save();
     console.log("favorito añadido");
-    const userUp = await User.findOneAndUpdate(
-      { username: `${userT}` },
-      { favorites: fav }
-    );
-    console.log("update done");
     res.status(200).json({ success: true });
   } catch (error) {
     console.log("**", error);

@@ -1,10 +1,15 @@
-import {Schema, model, models} from 'mongoose'
+import mongoose, {Schema, model, models} from 'mongoose'
 
 const usernameSchema = new Schema({
   name: {
     type: String,
     required: true,
     unique: true
+  },
+  userId: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'User'
   },
 })
 

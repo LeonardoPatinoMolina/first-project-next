@@ -1,4 +1,4 @@
-import {Schema, model, models} from 'mongoose'
+import mongoose, {Schema, model, models} from 'mongoose'
 
 const userSchema = new Schema({
   username: {
@@ -10,11 +10,5 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  favorites: {
-    type: Array
-  },
-  custom_heros: {
-    type: Array
-  }
 })
 module.exports = models.User ? models.User : model('User', userSchema)

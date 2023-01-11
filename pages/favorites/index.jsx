@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { decode } from "jsonwebtoken";
+import mongoose from 'mongoose'
 import { useRouter } from "next/router";
 import { connectDB } from "../../lib/dbConnect";
-import User from "../../models/user";
+import Favorite from "../../models/favorite";
 import PageLayout from "../../components/PageLayout";
 import { WrapperPanels } from "../../components/WrapperPanels";
 import { BsFillStarFill } from "react-icons/bs";
@@ -64,8 +65,8 @@ export default function Favorites({ favorites, error, success }) {
           {success &&
             loot.results.map((hero) => (
               <Panel
-                key={hero.id}
-                id={hero.id}
+                key={hero._id}
+                id={hero._id}
                 img={hero.img}
                 name={hero.name}
                 favStatus={true}
@@ -90,10 +91,11 @@ export const getServerSideProps = async ({ req }) => {
     const cookie = req.headers.cookie;
     const cookieValue = cookie.replace(/^tokenUser=/, "");
     const tokenDecode = decode(cookieValue, { complete: true });
-    const userC = tokenDecode.payload.user;
-    const userR = await User.findOne({ username: `${userC}` });
+    const userC = tokenDecode.payload.userID;
+    const idMongo = mongoose.Types.ObjectId(userC);
+    const favorites = await Favorite.find({ userId: idMongo });
 
-    if (userR.favorites.length < 1) {
+    if (favorites.length < 1) {
       return {
         props: {
           success: false,
@@ -101,11 +103,19 @@ export const getServerSideProps = async ({ req }) => {
         },
       };
     }
+    const favoritesC = favorites.map(fav=>{
+      return {
+        _id: fav._id.toString(),
+        userId: fav.userId.toString(),
+        name: fav.name,
+        img: fav.img,
+      }
+    });
     return {
       props: {
         success: true,
         error: false,
-        favorites: userR.favorites,
+        favorites: favoritesC,
       },
     };
   } catch (error) {
