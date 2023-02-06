@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
+"use client"
+import React, { useState } from "react";
 import Link from "next/link";
 import { Logo } from "../components/Logo";
 import { Modal } from "../components/Modal";
@@ -7,7 +7,7 @@ import { useModal } from "../Hooks/useModal";
 import { useRouter } from "next/router";
 import styles from "../styles/Form.module.css";
 
-export default function Login() {
+export default function LoginForm({ setForm }) {
   const router = useRouter();
   const [viewPass, setviewPass] = useState(false);
   const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
@@ -106,11 +106,6 @@ export default function Login() {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <Modal loot={formatErrorModalLoot}>Verifique los datos ingresados.</Modal>
       <Modal loot={unauthModalLoot}>Usuario o contraseña errados.</Modal>
-      <Head>
-        <title>Log in</title>
-        <meta name="description" content="Realice su ingreso a la plataforma" />
-      </Head>
-      <div className={styles.wrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <ul className={styles.list}>
             <li className={styles.item_list}>
@@ -168,14 +163,13 @@ export default function Login() {
               </button>
             </li>
             <li className={styles.item_list}>
-              <p>
+              <p className={styles.bottom_text}>
                 ¿Aún no tiene una cuenta?
-                <Link href="/signin">registrate aquí</Link>
+                 <span className={styles.link_text} style={{color: "#00f", cursor: "pointer", }} onClick={()=>setForm({title: "Sign in", formType: "signin"})}>registrate aquí</span>
               </p>
             </li>
           </ul>
         </form>
-      </div>
     </>
   );
 }

@@ -1,0 +1,29 @@
+.warning {
+  text-shadow: 0 0 10px #ffd4a9;
+  box-shadow: 0 0 8px 1px #ffd4a9;
+  border-radius: 4px;
+  position: absolute;
+  background-color: var(--colorBase2);
+  top: 70px;
+  padding: 4px;
+  margin: -10px 0 4px 0;
+  font-size: 14px;
+  color: rgb(255, 149, 44);
+  width: 90%;
+  z-index: 9;
+}
+
+.bounce_a {
+  animation-name: bounce;
+  animation-timing-function: cubic-bezier(.8, .5, .2, 1.4);
+  animation-duration: 200ms;
+}
+
+@keyframes bounce {
+  from {
+      transform-origin: top;
+      transform: scaleY(.1);
+    }
+  to {}
+}
+  

@@ -47,7 +47,7 @@ export default function Profile() {
       const response = await fetch("api/auth/logout");
       const data = await response.json();
       openRedirectModal();
-      router.push("/login");
+      router.push("/gate");
     } catch (err) {
       errorHandle();
     }

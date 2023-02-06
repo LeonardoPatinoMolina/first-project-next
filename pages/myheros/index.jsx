@@ -3,7 +3,6 @@ import PageLayout from "../../components/PageLayout";
 import { useRouter } from "next/router";
 import { getCustomHeros } from "../../lib/customHerosRequest";
 import { WrapperPanels } from "../../components/WrapperPanels";
-import { PanelMyHero } from "../../components/PanelMyHero";
 import {Panel} from "../../components/Panel";
 import { useModal } from "../../Hooks/useModal";
 import {Modal } from '../../components/Modal'

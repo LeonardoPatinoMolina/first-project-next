@@ -1,16 +1,16 @@
+"use client"
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { Modal } from "../components/Modal";
 import { useModal } from "../Hooks/useModal";
 import { Logo } from "../components/Logo";
 import { usernameValidate } from "../lib/usernameRequest";
 import styles from "../styles/Form.module.css";
+import { ModalWarningText } from "./ModalWarningText";
 
 //
 
-export default function Signin() {
+export default function SigninForm({ setForm }) {
   const router = useRouter();
   const [viewPass, setviewPass] = useState(false);
   const [loadingModalLoot, openLoadingModal, closeLoadingModal] = useModal({
@@ -18,7 +18,7 @@ export default function Signin() {
     openStatus: false,
     autoClose: false,
   });
-  const [successModalLoot, openSuccessModal] = useModal({
+  const [successModalLoot, openSuccessModal, closeSuccessModal] = useModal({
     type: "success",
     openStatus: false,
     autoClose: false,
@@ -51,7 +51,7 @@ export default function Signin() {
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.slice(0,12) });
     const validate = exr[name].test(value);
     if (value.length > 1) setFormatError({ ...formatError, [name]: validate });
     else setFormatError({ ...formatError, [name]: true });
@@ -91,7 +91,10 @@ export default function Signin() {
         return errorHandle();
       }
       openSuccessModal();
-      router.push("/login");
+      setTimeout(()=>{
+        closeSuccessModal();
+        setForm({title: "Log in", formType: "login"});
+      },[1200]);
     } catch (err) {
       errorHandle();
     }
@@ -110,7 +113,7 @@ export default function Signin() {
     <>
       <Modal loot={loadingModalLoot}>Validando datos...</Modal>
       <Modal loot={successModalLoot}>
-        Registro exitoso, redirigiendo a ingreso...
+        Registro exitoso, ¡ya tienes una cuenta!
       </Modal>
       <Modal loot={userErrorModalLoot}>
         ¡Tarea fallida! El nombre de usuario ya existe.
@@ -118,11 +121,6 @@ export default function Signin() {
       <Modal loot={formatErrorModalLoot}>
         ¡Tarea fallida! Verifique los datos ingresados.
       </Modal>
-      <Head>
-        <title>Sign in</title>
-        <meta name="description" content="Realice su ingreso a la plataforma" />
-      </Head>
-      <div className={styles.wrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <ul className={styles.list}>
             <li className={styles.item_list}>
@@ -150,10 +148,11 @@ export default function Signin() {
                 required
               />
               {!formatError.user && (
-                <span className={styles.warning}>
-                  El nombre de usuario no debe contener espacios ni caracteres
-                  especiales, minimo 8 caracteres.
-                </span>
+                <ModalWarningText 
+                setFormatError={setFormatError} 
+                type="user"
+                classes={styles}
+                />
               )}
             </li>
             <li className={styles.item_list}>
@@ -172,13 +171,10 @@ export default function Signin() {
                 placeholder="Contraseña"
                 required
               />
-              {!formatError.pass && (
-                <span className={styles.warning}>
-                  La contraseña debe contener al menos un dígito y una
-                  mayuscula, evite el uso de caracteres especiales, mínimo 8
-                  caracteres.
-                </span>
-              )}
+              {!formatError.pass && <ModalWarningText 
+                setFormatError={setFormatError} 
+                type="pass" 
+              />}
             </li>
             <li className={styles.item_list}>
               <label htmlFor="pass">Confirmar contraseña</label>
@@ -193,15 +189,14 @@ export default function Signin() {
                 onChange={(e) => {
                   handleChange(e);
                 }}
-                placeholder="confirmar contraseña"
+                placeholder="Confirmar contraseña"
                 required
               />
-              {!formatError.passConfirm && (
-                <span className={styles.warning}>
-                  La contraseña debe contener al menos un dígito y una
-                  mayuscula, evite el uso de caracteres especiales.
-                </span>
-              )}
+               {!formatError.passConfirm && <ModalWarningText 
+                setFormatError={setFormatError} 
+                type="passConfirm" 
+                classes={styles}
+              />}
             </li>
             <li className={styles.item_list}>
               <div className={styles.check_area}>
@@ -220,13 +215,11 @@ export default function Signin() {
               </button>
             </li>
             <li className={styles.item_list}>
-              <p>
-                <Link href="/login">Volver a ingreso</Link>
+              <p className={styles.bottom_text}> <span className={styles.link_text} style={{color: "#00f", cursor: "pointer"}} onClick={()=>setForm({title: "Log in", formType: "login"})}>Ya tengo una cuenta </span>
               </p>
             </li>
           </ul>
         </form>
-      </div>
     </>
   );
 }
