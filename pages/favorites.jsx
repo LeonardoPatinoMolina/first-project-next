@@ -2,17 +2,17 @@ import React, { useRef } from "react";
 import { decode } from "jsonwebtoken";
 import mongoose from 'mongoose'
 import { useRouter } from "next/router";
-import { connectDB } from "../../lib/dbConnect";
-import Favorite from "../../models/favorite";
-import PageLayout from "../../components/PageLayout";
-import { WrapperPanels } from "../../components/WrapperPanels";
+import { connectDB } from "../lib/dbConnect";
+import Favorite from "../models/favorite";
+import PageLayout from "../components/PageLayout";
+import { WrapperPanels } from "../components/WrapperPanels";
 import { BsFillStarFill } from "react-icons/bs";
-import { useModal } from "../../Hooks/useModal";
-import { Modal } from "../../components/Modal";
-import { Panel } from "../../components/Panel";
-import { Pagination } from "../../components/Pagination";
-import { usePagination } from "../../Hooks/usePagination";
-import styles from "../../styles/Favorites.module.css";
+import { useModal } from "../Hooks/useModal";
+import { Modal } from "../components/Modal";
+import { Panel } from "../components/Panel";
+import { Pagination } from "../components/Pagination";
+import { usePagination } from "../Hooks/usePagination";
+import styles from "../styles/Favorites.module.css";
 
 export default function Favorites({ favorites, error, success }) {
   const boton_clean_all = useRef();
