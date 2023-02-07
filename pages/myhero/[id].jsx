@@ -67,8 +67,6 @@ export default function MyHeroPage({ hero }) {
       <Modal loot={errorModalLoot}>!Tarea fallida!</Modal>
       <PageLayout title="My hero" desc="page whith details about your hero">
         <section className={styles.content}>
-
-          {/* <div id="img_wraper" className={styles.image_svg}></div> */}
           <div className={styles.img}>
             <Image
               style={{ objectFit: "contain" }}
@@ -80,9 +78,7 @@ export default function MyHeroPage({ hero }) {
 
           <h1 className={styles.title}>{hero.name}</h1>
           <p className={styles.desc}>
-            {hero.history} -
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni iusto
-            sequi obcaecati repudiandae quisquam illo aperiam. Tenetur nemo,
+            { hero.history }
           </p>
           <div className={styles.btn_list}>
             <button
@@ -93,8 +89,8 @@ export default function MyHeroPage({ hero }) {
               Volver
             </button>
             <button className={`boton ${styles.noFav_btn}`} onClick={deleteOne}>
-              Borrar
               <RiDeleteBin2Fill size={25} />
+              Borrar
             </button>
           </div>
         </section>

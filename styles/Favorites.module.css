@@ -33,7 +33,7 @@
 }
 .btn_clean{
   margin: 1rem;
-  font-size: 150%;
+  font-size: larger;
   font-weight: 300;
 }
 .btn_disabled{
@@ -43,6 +43,6 @@
 
   .btn_clean{
     margin: 1rem;
-    font-size: 90%;
+    font-size: large;
   }
 }

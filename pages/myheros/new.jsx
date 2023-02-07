@@ -15,6 +15,7 @@ export default function New() {
     name: '',
     history: ''
   });
+  const [canvasSize, setCanvasSize] = useState(300);
   const [addModalLoot, openAddModal, closeAddModal] = useModal({
     type: "def",
     openStatus: false,
@@ -41,6 +42,18 @@ export default function New() {
     autoClose: true
   });
   const { clearCanvas, convertTo64 } = useDrawNewCanvas();
+  useEffect(()=>{
+    if(typeof window !== undefined){
+      if(window.innerWidth > 710) {
+        setCanvasSize(500)
+        window.setTimeout(()=>{clearCanvas()},[500]);
+      }
+      else if(window.innerWidth < 310){
+        setCanvasSize(200)
+        window.setTimeout(()=>{clearCanvas()},[500]);
+        }
+    }
+  },[]);
 const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
 
   const handleSubmit = async (e) => {
@@ -88,6 +101,7 @@ const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
     openSuccessModal();
   };
 
+
   return (
     <>
       <Modal loot={addModalLoot}>Añadiendo nuevo héroe</Modal>
@@ -131,7 +145,7 @@ const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
           </ul>
           <div className={`${styles.form_out}`}>
             <input
-              className="boton"
+              className={`boton ${styles.btn}`}
               type="button"
               onClick={clearCanvas}
               value="Limpiar"
@@ -140,17 +154,17 @@ const REGEX_special_char = /[\^!¡¿?$#&/().=`´°|<>*;\\,{}]/g;
           <canvas
             className={styles.canvas}
             id="c"
-            width="300"
-            height="300"
+            width={canvasSize}
+            height={canvasSize}
           ></canvas>
           <div className={styles.form_out}>
             <input
-              className="boton"
+              className={`boton ${styles.btn}`}
               type="button"
               onClick={() => router.back()}
               value="Volver"
             />
-            <input className="boton" type="submit" value="Guardar" />
+            <input className={`boton ${styles.btn}`} type="submit" value="Guardar" />
           </div>
         </form>
       </PageLayout>

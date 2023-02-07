@@ -15,7 +15,6 @@ export default async function deleteFavoriteHandle(req, res) {
     const idMongo = mongoose.Types.ObjectId(userT);
     const favorite = await Favorite.findOneAndDelete({$and: [{userId: idMongo},{name: current.name},]});
     //validación de contraseña
-    console.log(favorite)
     console.log("delete fav done");
     res.status(200).json({ success: true });
   } catch (error) {

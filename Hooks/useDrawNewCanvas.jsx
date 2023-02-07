@@ -82,8 +82,7 @@ export const useDrawNewCanvas = () => {
     context.fillRect(0, 0, canvas.current.width, canvas.current.height);
   }, []);
 
-  const clearCanvas = (e) => {
-    // prev(e);
+  const clearCanvas = () => {
     const cv = $("c");
     const context = cv.getContext("2d");
     //canvas

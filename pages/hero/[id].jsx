@@ -119,7 +119,7 @@ export default function HeroPage({ hero }) {
               onClick={() => goBack()}
               className={`boton ${styles.back_btn}`}
             >
-              <IoMdArrowRoundBack size={25} />
+              <IoMdArrowRoundBack className={styles.item} size={25} />
               Volver
             </button>
             <button
@@ -128,15 +128,15 @@ export default function HeroPage({ hero }) {
               }`}
               onClick={() => deleteOne()}
             >
-              Remover de favoritos
               <BsStar className={styles.item} size={25} />
+              Remover de favoritos
             </button>
             <button
               className={`boton ${styles.fav_btn} ${favChoise && styles.noneD}`}
               onClick={() => addOne()}
             >
-              Añadir a favoritos
               <BsFillStarFill className={styles.item} size={25} />
+              Añadir a favoritos
             </button>
           </div>
         </section>
