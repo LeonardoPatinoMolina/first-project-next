@@ -8,7 +8,7 @@ import { BiLogOut } from "react-icons/bi";
 import { MdPersonOff } from "react-icons/md";
 import { Modal } from "../components/Modal";
 import { useModal } from "../Hooks/useModal";
-import styles from "../styles/Form.module.css";
+import styles from "../styles/Profile.module.css";
 
 export default function Profile() {
   const router = useRouter();

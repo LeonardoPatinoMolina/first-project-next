@@ -27,19 +27,6 @@
   color: var(--colorPrimal);
   font-family: "Anton", Impact, sans-serif;
 }
-.input_form {
-  width: 90%;
-  height: 3rem;
-  border: none;
-  border-radius: 1rem;
-  padding-left: .7rem;
-  background-color: #ffffff;
-  outline: 2px solid #ddd;
-  margin-bottom: 1rem;
-  color: #000;
-  font-size: 90%;
-  box-shadow: 0 0 8px 1px #0002;
-}
 .btn:hover {
   background: var(--colorSecunda);
   cursor: pointer;
@@ -76,25 +63,6 @@
   width: 90%;
   text-align: start;
 }
-#show_pass {
-  width: fit-content;
-  user-select: none;
-  cursor: pointer;
-}
-.input_err,
-.input_err:focus {
-  box-shadow: 0 0 8px 1px #f004;
-  outline: 2px solid #f006;
-}
-.check_area {
-  margin: 1rem 0 1rem 0;
-  width: 90%;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: flex-start;
-  height: 100%;
-}
 .dato {
   color: #999;
 }
@@ -111,16 +79,8 @@
 .btn_close:hover {
   background-color: #000000;
 }
-.bottom_text{
-  text-align: center;
-}
-.link_text{
-  padding: .4rem;
-  border-radius: .5rem;
-}
 .link_text:hover{
   background-color: #00004420;
-
 }
 .btn,
 .btn_area,
@@ -128,8 +88,6 @@
 .check_area,
 .dato,
 .form,
-.input_err,
-.input_form,
 .item_list,
 .list,
 .section_form,
@@ -139,9 +97,7 @@
 
 @media screen and (max-width: 750px) {
   .form {
-    width: 100%;
-    min-width: 250px;
-    max-width: 95vw;
+    min-width: 90vw;
   }
   .btn {
     font-size: medium;

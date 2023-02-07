@@ -4,12 +4,13 @@
   border-radius: 4px;
   position: absolute;
   background-color: var(--colorBase2);
-  top: 70px;
+  top: 80px;
   padding: 4px;
   margin: -10px 0 4px 0;
   font-size: 14px;
   color: rgb(255, 149, 44);
   width: 90%;
+  outline: 2px solid #ccc;
   z-index: 9;
 }
 
