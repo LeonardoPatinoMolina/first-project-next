@@ -3,15 +3,16 @@ import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 import styles from "../styles/Pagination.module.css";
 
 export const Pagination = ({ loot, toPage }) => {
-  const PANELS4PAGE = 6;//cantidad de pane
+  const PANELS4PAGE = 6;//cantidad de paneles por pagina
+
   //establecemos la cantidad de páginas en base a la cantidad de paneles a mostrar.
   //primero removemos los decimales que puedan haber en la divsión de los resultados
   //pero primero validamos que exista la propiedad length
-  const ap = loot.charge.length
-    ? Math.trunc(loot.charge.length / PANELS4PAGE)
+  const amountPage = loot.charge.length
+    ? Math.ceil(loot.charge.length / PANELS4PAGE)
     : 1;
-  //verificamos si existen o no decimales, en caso tal añadimos una página más para abarcar todos los páneles
-  const amountPage = ap % 6 !== 0 && ap !== 1 ? ap + 1 : 1;
+// ---verificamos si existen o no decimales, en caso tal añadimos una página más para abarcar todos los páneles
+// ---const amountPage = ap % 6 !== 0 && ap !== 1 ? ap + 1 : 1;
   //establecemos el estado local
   const [pageLoot, setPageLoot] = useState(() => {
     if (!loot.charge)

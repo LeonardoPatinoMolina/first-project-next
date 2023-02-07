@@ -2,7 +2,6 @@
 import React, { useState, useRef } from "react";
 import Head from "next/head";
 import { NavBarHeader } from "./NavBarHeader";
-import { useModal } from "../Hooks/useModal";
 import Footer from "./Footer";
 
 

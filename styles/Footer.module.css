@@ -1,6 +1,6 @@
 .footer{
   background-color: var(--colorPrimal);
-  height: 5rem;
+  height: 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,19 +28,53 @@
   align-items: center;
   font-size: medium;
   user-select: none;
+  position: relative;
 }
-.item a {
+.item a, .item span {
   text-decoration: none;
   color: #fff5;
+  display: flex;
+  align-items: center;
 }
-.item a:hover{
+.item a:hover, .item span:hover{
   color: #ffffff;
+  cursor: pointer;
+}
+.modal{
+  position: absolute;
+  display: none;
+  padding: .5rem;
+  border-radius: 1rem;
+  color: #000;
+  background-color: #d3fcdd;
+  right: 0;
+  font-size: medium;
+  bottom: 30px;
+  box-shadow: 0 0 12px 3px #0005;
 }
 .icon{
   margin-right: 3px;
 }
+.bounce_a {
+  animation-name: bounce;
+  animation-timing-function: cubic-bezier(.8, .5, .2, 1.4);
+  animation-duration: 150ms;
+}
+.copied{
+  display: inline-block;
+}
+@keyframes bounce {
+    from {
+        transform: scale(.1);
+    }
+      
+    to {}
+  }
 @media screen and (max-width: 750px){
   .item{
+    font-size: small;
+  }
+  .modal{
     font-size: small;
   }
 }

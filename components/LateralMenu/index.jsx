@@ -5,11 +5,10 @@ import { useRouter } from "next/router";
 import {
   MdOutlineClose,
   MdManageAccounts,
-  MdLightMode,
-  MdNightlight,
 } from "react-icons/md";
 import {FaExternalLinkAlt} from "react-icons/fa";
 import styles from "./style/LateralMenu.module.css";
+import { SwitchButtom } from "../SwitchButtom";
 
 export const LateralMenu = ({ open, open_function }) => {
   const { switchTheme, theme } = useTheme();
@@ -37,18 +36,10 @@ export const LateralMenu = ({ open, open_function }) => {
           </li>
           <li
             className={`${styles.item_list}`}
-            onClick={() => switchTheme()}
             title="cambiar Tema"
           >
-            <MdNightlight
-              size={30}
-              className={`${theme === "light" && styles.hide} ${styles.icons}`}
-            />
-            <MdLightMode
-              size={30}
-              className={`${theme === "dark" && styles.hide} ${styles.icons}`}
-            />
-            TEMA
+            <span className={styles.especific_text}>TEMA OSCURO</span>
+            <SwitchButtom action={switchTheme} value={theme === "dark"} />
           </li>
           <li className={styles.item_list} onClick={goProfile}>
             <MdManageAccounts size={30} className={styles.icons} />

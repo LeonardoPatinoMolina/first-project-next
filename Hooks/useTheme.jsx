@@ -3,11 +3,11 @@ import { ThemesContext } from "../context/Themes/ThemesState";
 
 export const useTheme = () => {
   const { theme , setTheme } = useContext(ThemesContext);
-  const themes = ["light", "dark"];
+  const themes = {true: "light", false: "dark"};
 
-  const switchTheme = () => {
-    const newTheme = themes.filter((t) => t !== theme);
-    setTheme(newTheme[0]);
+  const switchTheme = (value) => {
+    console.log(themes[value]);
+    setTheme(themes[value]);
   };
   return {switchTheme, theme};
 };

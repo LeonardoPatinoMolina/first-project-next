@@ -6,7 +6,10 @@ import NProgress from "nprogress";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {NProgress.configure({ showSpinner: false, })});
+  
+  useEffect(() => {
+    NProgress.configure({ showSpinner: false, });
+  },[]);
   return (
     <ThemesState>
       <NextNProgress color="#ffffff" height={1.5} />

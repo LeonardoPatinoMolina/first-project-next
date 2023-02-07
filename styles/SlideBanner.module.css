@@ -11,7 +11,6 @@
   grid-template-columns: repeat(auto-fill, minmax(70vw, 1fr));
   grid-auto-flow: column;
   overflow: hidden;
-  scroll-behavior: smooth;
 }
 .arrow_icon{
   color: #ffffff;
@@ -51,6 +50,33 @@
   height: auto;
   background: var(--colorPrimal);
   position: relative;
+  transition: .3s;
+}
+.bottom_points_wrapper{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: 1rem;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+}
+.bottom_points:hover{
+  background: var(--colorPrimal);
+}
+.bottom_points{
+  cursor: pointer;
+  border-radius: 50%;
+  background: var(--colorDarkPrimal);
+  box-shadow: 0 0 10px 4px #00000044;
+  padding: .6rem;
+  transition: 200ms;
+  margin: .5rem;
+}
+.current{
+  padding: .8rem;
 }
 
 @media screen and (max-width: 750px){
@@ -61,5 +87,11 @@
     min-width: 100vw;
     max-width: 100vw;
     min-height: 43vw;
+  }
+  .bottom_points{
+    padding: .4rem;
+  }
+  .current{
+    padding: .6rem;
   }
 }
