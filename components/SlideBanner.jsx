@@ -22,7 +22,7 @@ const MATRIZ = [
 
 
   const ARJSX = [
-    (<article className={styles.section}>
+    (<article className={styles.section} key={"m-0"}>
     <Image
       src={"/buscarBanner.webp"}
       alt="Buscar banner"
@@ -33,7 +33,7 @@ const MATRIZ = [
       priority
     />
   </article>),
-  (<article className={styles.section}>
+  (<article className={styles.section} key={"m-1"}>
     <Image
       src={"/favoritosBanner.webp"}
       alt="Favoritos banner"
@@ -43,7 +43,7 @@ const MATRIZ = [
       key={1}
     />
   </article>),
-  (<article className={styles.section}>
+  (<article className={styles.section} key={"m-2"}>
     <Image
       src={"/misHeroesBanner.webp"}
       alt="Mis héroes banner"
