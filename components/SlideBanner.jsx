@@ -29,6 +29,7 @@ const MATRIZ = [
       fill={true}
       sizes="(max-width: 750px) 100vw,
         70vw"
+      key={0}
       priority
     />
   </article>),
@@ -39,6 +40,7 @@ const MATRIZ = [
       fill={true}
       sizes="(max-width: 750px) 100vw,
         70vw"
+      key={1}
     />
   </article>),
   (<article className={styles.section}>
@@ -48,6 +50,7 @@ const MATRIZ = [
       fill={true}
       sizes="(max-width: 750px) 100vw,
         70vw"
+      key={2}
     />
   </article>)
   ]
