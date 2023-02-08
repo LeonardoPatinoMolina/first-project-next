@@ -39,19 +39,6 @@ body {
 
 }
 
-/* :root{
-  --colorPrimal: #292424;
-  --colorDarkPrimal: #534b4b;
-  --colorSecunda: #363232;
-  --colorStandar: #020000;
-  --colorBase: #242424;
-  --colorBase2: #171718;
-  --colorBase3: #352e2e;
-  --colorBase4: #201b1b;
-  --colorFont: #aaa;
-  --colorFont2: #aba;
-  --colorHoverBoton: #aaa2a2;
-} */
 .logo{
   width: auto;
   height: 100%;
@@ -81,6 +68,9 @@ main{
   box-shadow: 0 0 12px 2px #0002;
   background-color: #000;
 }
+/* body{
+  max-width: 100vw;
+} */
 @media screen and (max-width: 750px){
   main{
     max-width: 100vw;
@@ -89,5 +79,8 @@ main{
   padding: .3rem;
   font-weight: 600;
   font-size: x-small;
+  }
+  body{
+    overflow-x: auto;
   }
 }

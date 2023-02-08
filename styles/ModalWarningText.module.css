@@ -3,14 +3,14 @@
   box-shadow: 0 0 8px 1px #ffd4a9;
   border-radius: 4px;
   position: absolute;
-  background-color: var(--colorBase2);
-  top: 80px;
+  background-color: #ffebe2;
+  top: 85px;
   padding: 4px;
   margin: -10px 0 4px 0;
   font-size: 14px;
-  color: rgb(255, 149, 44);
+  color: #ff6f2c;
   width: 90%;
-  outline: 2px solid #ccc;
+  outline: 2px solid #ff6f2c;
   z-index: 9;
 }
 

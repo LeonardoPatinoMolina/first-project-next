@@ -200,13 +200,14 @@ export default function SigninForm({ setForm }) {
             </li>
             <li className={styles.item_list}>
               <div className={styles.check_area}>
-                <label id={styles.show_pass} htmlFor="showPass">Mostrar contraseña</label>
+                <label className={styles.label_showPass} htmlFor="showPass">Mostrar contraseña
                 <input
                   type="checkbox"
                   name="showPass"
                   id="showPass"
                   onChange={({ target }) => setviewPass(target.checked)}
                 />
+                </label>
               </div>
             </li>
             <li className={styles.item_list}>
@@ -215,7 +216,11 @@ export default function SigninForm({ setForm }) {
               </button>
             </li>
             <li className={styles.item_list}>
-              <p className={styles.bottom_text}> <span className={styles.link_text} style={{color: "#00f", cursor: "pointer"}} onClick={()=>setForm({title: "Log in", formType: "login"})}>Ya tengo una cuenta </span>
+              <p 
+                className={`${styles.bottom_text} ${styles.link_text}`}
+                onClick={()=>setForm({title: "Log in", formType: "login"})}
+              > 
+                Ya tengo una cuenta
               </p>
             </li>
           </ul>

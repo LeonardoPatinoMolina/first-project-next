@@ -1,13 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import LoginForm from "../components/loginForm";
-import { FaSearch } from "react-icons/fa";
-import { BsFillStarFill } from "react-icons/bs";
-import { FaPaintBrush } from "react-icons/fa";
 import SigninForm from "../components/signinForm";
 import styles from "../styles/Gate.module.css";
-import { Logo } from "../components/Logo";
 
 export default function Gate() {
   const [initContext, setinitContext] = useState({

@@ -148,13 +148,14 @@ export default function LoginForm({ setForm }) {
             </li>
             <li className={styles.item_list}>
               <div className={styles.check_area}>
-                <label id={styles.show_pass} htmlFor="showPass">Mostrar contraseña</label>
+                <label className={styles.label_showPass} htmlFor="showPass">Mostrar contraseña
                 <input
                   type="checkbox"
                   name="showPass"
                   id="showPass"
                   onChange={({ target }) => setviewPass(target.checked)}
                 />
+                </label>
               </div>
             </li>
             <li className={styles.item_list}>

@@ -1,16 +1,7 @@
-.section_form {
-  height: 100%;
-  min-height: 90vh;
-  width: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem;
-}
 .form {
   min-height: 70vh;
-  max-width: 50vw;
-  width: 100%;
+  width: 600px;
+  max-width: 600px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -29,7 +20,7 @@
 }
 .input_form {
   width: 90%;
-  height: 3rem;
+  min-height: 3rem;
   border: none;
   border-radius: 1rem;
   padding-left: .7rem;
@@ -76,7 +67,11 @@
   width: 90%;
   text-align: start;
 }
-#show_pass {
+.label_showPass {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
   width: fit-content;
   user-select: none;
   cursor: pointer;
@@ -117,6 +112,8 @@
 .link_text{
   padding: .4rem;
   border-radius: .5rem;
+  color: #00f;
+  cursor: pointer;
 }
 .link_text:hover{
   background-color: #00004420;
@@ -128,9 +125,8 @@
 .check_area,
 .dato,
 .form,
-.input_err,
-.input_form,
 .item_list,
+.input_form,
 .list,
 .section_form,
 .title {
